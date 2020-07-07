@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse('acasa')
+    return render(request, ('contr_clienti/base.html'))
 
 def contract(request):
     return HttpResponse('contract')
