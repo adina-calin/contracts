@@ -82,8 +82,8 @@ class AplicatiiInfo98(models.Model):
 class AbstractReprezentant(models.Model):
     '''Modelul pe care il mosteneste clasa de reprezentanti si clasa de persoane de contact.'''
     nume = models.CharField(max_length=255)
-    email = models.EmailField()
-    telefon = models.IntegerField()
+    email = models.EmailField(null=True, blank=True)
+    telefon = models.IntegerField(null=True, blank=True)
     functie = models.IntegerField(choices=functii)
 
     def __str__(self):
@@ -126,10 +126,10 @@ class Clienti(models.Model):
     '''Toate datele clientului necesare a fi trecute pe contract'''
     societate = models.CharField(max_length=255)
     sediul_social = models.OneToOneField(Adresa, on_delete=models.CASCADE, related_name = 'sediu')
-    punct_de_lucru = models.ManyToManyField(Adresa)
+    punct_de_lucru = models.ManyToManyField(Adresa, null=True, blank=True)
     cod_fiscal = models.IntegerField()
     platitor_tva = models.BooleanField(default=None)
-    nr_registrul_comertului = models.CharField(max_length=255)
+    nr_registrul_comertului = models.CharField(max_length=255, null=True, blank=True)
     iban = models.CharField(max_length=255)
     banca_cont = models.CharField(max_length=255)
     reprezentant = models.ManyToManyField(Reprezentant)
