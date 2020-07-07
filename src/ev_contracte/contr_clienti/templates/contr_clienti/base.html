@@ -62,16 +62,16 @@
             </div> 
             <div class="col-md-4">      
                 <div class="content-section">      
-                    <h3>Bara laterala</h3>                         
+                    <form method="get">
+                        <button class="btn-outline-info" type="submit">Search</button></br></br>
+                    </form>                         
                     <p class='text-muted'>Aici vor fi informatii de genul: 
                         <ul class="list-group">     
                             <li class="list-group-item list-group-item-light">
-                                Contracte afisate: 
+                                Contracte: {{total_contracte}}
                             </li>      
                             <li class="list-group-item list-group-item-light">
-                                <form method="get">
-                                    <button class="btn-outline-info" type="submit">Search</button>
-                                </form>
+                                Ultimul contract/act aditional adaugat: 
                             </li>      
                             <li class="list-group-item list-group-item-light">Calendar</li>      
                             <li class="list-group-item list-group-item-light">Alte informatii utile</li>      
