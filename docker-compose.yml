@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+    db:
+        image: postgres:12.2
+        env_file: .env
+    console:
+        build: .
+        volumes:
+            - .:/ev_contracte
+        ports:
+            - 8080:8080
+        env_file: .env
+        command: django-admin runserver 0.0.0.0:8080
+        links:
+            - db
+        depends_on:
+            - db
