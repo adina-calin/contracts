@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" type='text/css' href="{% static 'contr_clienti/main.css' %}">
 
+
     {% if title %}
         <title>Contracte - {{title}}</title>
     {% else %}
@@ -67,7 +68,11 @@
                             <li class="list-group-item list-group-item-light">
                                 Contracte afisate: 
                             </li>      
-                            <li class="list-group-item list-group-item-light">Ultimul contract/act aditional adaugat</li>      
+                            <li class="list-group-item list-group-item-light">
+                                <form method="get">
+                                    <button class="btn-outline-info" type="submit">Search</button>
+                                </form>
+                            </li>      
                             <li class="list-group-item list-group-item-light">Calendar</li>      
                             <li class="list-group-item list-group-item-light">Alte informatii utile</li>      
                         </ul>      

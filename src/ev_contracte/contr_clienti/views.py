@@ -3,11 +3,11 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return render(request, ('contr_clienti/base.html'))
+    return render(request, ('contr_clienti/home.html'))
 
-def contract(request):
-    return HttpResponse('contract')
+def contract_detalii(request):
+    return render(request, ('contr_clienti/contract_detail.html'))
 
-def actaditional(request):
-    return HttpResponse('actaditional')
+def actaditional_detalii(request):
+    return render(request, ('contr_clienti/actaditional_detail.html'))
 
