@@ -19,6 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('contracte/', include('contr_clienti.urls'))
 ]
 
 
