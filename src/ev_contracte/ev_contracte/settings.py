@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'contr_clienti.apps.ContrClientiConfig',
-    'users.apps.UsersConfig',
+    # 'users.apps.UsersConfig',
     'crispy_forms',
     'dynamic_raw_id',
     'django.contrib.admin',
