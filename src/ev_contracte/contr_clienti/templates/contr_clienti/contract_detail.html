@@ -4,20 +4,30 @@
         <div class="media-body">    
             <div class="article-metadata">
                 <a class="mr-3" href="#">Contract de </a><br>
-                <small class="text-muted mr-3"> Nr. reg.: </small>
+                <small class="text-muted mr-3"> Nr. reg.: {{ contract.nr_registru }}</small>
                 <a class="float-right" href="#">+ Act Aditional</a>
             </div>
-            <h2 class="article-title"> </h2>
-            <small class="text-muted"> Perioadă contractuală: <b></b></small><br>
-            <small class="text-muted"> Contract: <b> / </b></small><br>
+            <h2 class="article-title">{{ contract.beneficiar }}</h2>
+            <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small><br>
+            <small class="text-muted"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></small><br>
             <small class="text-muted mr-3" href="#"> Acte aditionale: <br>
                 <ol>
-                   
+                    {% for aditional in acteaditionale %}
+                    <a href=""><lu>- {{ aditional }}</lu></a>
+                    {% endfor %}
                 </ol>
             </small>
             <small class="text-muted mr-3">
                 <ol>
-                   
+                {% for aplicatie in aplicatii %}
+                    <li><class="article-content"> {{ aplicatie }} - Valoare: {{ aplicatie.contravaloare_aplicatie }} lei</li>
+                {% endfor %} 
+                {% for serviciu in servicii %}
+                    <li><class="article-content"> {{ serviciu }} - Valoare: {{ serviciu.contravaloare_serviciu }} lei</li>
+                {% endfor %}
+                {% for produs in produse %}
+                    <li><class="article-content"> {{ produs }} - Valoare: {{ contract.produs.contravaloare_produs }} lei</li>
+                {% endfor %}  
                 </ol>
             </small>
             <div class="article-metadata">

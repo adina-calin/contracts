@@ -1,22 +1,34 @@
 {% extends 'contr_clienti/base.html' %}
 {% block content %}
-    
+    {% for contract in contracte %}
         <article class="media content-section">
             <div class="media-body">    
                 <div class="article-metadata">    
-                    <small><a class="text-muted mr-3" href="#"> Contract: <b></b></a></small>
-                    <small class="text-muted mr-3"> Nr. reg.: </small>  
-                   
+                    <small><a class="text-muted mr-3" href="{% url 'contract-detail' contract.id %}"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></a></small>
+                    <small class="text-muted mr-3"> Nr. reg.: {{ contract.nr_registru }}</small>  
+                    {% for aditional in contract.actaditional_set.all %}
+                    <small class="text-muted mr-3"> Act ad.: {{ aditional }}</small> 
+                    {% endfor %}
                 </div>    
-                <h5><b><a class="article-title" href="#"></a></b></h5>  
-                <a class="float-right" href="#"></a>
-                <small class="text-muted"> Perioadă contractuală: <b> - </b></small>  
+                <h5><b><a class="article-title" href="{% url 'contract-detail' contract.id %}">{{ contract.beneficiar }}</a></b></h5>  
+                <a class="float-right" href="#">{{ contract.tip_contract }}</a>
+                <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small>  
                 <p><small><ol>
-                 
+                {% for aplicatie in contract.aplicatii.all %}
+                    <li><class="article-content"> {{ aplicatie }} </li> 
+                {% endfor %}  
+            
+                {% for serviciu in contract.servicii.all %}
+                    <li><class="article-content"> {{ serviciu }} </li>
+                {% endfor %}
+                
+                {% for produs in contract.produse.all %}
+                    <li><class="article-content"> {{ produs }} </li>  
+                {% endfor %}
                 </ol></small></p>   
             </div>    
         </article>
- 
+    {% endfor %}
     {% if is_paginated %}
 
         {% if page_obj.has_previous %}
