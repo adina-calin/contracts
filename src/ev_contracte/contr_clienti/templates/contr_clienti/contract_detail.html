@@ -13,7 +13,7 @@
             <small class="text-muted mr-3" href="#"> Acte aditionale: <br>
                 <ol>
                     {% for aditional in acteaditionale %}
-                    <a href=""><lu>- {{ aditional }}</lu></a>
+                    <a href="{% url 'actaditional-detail' contract.id aditional.id %}"><lu>- {{ aditional }}</lu></a>
                     {% endfor %}
                 </ol>
             </small>

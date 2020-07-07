@@ -1,20 +1,21 @@
 {% extends 'contr_clienti/base.html' %}
 {% block content %}
+
     <article class="media content-section">
         <div class="media-body">    
             <div class="article-metadata">    
-                <class="mr-3" href="#"> Act Aditional <b> / </b>  <br>  
-                <small class="text-muted mr-3"> Nr. reg.: </small>  
+                <class="mr-3" href="#"> Act Aditional <b>{{ actaditional.nr_actaditional }} / {{ actaditional.data_actaditional|date:'d.m.Y' }}</b>  <br>  
+                <small class="text-muted mr-3"> Nr. reg.: {{ actaditional.nr_registru }}</small>  
             </div>    
-            <h2 class="article-title"> </h2> 
-            <small class="text-muted"> Perioadă contractuală cf. act aditional: <b> - </b></small> <br>
-            <small class="text-muted"> Contract: <b> / </b></small> <br>
+            <h2 class="article-title">{{ contract.beneficiar }}</h2> 
+            <small class="text-muted"> Perioadă contractuală cf. act aditional: <b>{{ actaditional.data_incepere_actaditional|date:'d.m.Y' }} - {{ actaditional.data_sfarsit_actaditional|date:'d.m.Y' }}</b></small> <br>
+            <small class="text-muted"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></small> <br>
             <small><ol>
                
             </ol></small>
             
             <div class="article-metadata">    
-                <small class="text-muted mr-3"> Observatii:</small> 
+                <small class="text-muted mr-3"> Observatii: {{ actaditional.observatii }}</small> 
             </div>    
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Actualizeaza date Act Aditional</a> 
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Sterge Act Aditional</a> 
