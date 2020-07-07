@@ -24,6 +24,13 @@ def contract_detalii(request, pk1):
         }
     return render(request, ('contr_clienti/contract_detail.html'), context)
 
-def actaditional_detalii(request):
-    return render(request, ('contr_clienti/actaditional_detail.html'))
+def actaditional_detalii(request, pk1, pk2):
+    contract = Contract.objects.get(id=pk1)
+    actaditional = ActAditional.objects.get(id=pk2)
+
+    context = {
+        'contract': contract, 
+        'actaditional':actaditional, 
+    }
+    return render(request, ('contr_clienti/actaditional_detail.html'), context)
 
