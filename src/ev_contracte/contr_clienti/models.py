@@ -126,7 +126,7 @@ class Clienti(models.Model):
     '''Toate datele clientului necesare a fi trecute pe contract'''
     societate = models.CharField(max_length=255)
     sediul_social = models.OneToOneField(Adresa, on_delete=models.CASCADE, related_name = 'sediu')
-    punct_de_lucru = models.ManyToManyField(Adresa, null=True, blank=True)
+    punct_de_lucru = models.ManyToManyField(Adresa, blank=True)
     cod_fiscal = models.IntegerField()
     platitor_tva = models.BooleanField(default=None)
     nr_registrul_comertului = models.CharField(max_length=255, null=True, blank=True)
