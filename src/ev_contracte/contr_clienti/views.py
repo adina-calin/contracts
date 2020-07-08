@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import *
+from .forms import ActAditionalForm, ContractForm
+
 
 def home(request):
     contracte = Contract.objects.all()
@@ -9,8 +11,14 @@ def home(request):
     paginator = Paginator(contracte, 5)
     page = request.GET.get('page')
     contracte = paginator.get_page(page)
-    context = {'contracte': contracte, 'total_contracte': total_contracte}
+
+    context = {
+        'contracte': contracte, 
+        'total_contracte': total_contracte
+    }
+
     return render(request, 'contr_clienti/home.html', context)
+
 
 def contract_detalii(request, pk1):
     contract = Contract.objects.get(id=pk1)
@@ -26,7 +34,9 @@ def contract_detalii(request, pk1):
         'produse': produse, 
         'servicii':servicii,
         }
-    return render(request, ('contr_clienti/contract_detail.html'), context)
+
+    return render(request, 'contr_clienti/contract_detail.html', context)
+
 
 def actaditional_detalii(request, pk1, pk2):
     contract = Contract.objects.get(id=pk1)
@@ -36,5 +46,37 @@ def actaditional_detalii(request, pk1, pk2):
         'contract': contract, 
         'actaditional':actaditional, 
     }
-    return render(request, ('contr_clienti/actaditional_detail.html'), context)
+
+    return render(request, 'contr_clienti/actaditional_detail.html', context)
+
+
+def creeaza_contract(request):
+    form = ContractForm
+    if request.method == 'POST':
+        form = ContractForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('acasa')
+
+    context = {'form': form}
+
+    return render(request, 'contr_clienti/contract_form.html', context)
+
+
+def creeaza_actaditional(request, pk1):
+    form = ActAditionalForm
+    contract = Contract.objects.get(id=pk1)
+
+    context = {
+        'contract': contract, 
+        'form': form
+    }
+
+    if request.method == 'POST':
+        form = ActAditionalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contract-detail', context)
+
+    return render(request, 'contr_clienti/actaditional_form.html', context)
 

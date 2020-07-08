@@ -5,7 +5,7 @@
             <div class="article-metadata">
                 <a class="btn-outline-info" type="submit" href="#">Contract de {{ contract.tip_contract }}</a><br>
                 <small class="text-muted mr-3"> Nr. reg.: {{ contract.nr_registru }}</small>
-                <a class="float-right" href="#">+ Act Aditional</a>
+                <a class="float-right" href="{% url 'actaditional-nou' contract.id %}">+ Act Aditional</a>
             </div>
             <h2 class="article-title">{{ contract.beneficiar }}</h2>
             <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small><br>
