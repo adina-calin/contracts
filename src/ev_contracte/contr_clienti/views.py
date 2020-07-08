@@ -76,7 +76,41 @@ def creeaza_actaditional(request, pk1):
         form = ActAditionalForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('contract-detail', context)
+            return redirect('acasa')
 
     return render(request, 'contr_clienti/actaditional_form.html', context)
 
+
+# def update_contract(request, pk1):
+#     contract = Contract.objects.get(id=pk1)
+#     form = ContractForm(instance=contract)
+
+#     if request.method == 'POST':
+#         form = ContractForm(request.POST, instance=contract)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('acasa')
+
+#     context = {'form': form, 'contract': contract}
+
+#     return render(request, 'contr_clienti/contract_form_up.html', context)
+
+
+# def update_actaditional(request, pk1, pk2):
+#     contract = Contract.objects.get(id=pk1)
+#     actaditional = ActAditional.objects.get(id=pk2)
+#     form = ActAditionalForm(instance=actaditional)
+    
+#     context = {
+#         'contract': contract, 
+#         'actaditional': actaditional,
+#         'form': form
+#     }
+
+#     if request.method == 'POST':
+#         form = ActAditionalForm(request.POST, instance=actaditional)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('acasa')
+
+#     return render(request, 'contr_clienti/actaditional_form_up.html', context)
