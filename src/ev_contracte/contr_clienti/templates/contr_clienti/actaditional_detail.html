@@ -1,15 +1,14 @@
 {% extends 'contr_clienti/base.html' %}
 {% block content %}
-
     <article class="media content-section">
         <div class="media-body">    
-            <div class="article-metadata">    
+            <div class="article-metadata"> 
                 <class="mr-3" href="#"> Act Aditional <b>{{ actaditional.nr_actaditional }} / {{ actaditional.data_actaditional|date:'d.m.Y' }}</b>  <br>  
                 <small class="text-muted mr-3"> Nr. reg.: {{ actaditional.nr_registru }}</small>  
             </div>    
             <h2 class="article-title">{{ contract.beneficiar }}</h2> 
             <small class="text-muted"> Perioadă contractuală cf. act aditional: <b>{{ actaditional.data_incepere_actaditional|date:'d.m.Y' }} - {{ actaditional.data_sfarsit_actaditional|date:'d.m.Y' }}</b></small> <br>
-            <small class="text-muted"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></small> <br>
+            <small><a class="btn-outline-info" type="submit" href="{% url 'contract-detail' contract.id %}"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></a></small>
             <small><ol>
                
             </ol></small>

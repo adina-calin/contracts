@@ -3,7 +3,7 @@
     <article class="media content-section">
         <div class="media-body">    
             <div class="article-metadata">
-                <a class="mr-3" href="#">Contract de </a><br>
+                <a class="btn-outline-info" type="submit" href="#">Contract de {{ contract.tip_contract }}</a><br>
                 <small class="text-muted mr-3"> Nr. reg.: {{ contract.nr_registru }}</small>
                 <a class="float-right" href="#">+ Act Aditional</a>
             </div>
@@ -13,7 +13,7 @@
             <small class="text-muted mr-3" href="#"> Acte aditionale: <br>
                 <ol>
                     {% for aditional in acteaditionale %}
-                    <a href="{% url 'actaditional-detail' contract.id aditional.id %}"><lu>- {{ aditional }}</lu></a>
+                    <a class="btn-outline-info" type="submit" href="{% url 'actaditional-detail' contract.id aditional.id %}"><lu>- {{ aditional }}</lu></a>
                     {% endfor %}
                 </ol>
             </small>
