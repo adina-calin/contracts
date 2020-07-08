@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 from .models import *
 
 def home(request):
     contracte = Contract.objects.all()
     total_contracte = contracte.count()
+    paginator = Paginator(contracte, 5)
+    page = request.GET.get('page')
+    contracte = paginator.get_page(page)
     context = {'contracte': contracte, 'total_contracte': total_contracte}
-    return render(request, ('contr_clienti/home.html'), context)
+    return render(request, 'contr_clienti/home.html', context)
 
 def contract_detalii(request, pk1):
     contract = Contract.objects.get(id=pk1)
