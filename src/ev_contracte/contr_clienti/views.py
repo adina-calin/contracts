@@ -85,14 +85,17 @@ def update_contract(request, pk1):
     contract = Contract.objects.get(id=pk1)
     form = ContractForm(instance=contract)
 
+    context = {
+        'form': form, 
+        'contract': contract
+    }
+
     if request.method == 'POST':
         form = ContractForm(request.POST, instance=contract)
         if form.is_valid():
             form.save()
-            return redirect('acasa')
-
-    context = {'form': form, 'contract': contract}
-
+            return redirect('contract-detail', contract.id)
+    
     return render(request, 'contr_clienti/contract_form_up.html', context)
 
 
