@@ -1,66 +1,124 @@
 {% extends "contr_clienti/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
+
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Contract nou</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Salveaza contract</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+<!--  
     <div class="content-section">
         <form action='' method="POST">
             {% csrf_token %}
             <legend class="border-bottom mb-4">Contract nou</legend>
+            <div class="form-group col-md-13">
+                <label for="formBeneficiar">&nbsp;Beneficiar</label>
+                <select class="browser-default custom-select">
+                    <option selected>Alege beneficiarul contractului</option>
+                    {% for bn in form.beneficiar %}
+                        {{ bn }}
+                    {% endfor %}
+                </select>
+            </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputNrRegistru">Numar registru</label>
+                <div class="form-group col-md-3">
+                    <label for="inputNrRegistru">&nbsp;Numar registru</label>
                     {{ form.nr_registru }}
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="inputState">Categorie contract</label>
-                    <select id="inputState" class="form-control">
-                      <option selected>Alege...</option>
-                      <option value = {{ form.tip_contract }}></option>
+                <div class="form-group col-md-1"></div>
+                <div class="form-group col-md-8">
+                    <label for="inputState">&nbsp;Categorie contract</label>
+                    <select class="browser-default custom-select">
+                      <option selected>Alege categoria de contract</option>
+                      {% for tc in form.tip_contract %}
+                            {{ tc }}
+                      {% endfor %}
                     </select>
                 </div>
             </div>
             <div class="form-row">
-                <div class="col">
-                    <label for="inputNrContract">Numar contract</label>
+                <div class="col col-md-3">
+                    <label for="inputNrContract">&nbsp;Numar contract</label>
                     {{ form.nr_contract }}
                 </div>
-                <div class="col">
-                    <label for="inputDataContract" >Data contract</label>
+                <div class="form-group col-md-1"></div>
+                <div class="col col-md-3">
+                    <label for="inputDataContract" >&nbsp;Data contract</label>
                     {{ form.data_contract }} 
                 </div>
             </div>
-            <div class="form-group">
-                <label for="formBeneficiar">Beneficiar</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Alege beneficiarul contractului</option>
-                    <option value = {{ form.beneficiar }}></option>
-                </select>
-            </div>
+            <div class="form-group"></div>
             <div class="form-row">
-                <div class="col">
-                    <label for="inputNrContract">Contractul începe în:</label>
+                <div class="form-group col-md-4"></div>
+                <div class="col col-md-3">
+                    <label for="inputNrContract">&nbsp;Contractul începe în:</label>
                      {{ form.data_incepere_contract }}
                 </div>
-                <div class="col">
-                    <label for="inputDataContract">și se încheie în:</label>
+                <div class="form-group col-md-1"></div>
+                <div class="col col-md-3">
+                    <label for="inputDataContract">&nbsp;și se încheie în:</label>
                      {{ form.data_sfarsit_contract }} 
                 </div>
             </div>
-            <div class="mdb-select md-form" multiple>
-                <label class="mdb-main-label">Aplicatii</label>
-                <select class="mdb-select md-form" multiple>
-                  <option selected>Alege...</option>
-                  <option value = {{ form.aplicatii }}></option>
+            <div class="form-group col-md-13"></div>
+
+            <div class="form-group col-md-13">
+                <label class="mdb-main-label">&nbsp;Aplicatii</label>
+                <select class="custom-select"  size="3">
+                  <option selected><b>Alege aplicațiile...</b></option>
+                    {% for ap in form.aplicatii %}
+                        {{ ap }}
+                    {% endfor %}
                 </select>
+            </div>
+
+            <div class="form-group col-md-13">
+                <label class="mdb-main-label">&nbsp;Sericii</label>
+                <select class="custom-select"  size="3">
+                  <option selected><b>Alege serviciile...</b></option>
+                    {% for sv in form.servicii %}
+                        {{ sv }}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-13">
+                <label class="mdb-main-label">&nbsp;Produse</label>
+                <select class="custom-select"  multiple size="3">
+                  <option selected><b>Alege produsele...</b></option>
+                    {% for pr in form.produse %}
+                        {{ pr }}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-row" rows="3">
+                    <label for="inputObservatiit">&nbsp;Observatii</label>
+                    {{ form.observatii }}
+                    
             </div>
 
 
 
 
-
-
+            <div class="form-group"></div>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Salveaza contract</button>
             </div>
         </form>
     </div>
-{% endblock content %}
+
+
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_toggle_hide_show
+
+ -->

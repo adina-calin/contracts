@@ -40,6 +40,6 @@ class ContractForm(forms.ModelForm):
             'produse': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'servicii': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'aplicatii': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'observatii': forms.Textarea(attrs={'class': 'form-control'}),
+            'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': "3"}),
         }
 
