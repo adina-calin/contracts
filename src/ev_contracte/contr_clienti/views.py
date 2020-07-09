@@ -99,21 +99,21 @@ def update_contract(request, pk1):
     return render(request, 'contr_clienti/contract_form_up.html', context)
 
 
-# def update_actaditional(request, pk1, pk2):
-#     contract = Contract.objects.get(id=pk1)
-#     actaditional = ActAditional.objects.get(id=pk2)
-#     form = ActAditionalForm(instance=actaditional)
+def update_actaditional(request, pk1, pk2):
+    contract = Contract.objects.get(id=pk1)
+    actaditional = ActAditional.objects.get(id=pk2)
+    form = ActAditionalForm(instance=actaditional)
     
-#     context = {
-#         'contract': contract, 
-#         'actaditional': actaditional,
-#         'form': form
-#     }
+    context = {
+        'contract': contract, 
+        'actaditional': actaditional,
+        'form': form
+    }
 
-#     if request.method == 'POST':
-#         form = ActAditionalForm(request.POST, instance=actaditional)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('acasa')
+    if request.method == 'POST':
+        form = ActAditionalForm(request.POST, instance=actaditional)
+        if form.is_valid():
+            form.save()
+            return redirect('actaditional-detail', contract.id, actaditional.id)
 
-#     return render(request, 'contr_clienti/actaditional_form_up.html', context)
+    return render(request, 'contr_clienti/actaditional_form_up.html', context)
