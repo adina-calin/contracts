@@ -34,7 +34,7 @@
                 <small class="text-muted mr-3"> Observatii: </small>
             </div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'contract-update' contract.id %}">Actualizeaza date contract</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Sterge contract</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'contract-delete' contract.id %}">Sterge contract</a>
         </div>
     </article>
 {% endblock content %}

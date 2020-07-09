@@ -9,7 +9,7 @@ urlpatterns = [
     path('contract/<int:pk1>/actaditional/new/', views.creeaza_actaditional, name='actaditional-nou'),
     path('contract/<int:pk1>/update/', views.update_contract, name='contract-update'),
     path('contract/<int:pk1>/actaditional/<int:pk2>/update/', views.update_actaditional, name='actaditional-update'),
-    # path('contract/<int:pk>/delete/', ContractDeleteView.as_view(), name='contract-delete'),
-    # path('actaditional/<int:pk>/delete/', ActAditionalDeleteView.as_view(), name='actaditional-delete'),
+    path('contract/<int:pk1>/delete/', views.sterge_contract, name='contract-delete'),
+    path('contract/<int:pk1>/actaditional/<int:pk2>/delete/', views.sterge_actaditional, name='actaditional-delete'),
     # path('about/', views.about, name='despre_app'),
 ]

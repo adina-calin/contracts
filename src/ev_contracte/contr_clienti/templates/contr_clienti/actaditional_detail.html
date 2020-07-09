@@ -17,7 +17,7 @@
                 <small class="text-muted mr-3"> Observatii: {{ actaditional.observatii }}</small> 
             </div>    
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'actaditional-update' contract.id actaditional.id %}">Actualizeaza date Act Aditional</a> 
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Sterge Act Aditional</a> 
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'actaditional-delete' contract.id actaditional.id %}">Sterge Act Aditional</a> 
         </div>    
     </article>
 {% endblock content %}

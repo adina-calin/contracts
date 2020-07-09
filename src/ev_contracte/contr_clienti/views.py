@@ -117,3 +117,29 @@ def update_actaditional(request, pk1, pk2):
             return redirect('actaditional-detail', contract.id, actaditional.id)
 
     return render(request, 'contr_clienti/actaditional_form_up.html', context)
+
+
+def sterge_contract(request, pk1):
+    contract = Contract.objects.get(id=pk1)
+    if request.method == 'POST':
+        contract.delete()
+        return redirect('acasa')
+
+    context = {'object': contract}
+
+    return render(request, 'contr_clienti/contract_confirm_delete.html', context)
+
+
+def sterge_actaditional(request, pk1, pk2):
+    contract = Contract.objects.get(id=pk1)
+    actaditional = ActAditional.objects.get(id=pk2)
+    if request.method == 'POST':
+        actaditional.delete()
+        return redirect('contract-detail', contract.id)
+
+    context = context = {
+        'contract': contract, 
+        'actaditional': actaditional
+    }
+    
+    return render(request, 'contr_clienti/actaditional_confirm_delete.html', context)
