@@ -183,8 +183,8 @@ class Contract(models.Model):
     def __str__(self):
         return '{}/{} - {}'.format(self.nr_contract, self.data_contract, self.beneficiar)
 
-    def get_absolute_url(self):
-        return reverse('contract-detail', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('contract-detail', kwargs={'pk': self.pk})
 
 
 class ActAditional(models.Model):
@@ -206,8 +206,8 @@ class ActAditional(models.Model):
     def __str__(self):
         return '{}/{}'.format(self.nr_actaditional, self.data_actaditional)
 
-    def get_absolute_url(self):
-        return reverse('actaditional-detail', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('actaditional-detail', kwargs={'pk': self.pk})
 
 
 
