@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import *
-from .forms import ActAditionalForm, ContractForm
+from .forms import ActAditionalForm, ContractForm, ContractUForm
 
 
 def home(request):
@@ -26,6 +26,7 @@ def contract_detalii(request, pk1):
     aplicatii = contract.aplicatii.all()
     produse = contract.produse.all()
     servicii = contract.servicii.all()
+    # pdfc = contract.pdfc
 
     context = {
         'contract': contract, 
@@ -33,9 +34,31 @@ def contract_detalii(request, pk1):
         'aplicatii':aplicatii, 
         'produse': produse, 
         'servicii':servicii,
+        # 'pdfc': pdfc
         }
 
     return render(request, 'contr_clienti/contract_detail.html', context)
+
+
+def contract_pdf(request, pk1):
+    contract = Contract.objects.get(id=pk1)
+    # pdf = Contract.objects.get(id=pk1)
+    # pdfc = pdf.contract_set.all()
+    if request.method == 'POST':
+        form = ContractUForm(request.POST, request.FILES, instance=contract)
+        if form.is_valid():
+            form.save()
+            return redirect('contract-detail', contract.id)
+    else:
+        form = ContractUForm(instance=contract)
+
+    context = {
+        'contract': contract, 
+        'form':form, 
+        # 'pdfc':pdfc
+    }
+
+    return render(request, 'contr_clienti/contract_pdf.html', context)
 
 
 def actaditional_detalii(request, pk1, pk2):
