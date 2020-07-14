@@ -87,9 +87,9 @@ def creeaza_contract(request):
 
 
 def creeaza_actaditional(request, pk1):
-    form = ActAditionalForm
     contract = Contract.objects.get(id=pk1)
-
+    form = ActAditionalForm(initial={'contract': contract})
+    
     context = {
         'contract': contract, 
         'form': form
