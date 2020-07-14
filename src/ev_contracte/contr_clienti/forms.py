@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import ActAditional, Contract, Pdf
+from .models import ActAditional, Contract
 
 
 class ActAditionalForm(forms.ModelForm):

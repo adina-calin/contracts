@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import *
-from .forms import ActAditionalForm, ContractForm, ContractUForm
+from .forms import ActAditionalForm, ContractForm
 
 
 def home(request):
