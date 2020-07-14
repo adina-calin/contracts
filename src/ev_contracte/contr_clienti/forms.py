@@ -1,8 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import ActAditional, Contract
-
-
+from .models import ActAditional, Contract, Pdf
 
 
 class ActAditionalForm(forms.ModelForm):
@@ -27,7 +25,7 @@ class ActAditionalForm(forms.ModelForm):
 class ContractForm(forms.ModelForm):
     class Meta():
         model = Contract
-        fields = '__all__'
+        fields = ('nr_registru', 'tip_contract', 'nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse', 'servicii', 'aplicatii', 'observatii')
 
         widgets = {
             'nr_registru': forms.TextInput(attrs={'class': 'form-control'}),
@@ -43,3 +41,8 @@ class ContractForm(forms.ModelForm):
             'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': "3"}),
         }
 
+
+# class ContractUForm(forms.ModelForm):
+#     class Meta():
+#         model = Contract
+#         fields = ('pdfc', )
