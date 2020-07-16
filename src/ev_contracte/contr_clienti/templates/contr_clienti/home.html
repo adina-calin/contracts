@@ -16,7 +16,7 @@
                 <a class="float-right" href="#">{{ contract.tip_contract }}</a>
                 <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - 
                     {% if contract.actaditional_set.all %}
-                        {{a_data_sfarsit_contract}}
+                        {{contract.data_sfarsit_contract}}
                     {% else %}
                         {{ contract.data_sfarsit_contract|date:'d.m.Y' }} 
                     {% endif %}
