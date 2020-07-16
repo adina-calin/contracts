@@ -3,18 +3,39 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import *
 from .forms import ActAditionalForm, ContractForm
+from .filters import ContractFilter
+
+
+
+# register = Library()
+# @register.tag()
+# def data_incheiere_contract():
+#     contract = Contract.objects.get()
+#     if contract.actaditional_set.all():
+#         ac=contract.actaditional_set.all().order_by('data_sfarsit_actaditional')
+#         al=ac.last()
+#         a_data_sfarsit_contract=al.data_sfarsit_actaditional
+#         return a_data_sfarsit_contract
 
 
 def home(request):
-    contracte = Contract.objects.all()
-    total_contracte = contracte.count()
+    contracte = Contract.objects.all().order_by('nr_registru')
+
+    myFilter = ContractFilter(request.GET, queryset=contracte)
+    contracte = myFilter.qs
+
     paginator = Paginator(contracte, 5)
     page = request.GET.get('page')
     contracte = paginator.get_page(page)
 
+    ultimul_contract = Contract.objects.latest('nr_registru')
+    ultimul_actaditional = ActAditional.objects.latest('nr_registru')
+               
     context = {
         'contracte': contracte, 
-        'total_contracte': total_contracte
+        'myFilter': myFilter,
+        'ultimul_contract': ultimul_contract,
+        'ultimul_actaditional': ultimul_actaditional,
     }
 
     return render(request, 'contr_clienti/home.html', context)
@@ -40,25 +61,25 @@ def contract_detalii(request, pk1):
     return render(request, 'contr_clienti/contract_detail.html', context)
 
 
-def contract_pdf(request, pk1):
-    contract = Contract.objects.get(id=pk1)
-    # pdf = Contract.objects.get(id=pk1)
-    # pdfc = pdf.contract_set.all()
-    if request.method == 'POST':
-        form = ContractUForm(request.POST, request.FILES, instance=contract)
-        if form.is_valid():
-            form.save()
-            return redirect('contract-detail', contract.id)
-    else:
-        form = ContractUForm(instance=contract)
+# def contract_pdf(request, pk1):
+#     contract = Contract.objects.get(id=pk1)
+#     # pdf = Contract.objects.get(id=pk1)
+#     # pdfc = pdf.contract_set.all()
+#     if request.method == 'POST':
+#         form = ContractUForm(request.POST, request.FILES, instance=contract)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('contract-detail', contract.id)
+#     else:
+#         form = ContractUForm(instance=contract)
 
-    context = {
-        'contract': contract, 
-        'form':form, 
-        # 'pdfc':pdfc
-    }
+#     context = {
+#         'contract': contract, 
+#         'form':form, 
+#         # 'pdfc':pdfc
+#     }
 
-    return render(request, 'contr_clienti/contract_pdf.html', context)
+#     return render(request, 'contr_clienti/contract_pdf.html', context)
 
 
 def actaditional_detalii(request, pk1, pk2):
@@ -166,3 +187,6 @@ def sterge_actaditional(request, pk1, pk2):
     }
     
     return render(request, 'contr_clienti/actaditional_confirm_delete.html', context)
+
+
+
