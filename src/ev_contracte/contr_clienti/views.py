@@ -6,18 +6,6 @@ from .forms import ActAditionalForm, ContractForm
 from .filters import ContractFilter
 
 
-
-# register = Library()
-# @register.tag()
-# def data_incheiere_contract():
-#     contract = Contract.objects.get()
-#     if contract.actaditional_set.all():
-#         ac=contract.actaditional_set.all().order_by('data_sfarsit_actaditional')
-#         al=ac.last()
-#         a_data_sfarsit_contract=al.data_sfarsit_actaditional
-#         return a_data_sfarsit_contract
-
-
 def home(request):
     contracte = Contract.objects.all().order_by('nr_registru')
 
@@ -30,7 +18,7 @@ def home(request):
 
     ultimul_contract = Contract.objects.latest('nr_registru')
     ultimul_actaditional = ActAditional.objects.latest('nr_registru')
-               
+         
     context = {
         'contracte': contracte, 
         'myFilter': myFilter,
@@ -49,13 +37,17 @@ def contract_detalii(request, pk1):
     servicii = contract.servicii.all()
     # pdfc = contract.pdfc
 
+    ultimul_contract = Contract.objects.latest('nr_registru')
+    ultimul_actaditional = ActAditional.objects.latest('nr_registru')
+
     context = {
         'contract': contract, 
         'acteaditionale':acteaditionale, 
         'aplicatii':aplicatii, 
         'produse': produse, 
         'servicii':servicii,
-        # 'pdfc': pdfc
+        'ultimul_contract': ultimul_contract,
+        'ultimul_actaditional': ultimul_actaditional,
         }
 
     return render(request, 'contr_clienti/contract_detail.html', context)
