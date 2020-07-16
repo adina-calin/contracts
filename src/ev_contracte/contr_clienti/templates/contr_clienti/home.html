@@ -1,4 +1,5 @@
 {% extends 'contr_clienti/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
     {% for contract in contracte %}
         <article class="media content-section">
@@ -54,8 +55,22 @@
             </a>
             <a class="btn btn-outline-info mb-4" href="?page={{ contracte.paginator.num_pages }}">Ultima</a>
         {% endif %}
-
-   
+ 
 {% endblock content %}
 
 
+{% block 1baralaterala %}
+<h4>Filtreaza contractele in functie de:</h4>
+<form method="get">
+    <div class="form-row">
+        <small>{{ myFilter.form.beneficiar|as_crispy_field }}</small>
+    </div>
+    <div class="form-row">
+        <small>{{ myFilter.form.data_inceput|as_crispy_field }}</small>
+    </div>
+    <div class="form-row">
+        <small>{{ myFilter.form.data_sfarsit|as_crispy_field }}</small>
+    </div>
+    <button class="btn-outline-info" type="submit">Search</button></br></br>
+</form>    
+{% endblock %} 
