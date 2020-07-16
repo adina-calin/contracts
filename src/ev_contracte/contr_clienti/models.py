@@ -176,6 +176,14 @@ class Contract(models.Model):
     aplicatii = models.ManyToManyField(AplicatiiInfo98, blank=True)
     observatii = models.TextField(max_length=255, blank=True)
 
+    def data_incheiere(self):
+        if self.actaditional_set.all():
+            actad = self.actaditional_set.all().order_by('data_sfarsit_actaditional').last()
+            data_actad = actad.data_sfarsit_actaditional
+            return data_actad
+        else:
+            return self.data_sfarsit_contract
+      
     class Meta:
         verbose_name_plural = 'Contracte'
         unique_together = ('nr_contract', 'data_contract')
