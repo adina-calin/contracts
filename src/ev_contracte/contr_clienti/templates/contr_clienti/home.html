@@ -14,13 +14,7 @@
                 </div>    
                 <h5><b><a class="article-title" href="{% url 'contract-detail' contract.id %}">{{ contract.beneficiar }}</a></b></h5>  
                 <a class="float-right" href="#">{{ contract.tip_contract }}</a>
-                <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - 
-                    {% if contract.actaditional_set.all %}
-                        {{ contract.data_incheiere|date:'d.m.Y' }}
-                    {% else %}
-                        {{ contract.data_sfarsit_contract|date:'d.m.Y' }} 
-                    {% endif %}
-                </b></small>  
+                <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_incheiere|date:'d.m.Y' }}</b></small>  
                 <p><small><ol>
                 {% for aplicatie in contract.aplicatii.all %}
                     <li><class="article-content"> {{ aplicatie }} </li> 

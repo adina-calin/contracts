@@ -8,8 +8,11 @@
                 <a class="float-right" href="{% url 'actaditional-nou' contract.id %}">+ Act Aditional</a>
             </div>
             <h2 class="article-title">{{ contract.beneficiar }}</h2>
-            <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small><br>
             <small class="text-muted"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></small><br>
+            {% if contract.actaditional_set.all %}
+            <small class="text-muted"> Perioadă contractuală conform act aditional: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_incheiere|date:'d.m.Y' }}</b></small><br>
+            {% endif %}
+            <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small><br>
             <small class="text-muted mr-3" href="#"> Acte aditionale: <br>
                 <ol>
                     {% for aditional in acteaditionale %}
