@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
+import datetime
 
 
 functii = [
@@ -178,9 +179,13 @@ class Contract(models.Model):
 
     def data_incheiere(self):
         if self.actaditional_set.all():
+            lst=[]
             actad = self.actaditional_set.all().order_by('data_sfarsit_actaditional').last()
             data_actad = actad.data_sfarsit_actaditional
-            return data_actad
+            lst.append(self.data_sfarsit_contract)
+            lst.append(data_actad)
+            data_incheiere_pc = max(lst)
+            return data_incheiere_pc
         else:
             return self.data_sfarsit_contract
       
