@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-import datetime
+from datetime import datetime, timedelta, date
 
 
 functii = [
@@ -188,7 +188,22 @@ class Contract(models.Model):
             return data_incheiere_pc
         else:
             return self.data_sfarsit_contract
-      
+
+
+    def zile_pana_la_expirare(self):
+        data_incheierec = self.data_incheiere()
+        azi = date.today()
+        nr_zile_expirare = data_incheierec - azi
+        if nr_zile_expirare < timedelta(days=30) and nr_zile_expirare > timedelta(days=0):
+            return nr_zile_expirare.days
+
+    def zile_de_la_expirare(self):
+        data_incheierec = self.data_incheiere()
+        azi = date.today()
+        nr_zile_expirare = data_incheierec - azi
+        if nr_zile_expirare > timedelta(days=-30) and nr_zile_expirare < timedelta(days=0):
+            return nr_zile_expirare.days
+
     class Meta:
         verbose_name_plural = 'Contracte'
         unique_together = ('nr_contract', 'data_contract')

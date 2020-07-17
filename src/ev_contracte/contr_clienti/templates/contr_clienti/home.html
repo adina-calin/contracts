@@ -91,7 +91,24 @@
             </small></ul>
         </li>      
         <li class="list-group-item list-group-item-light">Calendar</li>      
-        <li class="list-group-item list-group-item-light">Alte informatii utile</li>      
+        <li class="list-group-item list-group-item-light">Alte informatii utile
+            Contracte care urmeaza sa expire in urmatoarele 30 de zile:
+            {% for contract in contracte %}
+            <ul>
+            {% if contract.zile_pana_la_expirare is not None %}
+            <li> Contractul {{contract}} exipra in  ({{contract.zile_pana_la_expirare}}) zile</li>
+            {% endif %}
+            </ul>
+            {% endfor %}
+            Contracte care au expirat in ultimele 30 de zile:
+            <ul>
+            {% for contract in contracte %}
+            {% if contract.zile_de_la_expirare is not None %}
+            <li> Contractul {{contract}} a expirat de ({{contract.zile_de_la_expirare}}) zile</li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+        </li>      
     </ul>      
 </p>              
 {% endblock %} 
