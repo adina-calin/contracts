@@ -12,26 +12,28 @@ def home(request):
     myFilter = ContractFilter(request.GET, queryset=contracte)
     contracte = myFilter.qs
 
-    paginator = Paginator(contracte, 5)
+    paginator = Paginator(contracte, 6)
     page = request.GET.get('page')
     contracte = paginator.get_page(page)
-
-    ultimul_contract = Contract.objects.latest('nr_registru')
-    ultimul_actaditional = ActAditional.objects.latest('nr_registru')
          
     context = {
         'contracte': contracte, 
         'myFilter': myFilter,
-        'ultimul_contract': ultimul_contract,
-        'ultimul_actaditional': ultimul_actaditional,
     }
 
     return render(request, 'contr_clienti/home.html', context)
 
 
-def contracte_care_expira(request):
-   contracte_ex = Contract.objects.all()
-   return {'contracte_ex': contracte_ex}
+def contracte_context_processor(request):
+    contracte_ex = Contract.objects.all()
+    ultimul_contract = Contract.objects.latest('nr_registru')
+    ultimul_actaditional = ActAditional.objects.latest('nr_registru')
+
+    return {
+        'contracte_ex': contracte_ex,
+        'ultimul_contract': ultimul_contract,
+        'ultimul_actaditional': ultimul_actaditional,
+        }
 
 
 def contract_detalii(request, pk1):

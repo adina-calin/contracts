@@ -69,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'contr_clienti.views.contracte_care_expira'
+                'contr_clienti.views.contracte_context_processor'
             ],
         },
     },
