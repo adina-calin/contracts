@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from datetime import datetime, timedelta, date
