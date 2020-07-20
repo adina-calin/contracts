@@ -189,7 +189,6 @@ class Contract(models.Model):
         else:
             return self.data_sfarsit_contract
 
-
     def zile_pana_la_expirare(self):
         data_incheierec = self.data_incheiere()
         azi = date.today()
@@ -211,9 +210,6 @@ class Contract(models.Model):
     def __str__(self):
         return '{}/{} - {}'.format(self.nr_contract, self.data_contract, self.beneficiar)
 
-    # def get_absolute_url(self):
-    #     return reverse('contract-detail', kwargs={'pk': self.pk})
-
 
 class ActAditional(models.Model):
     '''Datele sumare de pe contract'''
@@ -234,8 +230,6 @@ class ActAditional(models.Model):
     def __str__(self):
         return '{}/{}'.format(self.nr_actaditional, self.data_actaditional)
 
-    # def get_absolute_url(self):
-    #     return reverse('actaditional-detail', kwargs={'pk': self.pk})
 
 
 
