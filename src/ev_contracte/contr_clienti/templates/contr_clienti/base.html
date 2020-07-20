@@ -65,25 +65,27 @@
             <div class="col-md-4">      
                 <div class="content-section">     
                     {% block 1baralaterala %}{% endblock %} 
+                    <h4>Contracte de reinnoit: </h4>
                     <div class="list-group-item list-group-item-light">
-                        <h6><b>Contracte care expira in urmatoarele 30 de zile:</b></h6>
-                        {% for contract in contracte %}
+                        <div class="a">
+                        <h6>Contracte care expira in urmatoarele 30 de zile:</h6>
+                        {% for contract in contracte_ex %}
                         <ul>
                         {% if contract.zile_pana_la_expirare is not None %}
-                        <li><a href="{% url 'contract-detail' contract.id %}" style="color:blue;"> Contractul {{contract}} exipra in <b> {{contract.zile_pana_la_expirare}} zile. </b></a></li>
+                        <small><li><a href="{% url 'contract-detail' contract.id %}"> Contractul {{contract}} exipra in <b> {{contract.zile_pana_la_expirare}} zile. </b></a></li></small>
                         {% endif %}
                         </ul>
                         {% endfor %}
                         <br>
-                        <h6><b>Contracte care au expirat in ultimele 30 de zile:</b></h6>
+                        <h6>Contracte care au expirat in ultimele 30 de zile:</h6>
                         <ul>
-                        {% for contract in contracte %}
+                        {% for contract in contracte_ex %}
                         {% if contract.zile_de_la_expirare is not None %}
-                        <li> <a href="{% url 'contract-detail' contract.id %}" style="color:red;"> Contractul {{contract}} a expirat de <b>{{contract.zile_de_la_expirare}} zile. </b></a></li>
+                        <small><li> <a href="{% url 'contract-detail' contract.id %}"> Contractul {{contract}} a expirat de <b style='color:red'> {{contract.zile_de_la_expirare}} zile. </b></a></li></small>
                         {% endif %}
                         {% endfor %}
                         </ul>
-                    </div>                 
+                    </div></div>                 
                     {% block 2baralaterala %}{% endblock %}        
                 </div>      
             </div>      

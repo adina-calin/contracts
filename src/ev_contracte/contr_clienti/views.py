@@ -29,11 +29,9 @@ def home(request):
     return render(request, 'contr_clienti/home.html', context)
 
 
-# def test(request):
-#    contracte = Contract.objects.all()
-#    for contract in contracte:
-#        zile = contract.zile_pana_la_expirare 
-#        return {'zile': zile}
+def contracte_care_expira(request):
+   contracte_ex = Contract.objects.all()
+   return {'contracte_ex': contracte_ex}
 
 
 def contract_detalii(request, pk1):
@@ -47,8 +45,6 @@ def contract_detalii(request, pk1):
     ultimul_contract = Contract.objects.latest('nr_registru')
     ultimul_actaditional = ActAditional.objects.latest('nr_registru')
 
-    contracte = Contract.objects.all()
-
     context = {
         'contract': contract, 
         'acteaditionale':acteaditionale, 
@@ -57,7 +53,6 @@ def contract_detalii(request, pk1):
         'servicii':servicii,
         'ultimul_contract': ultimul_contract,
         'ultimul_actaditional': ultimul_actaditional,
-        'contracte': contracte,
         }
 
     return render(request, 'contr_clienti/contract_detail.html', context)
@@ -87,12 +82,10 @@ def contract_detalii(request, pk1):
 def actaditional_detalii(request, pk1, pk2):
     contract = Contract.objects.get(id=pk1)
     actaditional = ActAditional.objects.get(id=pk2)
-    contracte = Contract.objects.all()
 
     context = {
         'contract': contract, 
         'actaditional':actaditional, 
-        'contracte': contracte,
     }
 
     return render(request, 'contr_clienti/actaditional_detail.html', context)
@@ -106,9 +99,7 @@ def creeaza_contract(request):
             form.save()
             return redirect('acasa')
 
-    contracte = Contract.objects.all()
-
-    context = {'form': form, 'contracte': contracte,}
+    context = {'form': form}
 
     return render(request, 'contr_clienti/contract_form.html', context)
 
@@ -116,13 +107,10 @@ def creeaza_contract(request):
 def creeaza_actaditional(request, pk1):
     contract = Contract.objects.get(id=pk1)
     form = ActAditionalForm(initial={'contract': contract})
-
-    contracte = Contract.objects.all()
     
     context = {
         'contract': contract, 
         'form': form,
-        'contracte': contracte,
     }
 
     if request.method == 'POST':
@@ -138,12 +126,9 @@ def update_contract(request, pk1):
     contract = Contract.objects.get(id=pk1)
     form = ContractForm(instance=contract)
 
-    contracte = Contract.objects.all()
-
     context = {
         'form': form, 
         'contract': contract,
-        'contracte': contracte,
     }
 
     if request.method == 'POST':
@@ -159,14 +144,11 @@ def update_actaditional(request, pk1, pk2):
     contract = Contract.objects.get(id=pk1)
     actaditional = ActAditional.objects.get(id=pk2)
     form = ActAditionalForm(instance=actaditional)
-
-    contracte = Contract.objects.all()
     
     context = {
         'contract': contract, 
         'actaditional': actaditional,
         'form': form,
-        'contracte': contracte,
     }
 
     if request.method == 'POST':
@@ -184,9 +166,7 @@ def sterge_contract(request, pk1):
         contract.delete()
         return redirect('acasa')
 
-    contracte = Contract.objects.all()
-
-    context = {'object': contract, 'contracte': contracte,}
+    context = {'object': contract}
 
     return render(request, 'contr_clienti/contract_confirm_delete.html', context)
 
@@ -198,12 +178,9 @@ def sterge_actaditional(request, pk1, pk2):
         actaditional.delete()
         return redirect('contract-detail', contract.id)
 
-    contracte = Contract.objects.all()
-
     context = context = {
         'contract': contract, 
         'actaditional': actaditional,
-        'contracte': contracte,
     }
     
     return render(request, 'contr_clienti/actaditional_confirm_delete.html', context)
