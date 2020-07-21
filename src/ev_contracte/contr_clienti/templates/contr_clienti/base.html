@@ -86,7 +86,22 @@
                         {% endfor %}
                         </ul>
                     </div></div>                 
-                    {% block 2baralaterala %}{% endblock %}        
+                    <p class='text-muted'><h4>Informatii utile: </h4>
+                        <ul class="list-group">     
+                            <li class="list-group-item list-group-item-light">
+                                Contracte: {{ultimul_contract.nr_contract}}
+                            </li>      
+                            <li class="list-group-item list-group-item-light">
+                                Ultimul contract/act aditional adaugat: 
+                                <ul><small>
+                                    <li>Contract: {{ultimul_contract}}</li>
+                                    <li>Act aditional: {{ultimul_actaditional}} la contractul {{ultimul_actaditional.contract}}</li>
+                                </small></ul>
+                            </li>      
+                            <li class="list-group-item list-group-item-light">Calendar</li>      
+                            <li class="list-group-item list-group-item-light">Alte informatii utile</li>      
+                        </ul>      
+                    </p>         
                 </div>      
             </div>      
         </div>      
