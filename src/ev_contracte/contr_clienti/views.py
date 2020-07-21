@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import *
-from .forms import ActAditionalForm, ContractForm
+from .forms import ActAditionalForm, ContractForm, ContractUForm
 from .filters import ContractFilter
 
 
@@ -42,7 +42,6 @@ def contract_detalii(request, pk1):
     aplicatii = contract.aplicatii.all()
     produse = contract.produse.all()
     servicii = contract.servicii.all()
-    # pdfc = contract.pdfc
 
     ultimul_contract = Contract.objects.latest('nr_registru')
     ultimul_actaditional = ActAditional.objects.latest('nr_registru')
@@ -60,25 +59,21 @@ def contract_detalii(request, pk1):
     return render(request, 'contr_clienti/contract_detail.html', context)
 
 
-# def contract_pdf(request, pk1):
-#     contract = Contract.objects.get(id=pk1)
-#     # pdf = Contract.objects.get(id=pk1)
-#     # pdfc = pdf.contract_set.all()
-#     if request.method == 'POST':
-#         form = ContractUForm(request.POST, request.FILES, instance=contract)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('contract-detail', contract.id)
-#     else:
-#         form = ContractUForm(instance=contract)
-
-#     context = {
-#         'contract': contract, 
-#         'form':form, 
-#         # 'pdfc':pdfc
-#     }
-
-#     return render(request, 'contr_clienti/contract_pdf.html', context)
+def contract_scan(request, pk1):
+    contract = Contract.objects.get(id=pk1)
+    form = ContractUForm(instance=contract)
+    context = {
+        'contract': contract, 
+        'form': form,
+    }
+    if request.method == 'POST':
+        form = ContractUForm(request.POST, request.FILES, instance=contract)
+        if form.is_valid():
+            form.save()
+            return redirect('contract-detail', contract.id)
+    else:
+        form = ContractUForm()
+    return render(request, 'contr_clienti/contract_scan.html', context)
 
 
 def actaditional_detalii(request, pk1, pk2):

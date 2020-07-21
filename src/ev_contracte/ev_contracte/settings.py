@@ -70,7 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'contr_clienti.views.contracte_context_processor',
-                'django.template.context_processors.media',
+                # 'contr_clienti.views.contract_scan',
             ],
         },
     },

@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import ActAditional, Contract
+from .models import ActAditional, Contract, ContractScan
 
 
 class ActAditionalForm(forms.ModelForm):
@@ -42,7 +42,7 @@ class ContractForm(forms.ModelForm):
         }
 
 
-# class ContractUForm(forms.ModelForm):
-#     class Meta():
-#         model = Contract
-#         fields = ('pdfc', )
+class ContractUForm(forms.ModelForm):
+    class Meta():
+        model = Contract
+        fields = ('document', )

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import CheckboxSelectMultiple
 from dynamic_raw_id.admin import DynamicRawIDMixin
-from .models import Reprezentant, PersoanaContact, Adresa, Clienti, CategorieContract, Produse, AplicatiiInfo98, Contract, ServiciiInformatice, ActAditional
+from .models import Reprezentant, PersoanaContact, Adresa, Clienti, CategorieContract, Produse, AplicatiiInfo98, Contract, ServiciiInformatice, ActAditional, ContractScan
 
 
 @admin.register(Clienti)
@@ -22,6 +22,10 @@ class  ClientiAdmin(admin.ModelAdmin):
         return ', '.join(str(reprezentant) for reprezentant in object.reprezentant.all())
 
 
+class ContractScanAdmin(admin.StackedInline):
+    model = ContractScan
+
+
 @admin.register(Contract)
 class ContractAdmin(DynamicRawIDMixin, admin.ModelAdmin):
 
@@ -37,6 +41,7 @@ class ContractAdmin(DynamicRawIDMixin, admin.ModelAdmin):
     search_fields = ('nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse')
     list_per_page = 10
     ordering = ['-nr_registru']
+    inlines = [ContractScanAdmin]
 
     def produse_contract(self, object):
         return ', '.join(str(produs) for produs in object.produse.all())
@@ -96,6 +101,7 @@ admin.site.register(CategorieContract)
 admin.site.register(Produse)
 admin.site.register(ServiciiInformatice)
 admin.site.register(AplicatiiInfo98)
+admin.site.register(ContractScan)
 
 
 

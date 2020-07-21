@@ -177,6 +177,14 @@ class Contract(models.Model):
     servicii = models.ManyToManyField(ServiciiInformatice, blank=True)
     aplicatii = models.ManyToManyField(AplicatiiInfo98, blank=True)
     observatii = models.TextField(max_length=255, blank=True)
+    document = models.FileField(blank=True)
+    
+    class Meta:
+        verbose_name_plural = 'Contracte'
+        unique_together = ('nr_contract', 'data_contract')
+
+    def __str__(self):
+        return '{}/{} - {}'.format(self.nr_contract, self.data_contract, self.beneficiar)
 
     def data_incheiere(self):
         if self.actaditional_set.all():
@@ -204,12 +212,13 @@ class Contract(models.Model):
         if nr_zile_expirare > timedelta(days=-30) and nr_zile_expirare < timedelta(days=0):
             return nr_zile_expirare.days
 
-    class Meta:
-        verbose_name_plural = 'Contracte'
-        unique_together = ('nr_contract', 'data_contract')
+
+class ContractScan(models.Model):
+    contract = models.ForeignKey(Contract, default=None, on_delete=models.CASCADE)
+    documente = models.FileField(upload_to='media/')
 
     def __str__(self):
-        return '{}/{} - {}'.format(self.nr_contract, self.data_contract, self.beneficiar)
+        return self.contract
 
 
 class ActAditional(models.Model):
