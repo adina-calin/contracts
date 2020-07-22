@@ -23,13 +23,13 @@
             <small class="text-muted mr-3">
                 <ol>
                 {% for aplicatie in aplicatii %}
-                    <li><class="article-content"> {{ aplicatie }} - Valoare: {{ aplicatie.contravaloare_aplicatie }} lei</li>
+                    <li><class="article-content"> {{ aplicatie }} - Valoare: {{ aplicatie.abonament_aplicatie_fara_tva }} lei</li>
                 {% endfor %} 
                 {% for serviciu in servicii %}
-                    <li><class="article-content"> {{ serviciu }} - Valoare: {{ serviciu.contravaloare_serviciu }} lei</li>
+                    <li><class="article-content"> {{ serviciu }} - Valoare: {{ serviciu.contravaloare_serviciu_fara_tva }} lei</li>
                 {% endfor %}
                 {% for produs in produse %}
-                    <li><class="article-content"> {{ produs }} - Valoare: {{ contract.produs.contravaloare_produs }} lei</li>
+                    <li><class="article-content"> {{ produs }} - Valoare: {{ produs.pret_vanzare_fara_tva }} lei</li>
                 {% endfor %}  
                 </ol>
             </small>
@@ -41,7 +41,7 @@
                   
                 <ul>
                 {% for document in documente %}
-                    <li><small><a href='{{ document.url }}' target='_blank' download>{{document}}</a></small></li>
+                    <li><small><a href="{{ document.documente.url }}" target='_blank' download>{{document}}</a></small></li>
                 {% endfor %}
                 </ul>
                 <small><a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info">Incarca documente</a></small>

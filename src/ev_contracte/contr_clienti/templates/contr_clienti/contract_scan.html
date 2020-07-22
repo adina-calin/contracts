@@ -8,5 +8,8 @@
           {{ form|crispy }}
           <button type="submit" class="btn btn-primary">Incarca document</button>
         </form>
+        {% if url %}
+        <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+        {% endif %}
     </div>
 {% endblock content %}

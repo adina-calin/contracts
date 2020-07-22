@@ -44,17 +44,12 @@ def contract_detalii(request, pk1):
     servicii = contract.servicii.all()
     documente = contract.contractscan_set.all()
 
-    ultimul_contract = Contract.objects.latest('nr_registru')
-    ultimul_actaditional = ActAditional.objects.latest('nr_registru')
-
     context = {
         'contract': contract, 
         'acteaditionale':acteaditionale, 
         'aplicatii':aplicatii, 
         'produse': produse, 
         'servicii':servicii,
-        'ultimul_contract': ultimul_contract,
-        'ultimul_actaditional': ultimul_actaditional,
         'documente': documente,
         }
 
