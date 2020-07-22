@@ -1,0 +1,48 @@
+def update_contract(request, pk1):
+    contract = Contract.objects.get(id=pk1)
+    form = ContractForm(instance=contract)
+
+    context = {'form': form, 'contract': contract}
+
+    if request.method == 'POST':
+        form = ContractForm(request.POST, instance=contract)
+        if form.is_valid():
+            form.save()
+            return redirect('contract-detail', context)
+
+    return render(request, 'contr_clienti/contract_form.html', context)
+
+
+def update_actaditional(request, pk1, pk2):
+    contract = Contract.objects.get(id=pk1)
+    actaditional = ActAditional.objects.get(id=pk2)
+    form = ActAditionalForm(instance=actaditional)
+    
+    context = {
+        'contract': contract, 
+        'actaditional': actaditional,
+        'form': form
+    }
+
+    if request.method == 'POST':
+        form = ActAditionalForm(request.POST, instance=actaditional)
+        if form.is_valid():
+            form.save()
+            return redirect('actaditional-detail', context)
+
+    return render(request, 'contr_clienti/actaditional_form_up.html', context)
+
+
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
+
+
+
+https://www.youtube.com/watch?v=EX6Tt-ZW0so&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO&index=11
+https://github.com/divanov11/crash-course-CRM/blob/Part-20-Password-Reset-Email/crm1/accounts/views.py
+
+
+commit c34b40e03a7c0503d3df54541d443be45beee9ff
+Author: adina-calin <adyna.calin@gmail.com>
+Date:   Thu Jul 9 16:35:37 2020 +0300
+
+    pt upload - e pus in comment

@@ -70,7 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'contr_clienti.views.contracte_context_processor',
-                # 'contr_clienti.views.contract_scan',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -134,7 +134,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

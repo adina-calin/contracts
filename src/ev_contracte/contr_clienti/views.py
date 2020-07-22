@@ -42,6 +42,7 @@ def contract_detalii(request, pk1):
     aplicatii = contract.aplicatii.all()
     produse = contract.produse.all()
     servicii = contract.servicii.all()
+    documente = contract.contractscan_set.all()
 
     ultimul_contract = Contract.objects.latest('nr_registru')
     ultimul_actaditional = ActAditional.objects.latest('nr_registru')
@@ -54,6 +55,7 @@ def contract_detalii(request, pk1):
         'servicii':servicii,
         'ultimul_contract': ultimul_contract,
         'ultimul_actaditional': ultimul_actaditional,
+        'documente': documente,
         }
 
     return render(request, 'contr_clienti/contract_detail.html', context)
@@ -61,13 +63,13 @@ def contract_detalii(request, pk1):
 
 def contract_scan(request, pk1):
     contract = Contract.objects.get(id=pk1)
-    form = ContractUForm(instance=contract)
+    form = ContractUForm(initial={'contract': contract})
     context = {
         'contract': contract, 
         'form': form,
     }
     if request.method == 'POST':
-        form = ContractUForm(request.POST, request.FILES, instance=contract)
+        form = ContractUForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('contract-detail', contract.id)

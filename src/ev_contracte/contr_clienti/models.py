@@ -216,9 +216,10 @@ class Contract(models.Model):
 class ContractScan(models.Model):
     contract = models.ForeignKey(Contract, default=None, on_delete=models.CASCADE)
     documente = models.FileField(upload_to='media/')
+    uploaded_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.contract
+        return '{} --> {}'.format(str(self.documente), self.uploaded_at)
 
 
 class ActAditional(models.Model):
