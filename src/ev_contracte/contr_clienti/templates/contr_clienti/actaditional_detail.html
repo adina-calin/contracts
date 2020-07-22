@@ -28,14 +28,14 @@
             </div> 
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'actaditional-update' contract.id actaditional.id %}">Actualizeaza date Act Aditional</a> 
                         
-            <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeActAditional">
                 Sterge Act Aditional
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="stergeActAditional" tabindex="-1" role="dialog" aria-labelledby="stergeActAditionalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">STERGE Act Aditional</h5>
+                      <h5 class="modal-title" id="stergeActAditionalLabel">STERGE Act Aditional</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -44,7 +44,7 @@
                     <div class="modal-body">
                         <fieldset class="form-group">
                                 {% csrf_token %}
-                                    <h2>Esti sigur ca vrei sa stergi actul aditional {{ actaditional }} la contractul {{ actaditional.contract }}. </h2>
+                                    <h2>Esti sigur ca vrei sa stergi actul aditional {{ actaditional }} la contractul {{ actaditional.contract }}?</h2>
                                     Aceasta operatiune este ireversibila!   
                         </fieldset>   
                     </div>

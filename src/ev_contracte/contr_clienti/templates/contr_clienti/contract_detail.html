@@ -47,7 +47,38 @@
                 <small><a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info">Incarca documente</a></small>
             </div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'contract-update' contract.id %}">Actualizeaza date contract</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'contract-delete' contract.id %}">Sterge contract</a>
+
+            <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeContract">
+                Sterge Contract
+            </button>
+            <div class="modal fade" id="stergeContract" tabindex="-1" role="dialog" aria-labelledby="stergeContractLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="stergeContractLabel">STERGE Contract</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="{% url 'contract-delete' contract.id %}" method="POST">
+                    <div class="modal-body">
+                        <fieldset class="form-group">
+                                {% csrf_token %}
+                                    <h2>Esti sigur ca vrei sa stergi contractul {{ contract }}?</h2>
+                                    Aceasta operatiune este ireversibila!   
+                        </fieldset>   
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
+                            <a class="btn btn-outline-secondary" href="{% url 'contract-detail' contract.id %}"">Anuleaza</a>
+                        </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
         </div>
     </article>
 {% endblock content %}
