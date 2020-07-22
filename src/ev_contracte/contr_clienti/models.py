@@ -219,7 +219,7 @@ class ContractScan(models.Model):
     uploaded_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return '{} --> {}'.format(str(self.documente), self.uploaded_at)
+        return '{} - {}'.format(self.uploaded_at, str(self.documente))
 
 
 class ActAditional(models.Model):
