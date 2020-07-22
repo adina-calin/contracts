@@ -177,7 +177,6 @@ class Contract(models.Model):
     servicii = models.ManyToManyField(ServiciiInformatice, blank=True)
     aplicatii = models.ManyToManyField(AplicatiiInfo98, blank=True)
     observatii = models.TextField(max_length=255, blank=True)
-    document = models.FileField(blank=True)
     
     class Meta:
         verbose_name_plural = 'Contracte'
