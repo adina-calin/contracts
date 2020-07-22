@@ -36,14 +36,12 @@
             <div class="article-metadata">
                 <small class="text-muted mr-3"> Observatii: </small>
             </div>
-            <div>
-                <h2>Scan contract</h2>
-                <p>
-                  <a href="{% url 'contract-upload' contract.id %}" class="btn btn-primary">Incarca contract</a>
-                </p>
+            <div class="article-metadata">
+                <h6>Documente contract:</h6> 
+                  <a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info btn-sm">Incarca documente</a>
                 <ul>
                 {% for document in documente %}
-                    <li><a href='{{ document.url }}' target='_blank' download='{{ document.url }}'>{{document}}</a></li>
+                    <li><small><a href='{{ contract.document.url }}' target='_blank' download>{{document}}</a></small></li>
                 {% endfor %}
                 </ul>
             </div>
