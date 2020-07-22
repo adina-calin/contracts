@@ -12,5 +12,6 @@ urlpatterns = [
     path('contract/<int:pk1>/actaditional/<int:pk2>/update/', views.update_actaditional, name='actaditional-update'),
     path('contract/<int:pk1>/delete/', views.sterge_contract, name='contract-delete'),
     path('contract/<int:pk1>/actaditional/<int:pk2>/delete/', views.sterge_actaditional, name='actaditional-delete'),
+    path('contract/<int:pk1>/actaditional/<int:pk2>/upload/', views.actaditional_scan, name='actaditional-upload'),
     # path('about/', views.about, name='despre_app'),
 ]

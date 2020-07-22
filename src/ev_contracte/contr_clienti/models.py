@@ -212,15 +212,6 @@ class Contract(models.Model):
             return nr_zile_expirare.days
 
 
-class ContractScan(models.Model):
-    contract = models.ForeignKey(Contract, default=None, on_delete=models.CASCADE)
-    documente = models.FileField(upload_to='media/')
-    uploaded_at = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return '{} - {}'.format(self.uploaded_at, str(self.documente))
-
-
 class ActAditional(models.Model):
     '''Datele sumare de pe contract'''
     nr_registru = models.IntegerField(default=increment_nr_reg, unique=True)
@@ -240,6 +231,15 @@ class ActAditional(models.Model):
     def __str__(self):
         return '{}/{}'.format(self.nr_actaditional, self.data_actaditional)
 
+
+class ContractScan(models.Model):
+    contract = models.ForeignKey(Contract, default=None, null=True, on_delete=models.CASCADE)
+    actaditional = models.ForeignKey(ActAditional, default=None, null=True, blank=True, on_delete=models.CASCADE)
+    documente = models.FileField(upload_to='media/')
+    uploaded_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.uploaded_at, str(self.documente))
 
 
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import *
-from .forms import ActAditionalForm, ContractForm, ContractUForm
+from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm
 from .filters import ContractFilter
 
 
@@ -73,13 +73,34 @@ def contract_scan(request, pk1):
     return render(request, 'contr_clienti/contract_scan.html', context)
 
 
+def actaditional_scan(request, pk1, pk2):
+    contract = Contract.objects.get(id=pk1)
+    actaditional = ActAditional.objects.get(id=pk2)
+    form = ContractAAUForm(initial={'actaditional': actaditional, 'contract': contract})
+    context = {
+        'contract': contract, 
+        'actaditional': actaditional,
+        'form': form,
+    }
+    if request.method == 'POST':
+        form = ContractAAUForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('actaditional-detail', contract.id, actaditional.id)
+    else:
+        form = ContractAAUForm()
+    return render(request, 'contr_clienti/actaditional_scan.html', context)
+
+
 def actaditional_detalii(request, pk1, pk2):
     contract = Contract.objects.get(id=pk1)
     actaditional = ActAditional.objects.get(id=pk2)
+    documente = actaditional.contractscan_set.all()
 
     context = {
         'contract': contract, 
-        'actaditional':actaditional, 
+        'actaditional':actaditional,
+        'documente': documente 
     }
 
     return render(request, 'contr_clienti/actaditional_detail.html', context)

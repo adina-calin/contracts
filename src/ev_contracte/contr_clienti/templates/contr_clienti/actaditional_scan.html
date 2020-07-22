@@ -1,0 +1,15 @@
+{% extends "contr_clienti/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <h2>Incarca contract</h2>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Incarca document</button>
+        </form>
+        {% if url %}
+        <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+        {% endif %}
+    </div>
+{% endblock content %}

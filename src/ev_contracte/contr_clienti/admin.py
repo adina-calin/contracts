@@ -83,6 +83,7 @@ class ActAditionalAdmin(DynamicRawIDMixin, admin.ModelAdmin):
     # search_fields = ('nr_contract', 'data_contract', 'beneficiar', 'produse')
     list_per_page = 10
     ordering = ['-nr_actaditional']
+    inlines = [ContractScanAdmin]
 
     def produse_contract(self, object):
         return ', '.join(str(produs) for produs in object.produse.all())

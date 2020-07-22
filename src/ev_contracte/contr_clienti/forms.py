@@ -46,3 +46,8 @@ class ContractUForm(forms.ModelForm):
     class Meta():
         model = ContractScan
         fields = ('documente', 'contract')
+
+class ContractAAUForm(forms.ModelForm):
+    class Meta():
+        model = ContractScan
+        fields = ('documente', 'actaditional', 'contract')
