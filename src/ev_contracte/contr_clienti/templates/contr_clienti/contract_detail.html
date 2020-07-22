@@ -14,11 +14,11 @@
             {% endif %}
             <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small><br>
             <small class="text-muted mr-3" href="#"> Acte aditionale: <br>
-                <ol>
+                <ul>
                     {% for aditional in acteaditionale %}
-                    <a class="btn-outline-info" type="submit" href="{% url 'actaditional-detail' contract.id aditional.id %}"><lu>- {{ aditional }}</lu></a>
+                    <li><a class="btn-outline-info" type="submit" href="{% url 'actaditional-detail' contract.id aditional.id %}">{{ aditional }}</a></li>
                     {% endfor %}
-                </ol>
+                </ul>
             </small>
             <small class="text-muted mr-3">
                 <ol>
@@ -38,12 +38,13 @@
             </div>
             <div class="article-metadata">
                 <h6>Documente contract:</h6> 
-                  <a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info btn-sm">Incarca documente</a>
+                  
                 <ul>
                 {% for document in documente %}
                     <li><small><a href='{{ contract.document.url }}' target='_blank' download>{{document}}</a></small></li>
                 {% endfor %}
                 </ul>
+                <small><a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info">Incarca documente</a></small>
             </div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'contract-update' contract.id %}">Actualizeaza date contract</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'contract-delete' contract.id %}">Sterge contract</a>
