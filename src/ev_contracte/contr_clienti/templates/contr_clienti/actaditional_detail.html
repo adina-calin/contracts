@@ -27,7 +27,38 @@
                 <small><a href="{% url 'actaditional-upload' contract.id actaditional.id %}" class="btn-outline-info">Incarca documente</a></small>
             </div> 
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'actaditional-update' contract.id actaditional.id %}">Actualizeaza date Act Aditional</a> 
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'actaditional-delete' contract.id actaditional.id %}">Sterge Act Aditional</a> 
+                        
+            <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#exampleModal">
+                Sterge Act Aditional
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">STERGE Act Aditional</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="{% url 'actaditional-delete' contract.id actaditional.id %}" method="POST">
+                    <div class="modal-body">
+                        <fieldset class="form-group">
+                                {% csrf_token %}
+                                    <h2>Esti sigur ca vrei sa stergi actul aditional {{ actaditional }} la contractul {{ actaditional.contract }}. </h2>
+                                    Aceasta operatiune este ireversibila!   
+                        </fieldset>   
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
+                            <a class="btn btn-outline-secondary" href="{% url 'actaditional-detail' contract.id actaditional.id %}"">Anuleaza</a>
+                        </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
         </div>    
     </article>
 {% endblock content %}
