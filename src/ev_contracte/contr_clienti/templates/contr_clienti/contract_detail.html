@@ -19,19 +19,29 @@
                     <li><a class="btn-outline-info" type="submit" href="{% url 'actaditional-detail' contract.id aditional.id %}">{{ aditional }}</a></li>
                     {% endfor %}
                 </ul>
-            </small>
+            </small><br>
             <small class="text-muted mr-3">
+                {% if contract.aplicatii.all %} Aplicatii:
                 <ol>
                 {% for aplicatie in aplicatii %}
                     <li><class="article-content"> {{ aplicatie }} - Valoare: {{ aplicatie.abonament_aplicatie_fara_tva }} lei</li>
-                {% endfor %} 
+                {% endfor %}
+                </ol>
+                {% endif %} 
+                {% if contract.servicii.all %} Servicii:
+                <ol>
                 {% for serviciu in servicii %}
                     <li><class="article-content"> {{ serviciu }} - Valoare: {{ serviciu.contravaloare_serviciu_fara_tva }} lei</li>
                 {% endfor %}
+                </ol>
+                {% endif %} 
+                {% if contract.produse.all %} Produse:
+                <ol>
                 {% for produs in produse %}
                     <li><class="article-content"> {{ produs }} - Valoare: {{ produs.pret_vanzare_fara_tva }} lei</li>
                 {% endfor %}  
                 </ol>
+                {% endif %}
             </small>
             <div class="article-metadata">
                 <small class="text-muted mr-3"> Observatii: </small>
