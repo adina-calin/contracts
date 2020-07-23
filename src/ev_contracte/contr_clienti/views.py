@@ -86,6 +86,20 @@ def sterge_documentc(request, pk1, pk3):
     return render(request, 'contr_clienti/document_confirm_delete.html', context)
 
 
+def sterge_documenta(request, pk1, pk2, pk3):
+    contract = Contract.objects.get(id=pk1)
+    actaditional = ActAditional.objects.get(id=pk2)
+    document = ContractScan.objects.get(id=pk3)
+    if request.method == 'POST':
+        document = ContractScan.objects.get(id=pk3)
+        document.delete()
+        return redirect('actaditional-detail', contract.id, actaditional.id)
+
+    context = {'contract': contract, 'document': document, 'actaditional': actaditional}
+
+    return render(request, 'contr_clienti/document_confirm_delete_aa.html', context)
+
+
 def actaditional_scan(request, pk1, pk2):
     contract = Contract.objects.get(id=pk1)
     actaditional = ActAditional.objects.get(id=pk2)

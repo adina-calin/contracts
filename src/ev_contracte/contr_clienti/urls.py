@@ -14,5 +14,6 @@ urlpatterns = [
     path('contract/<int:pk1>/actaditional/<int:pk2>/delete/', views.sterge_actaditional, name='actaditional-delete'),
     path('contract/<int:pk1>/actaditional/<int:pk2>/upload/', views.actaditional_scan, name='actaditional-upload'),
     path('contract/<int:pk1>/<int:pk3>/deleteupload/', views.sterge_documentc, name='documentc-delete'),
+    path('contract/<int:pk1>/actaditional/<int:pk2>/<int:pk3>/deleteupload/', views.sterge_documenta, name='documenta-delete'),
     # path('about/', views.about, name='despre_app'),
 ]
