@@ -145,6 +145,7 @@ class Clienti(models.Model):
 
 
 def increment_nr_reg():
+    '''Afiseaza automat numarul de registru tinant cont de contracte, acte aditionale'''
     lst=[]
     ultimul_nr_reg_c = Contract.objects.all().order_by('nr_registru').last()
     ultimul_nr_reg_a = ActAditional.objects.all().order_by('nr_registru').last()
@@ -158,6 +159,7 @@ def increment_nr_reg():
 
 
 def increment_nr_contr():
+    '''Afiseaza automat numarul urmator de contract'''
     ultimul_nr_contr = Contract.objects.all().order_by('nr_contract').last()
     ultimul_nr = ultimul_nr_contr.nr_contract
     nou_nr_contr = ultimul_nr + 1
@@ -186,6 +188,7 @@ class Contract(models.Model):
         return '{}/{} - {}'.format(self.nr_contract, self.data_contract, self.beneficiar)
 
     def data_incheiere(self):
+        '''Calculeaza data de expirare a contractului in functie de actele aditionale aferente contractului'''
         if self.actaditional_set.all():
             lst=[]
             actad = self.actaditional_set.all().order_by('data_sfarsit_actaditional').last()
@@ -198,6 +201,7 @@ class Contract(models.Model):
             return self.data_sfarsit_contract
 
     def zile_pana_la_expirare(self):
+        '''Calculeaza zilele pana la expirare pentru contractele care expira in urmatoarele 30 de zile'''
         data_incheierec = self.data_incheiere()
         azi = date.today()
         nr_zile_expirare = data_incheierec - azi
@@ -205,6 +209,7 @@ class Contract(models.Model):
             return nr_zile_expirare.days
 
     def zile_de_la_expirare(self):
+        '''Calculeaza zilele de la expirare pentru contractele care au expirat in ultimele 30 de zile'''
         data_incheierec = self.data_incheiere()
         azi = date.today()
         nr_zile_expirare = data_incheierec - azi
@@ -213,7 +218,7 @@ class Contract(models.Model):
 
 
 class ActAditional(models.Model):
-    '''Datele sumare de pe contract'''
+    '''Datele sumare de pe actul aditional aferent unui conrtact'''
     nr_registru = models.IntegerField(default=increment_nr_reg, unique=True)
     nr_actaditional = models.IntegerField()
     data_actaditional = models.DateField(null=True, blank=True)
@@ -233,6 +238,7 @@ class ActAditional(models.Model):
 
 
 class ContractScan(models.Model):
+    '''Salvarea documentelor aferente contractului/actului aditional'''
     contract = models.ForeignKey(Contract, default=None, null=True, on_delete=models.CASCADE)
     actaditional = models.ForeignKey(ActAditional, default=None, null=True, blank=True, on_delete=models.CASCADE)
     documente = models.FileField(upload_to='media/')
@@ -242,6 +248,7 @@ class ContractScan(models.Model):
         return '{} - {}'.format(self.uploaded_at, str(self.documente))
 
     def delete(self, *args, **kwargs):
+        '''Stergerea documentelor aferente contractului/actului aditional'''
         self.documente.delete()
         # self.uploaded_at.delete()
         super().delete(*args, **kwargs)
