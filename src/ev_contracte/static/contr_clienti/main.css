@@ -171,3 +171,27 @@ body {
     line-height: 120%;
     }
 
+  
+  table.c {
+    table-layout: auto;
+    width: 150%;  
+  }
+
+
+  tr:nth-child(even) td {
+    background-color: #eff5f5;
+  }
+
+
+  tr:hover td {
+    background-color: #dfebec;
+  }
+
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #8fbbbc;
+    color: #F5F5F5;
+  }
