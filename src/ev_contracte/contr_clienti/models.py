@@ -241,5 +241,9 @@ class ContractScan(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.uploaded_at, str(self.documente))
 
+    def delete(self, *args, **kwargs):
+        self.documente.delete()
+        # self.uploaded_at.delete()
+        super().delete(*args, **kwargs)
 
 

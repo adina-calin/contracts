@@ -36,18 +36,54 @@
             <div class="article-metadata">
                 <small class="text-muted mr-3"> Observatii: </small>
             </div>
+
+            <!--Afisarea documentelor aferente contractului-->
             <div class="article-metadata">
-                <h6>Documente contract:</h6> 
-                  
+                <h6>Documente contract:</h6>   
                 <ul>
                 {% for document in documente %}
-                    <li><small><a href="{{ document.documente.url }}" target='_blank' download>{{document}}</a></small></li>
+                    <li><small><a href="{{ document.documente.url }}" target='_blank' download>{{document}}</a>
+            
+                        <!--Stergerea documentelor aferente contractului-->
+                        {% csrf_token %}
+                        &nbsp;-->&nbsp;<a href="{% url 'documentc-delete' contract.id document.id %}" type="submit" class="btn-outline-info" data-toggle="modal" data-target="#stergeDocument">sterge</a>
+                        <div class="modal fade" id="stergeDocument" tabindex="-1" role="dialog" aria-labelledby="stergeDocumentLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="stergeDocumentLabel">STERGE document</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="{% url 'documentc-delete' contract.id document.id %}" method="POST">
+                                <div class="modal-body">
+                                    <fieldset class="form-group">
+                                            {% csrf_token %}
+                                                <h4>Esti sigur ca vrei sa stergi documentul: <br> {{ document }}?</h4>
+                                                Aceasta operatiune este ireversibila!   
+                                    </fieldset>   
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="form-group">
+                                        <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
+                                        <a class="btn btn-outline-secondary" href="{% url 'contract-detail' contract.id %}"">Anuleaza</a>
+                                    </div>
+                                </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                    </small></li>      
                 {% endfor %}
                 </ul>
                 <small><a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info">Incarca documente</a></small>
             </div>
+
+            <!--Actualizarea contractului-->
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'contract-update' contract.id %}">Actualizeaza date contract</a>
 
+            <!--Stergerea contractului (Bootstrap Modal)-->
             <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeContract">
                 Sterge Contract
             </button>
