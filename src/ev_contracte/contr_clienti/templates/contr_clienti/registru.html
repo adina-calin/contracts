@@ -1,0 +1,63 @@
+{% extends 'contr_clienti/base_fara_bara_laterala.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<h2>Registru CONTRACTE</h2>
+<p>
+  sa pun o optiune sa selectez perioada.....
+</p>
+
+
+<table class="table mb-0">
+<thead>
+  <tr>
+    <th>Nr. registru</th>
+    <th>Contract / Actaditional</th>
+    <th>Nr./Data</th>
+    <th>Nr./Data Beneficiar</th>
+    <th>Beneficiar</th>
+    <th>Produse / Servicii / Aplicatii</th>
+    <th>Valoare contract</th>
+    <th>Nr./Data Fisa de Analiza</th>
+    <th>Observatii</th>
+    <th>Documente</th>
+  </tr>
+</thead>
+<tbody>
+  {% for contract in contracte %}
+    <tr>
+      <td>{{ contract.nr_registru }}</td>
+      <td><span class="text-muted">contract</span></td>
+      <td>{{ contract.nr_contract }}/{{ contract.data_contract }}</td>
+      <td><span class="text-muted">-</span></td>
+      <td>{{ contract.beneficiar }}</td>
+      <td>
+        <ol><small>
+            {% for aplicatie in contract.aplicatii.all %}
+                <li><class="article-content"> {{ aplicatie }} </li> 
+            {% endfor %}  
+        
+            {% for serviciu in contract.servicii.all %}
+                <li><class="article-content"> {{ serviciu }} </li>
+            {% endfor %}
+            
+            {% for produs in contract.produse.all %}
+                <li><class="article-content"> {{ produs }} </li>  
+            {% endfor %}
+        </small></ol>
+      </td>
+      <td><span class="text-muted">-</span></td>
+      <td><span class="text-muted">-</span></td>
+      <td>{{ contract.observatii }}</td>
+      <td>
+        {% for document in documente %}
+        <li><small><a href="{{ document.documente.url }}" target='_blank' download>{{document}}</a></small></li>
+        {% endfor %}
+      </td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+{% endblock content %}
