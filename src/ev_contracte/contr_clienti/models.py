@@ -3,6 +3,8 @@ from django.db.models import F
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from datetime import datetime, timedelta, date
+from itertools import chain
+from operator import attrgetter
 
 
 functii = [
@@ -253,4 +255,11 @@ class ContractScan(models.Model):
         # self.uploaded_at.delete()
         super().delete(*args, **kwargs)
 
+def registru():
+    '''Ordoneaza contractele si acteleaditonale in functie de numarul de registru'''
+    contracte = Contract.objects.all()
+    acteaditionale = ActAditional.objects.all()
+    lst_contr_aa = sorted(chain(contracte, acteaditionale), key=attrgetter('nr_registru'))
+    return lst_contr_aa
+    
 

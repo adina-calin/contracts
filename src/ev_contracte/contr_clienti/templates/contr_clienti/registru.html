@@ -10,54 +10,61 @@
 
 
 <table class="table mb-0">
-<thead>
-  <tr>
-    <th>Nr. registru</th>
-    <th>Contract / Actaditional</th>
-    <th>Nr./Data</th>
-    <th>Nr./Data Beneficiar</th>
-    <th>Beneficiar</th>
-    <th>Produse / Servicii / Aplicatii</th>
-    <th>Valoare contract</th>
-    <th>Nr./Data Fisa de Analiza</th>
-    <th>Observatii</th>
-    <th>Documente</th>
-  </tr>
-</thead>
-<tbody>
-  {% for contract in contracte %}
-    <tr>
-      <td>{{ contract.nr_registru }}</td>
-      <td><span class="text-muted">contract</span></td>
-      <td>{{ contract.nr_contract }}/{{ contract.data_contract }}</td>
-      <td><span class="text-muted">-</span></td>
-      <td>{{ contract.beneficiar }}</td>
-      <td>
-        <ol><small>
-            {% for aplicatie in contract.aplicatii.all %}
-                <li><class="article-content"> {{ aplicatie }} </li> 
-            {% endfor %}  
-        
-            {% for serviciu in contract.servicii.all %}
-                <li><class="article-content"> {{ serviciu }} </li>
-            {% endfor %}
-            
-            {% for produs in contract.produse.all %}
-                <li><class="article-content"> {{ produs }} </li>  
-            {% endfor %}
-        </small></ol>
-      </td>
-      <td><span class="text-muted">-</span></td>
-      <td><span class="text-muted">-</span></td>
-      <td>{{ contract.observatii }}</td>
-      <td>
-        {% for document in documente %}
-        <li><small><a href="{{ document.documente.url }}" target='_blank' download>{{document}}</a></small></li>
+    <thead>
+        <tr>
+            <th>Nr. registru</th>
+            <th>Contract / Actaditional</th>
+            <th>Nr./Data</th>
+            <th>Nr./Data Beneficiar</th>
+            <th>Beneficiar</th>
+            <th>Produse / Servicii / Aplicatii</th>
+            <th>Valoare contract</th>
+            <th>Nr./Data Fisa de Analiza</th>
+            <th>Observatii</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in reg %}
+            <tr>
+                <td>{{ item.nr_registru }}</td>
+                <td>
+                    {% if item.nr_contract %}contract
+                    {% else %} act aditional <small> la contractul {{ item.contract.nr_contract }}/{{ item.contract.data_contract|date:'d.m.Y' }}</small>
+                    {% endif %}
+                </td>
+                <td>{{ item.nr_contract }}{{ item.nr_actaditional }}/{{ item.data_contract|date:'d.m.Y' }}{{ item.data_actaditional|date:'d.m.Y' }}</td>
+                <td><span class="text-muted">-</span></td>
+                <td>{{ item.beneficiar }}{{ item.contract.beneficiar }}</td>
+                <td>
+                    <ol><small>
+                        {% for aplicatie in item.aplicatii.all %}
+                            <li><class="article-content"> {{ aplicatie }} </li> 
+                        {% endfor %}  
+                        {% for aplicatie in item.contract.aplicatii.all %}
+                            <li><class="article-content"> {{ aplicatie }} </li> 
+                        {% endfor %}
+                    
+                        {% for serviciu in item.servicii.all %}
+                            <li><class="article-content"> {{ serviciu }} </li>
+                        {% endfor %}
+                        {% for serviciu in item.contract.servicii.all %}
+                        <li><class="article-content"> {{ serviciu }} </li>
+                        {% endfor %}
+                        
+                        {% for produs in item.produse.all %}
+                            <li><class="article-content"> {{ produs }} </li>  
+                        {% endfor %}
+                        {% for produs in item.contract.produse.all %}
+                            <li><class="article-content"> {{ produs }} </li>  
+                        {% endfor %}
+                    </small></ol>
+                </td>
+                <td><span class="text-muted">-</span></td>
+                <td><span class="text-muted">-</span></td>
+                <td><small>{{ item.observatii }}</small></td>
+            </tr>
         {% endfor %}
-      </td>
-    </tr>
-  {% endfor %}
-</tbody>
+    </tbody>
 </table>
 
 {% endblock content %}

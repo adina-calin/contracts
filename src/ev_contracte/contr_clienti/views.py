@@ -229,23 +229,12 @@ def sterge_actaditional(request, pk1, pk2):
 
 
 def rapoarte(request):
-    contracte = Contract.objects.all()
-    acteaditionale = ActAditional.objects.all()
-    for contract in contracte: 
-        aditionale = contract.actaditional_set.all()
-        aplicatii = contract.aplicatii.all()
-        produse = contract.produse.all()
-        servicii = contract.servicii.all()
-        documente = contract.contractscan_set.all()
+    reg = registru()
+    documente = ContractScan.objects.all()
 
     context = context = {
-        'contracte': contracte, 
-        'acteaditionale': acteaditionale,
-        'aditionale':aditionale, 
-        'aplicatii':aplicatii, 
-        'produse': produse, 
-        'servicii':servicii,
-        'documente': documente,
+        'reg': reg,
+        'documente': documente
     }
 
     return render(request, 'contr_clienti/registru.html', context)
