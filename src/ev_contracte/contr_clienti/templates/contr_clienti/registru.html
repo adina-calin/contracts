@@ -9,7 +9,7 @@
 </p>
 
 
-<table class="table mb-0">
+<table class="c">
     <thead>
         <tr>
             <th>Nr. registru</th>
@@ -26,14 +26,14 @@
     <tbody>
         {% for item in reg %}
             <tr>
-                <td>{{ item.nr_registru }}</td>
-                <td>
+                <td align="center">{{ item.nr_registru }}</td>
+                <td align="center">
                     {% if item.nr_contract %}contract
                     {% else %} act aditional <small> la contractul {{ item.contract.nr_contract }}/{{ item.contract.data_contract|date:'d.m.Y' }}</small>
                     {% endif %}
                 </td>
-                <td>{{ item.nr_contract }}{{ item.nr_actaditional }}/{{ item.data_contract|date:'d.m.Y' }}{{ item.data_actaditional|date:'d.m.Y' }}</td>
-                <td><span class="text-muted">-</span></td>
+                <td align="center">{{ item.nr_contract }}{{ item.nr_actaditional }}/{{ item.data_contract|date:'d.m.Y' }}{{ item.data_actaditional|date:'d.m.Y' }}</td>
+                <td align="center"><span class="text-muted">-</span></td>
                 <td>{{ item.beneficiar }}{{ item.contract.beneficiar }}</td>
                 <td>
                     <ol><small>
@@ -59,8 +59,8 @@
                         {% endfor %}
                     </small></ol>
                 </td>
-                <td><span class="text-muted">-</span></td>
-                <td><span class="text-muted">-</span></td>
+                <td align="center"><span class="text-muted">-</span></td>
+                <td align="center"><span class="text-muted">-</span></td>
                 <td><small>{{ item.observatii }}</small></td>
             </tr>
         {% endfor %}
