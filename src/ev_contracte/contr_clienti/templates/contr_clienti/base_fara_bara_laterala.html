@@ -26,17 +26,24 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
                 <a class="navbar-brand mr-4" href="{% url 'acasa' %}">Contracte CLIENȚI</a>  
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">  
-                <span class="navbar-toggler-icon"></span>  
-                </button>  
                 <div class="collapse navbar-collapse" id="navbarToggle">  
                     <div class="navbar-nav mr-auto">
                     {% if user.is_authenticated %} 
                         <a class="nav-item nav-link" href="{% url 'contract-nou' %}">Contract nou</a> 
                     {% endif %}
-                        <a class="nav-item nav-link" href="{% url 'rapoarte' %}" >Rapoarte</a> 
+                        <!-- Buton rapoarte -->
+                        <div class="btn-group">
+                            <a class="nav-item nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rapoarte</a>
+                            <div class="dropdown-menu"><small>
+                                <a class="dropdown-item" href="{% url 'rapoarte' %}">Registru</a>
+                                <a class="dropdown-item" href="#"><i>Raport 1 - in dezvoltare</i></a>
+                                <a class="dropdown-item" href="#"><i>Raport 2 - in dezvoltare</i></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'acasa' %}">Lista contracte</a>
+                            </small></div>
+                        </div>
                     </div>  
-                    <!-- Navbar Right Side -->  
+                    <!-- Bara de navigare - partea dreapta -->  
                     <div class="navbar-nav">
                         {% if user.is_authenticated %} 
                             <a class="nav-item nav-link" href="#">Profil</a>
