@@ -72,7 +72,7 @@
                         {% for contract in contracte_ex %}
                         <ul>
                         {% if contract.zile_pana_la_expirare is not None %}
-                        <small><li><a href="{% url 'contract-detail' contract.id %}"> Contractul {{contract}} exipra in <b> {{contract.zile_pana_la_expirare}} zile. </b></a></li></small>
+                        <small><li><a href="{% url 'contract-detail' contract.id %}" class='btn-outline-info'> Contractul {{contract}} exipra in <b> {{contract.zile_pana_la_expirare}} zile. </b></a></li></small>
                         {% endif %}
                         </ul>
                         {% endfor %}
@@ -81,7 +81,7 @@
                         <ul>
                         {% for contract in contracte_ex %}
                         {% if contract.zile_de_la_expirare is not None %}
-                        <small><li> <a href="{% url 'contract-detail' contract.id %}"> Contractul {{contract}} a expirat de <b style='color:red'> {{contract.zile_de_la_expirare}} zile. </b></a></li></small>
+                        <small><li> <a href="{% url 'contract-detail' contract.id %}" class='btn-outline-info'> Contractul {{contract}} a expirat de <b style='color:red'> {{contract.zile_de_la_expirare}} zile. </b></a></li></small>
                         {% endif %}
                         {% endfor %}
                         </ul>
