@@ -232,6 +232,10 @@ def rapoarte(request):
     reg = registru()
     documente = ContractScan.objects.all()
 
+    paginator = Paginator(reg, 10)
+    page = request.GET.get('page')
+    reg = paginator.get_page(page)
+
     context = context = {
         'reg': reg,
         'documente': documente
