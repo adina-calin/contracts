@@ -230,7 +230,6 @@ def sterge_actaditional(request, pk1, pk2):
 
 def rapoarte(request):
     reg = registru()
-    documente = ContractScan.objects.all()
 
     paginator = Paginator(reg, 10)
     page = request.GET.get('page')
@@ -238,7 +237,6 @@ def rapoarte(request):
 
     context = context = {
         'reg': reg,
-        'documente': documente
     }
 
     return render(request, 'contr_clienti/registru.html', context)
