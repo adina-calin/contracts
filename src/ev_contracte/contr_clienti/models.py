@@ -238,6 +238,11 @@ class ActAditional(models.Model):
     def __str__(self):
         return '{}/{}'.format(self.nr_actaditional, self.data_actaditional)
 
+    # @property
+    # def total(self):
+    #     '''cand adaug cantitatea (cant_s, cant_a, cant_p) in tabel ar fi util sa folosesc ceva de genul:'''
+    #     return self.price * self.quantity
+
 
 class ContractScan(models.Model):
     '''Salvarea documentelor aferente contractului/actului aditional'''
@@ -254,6 +259,7 @@ class ContractScan(models.Model):
         self.documente.delete()
         # self.uploaded_at.delete()
         super().delete(*args, **kwargs)
+
 
 def registru():
     '''Ordoneaza contractele si acteleaditonale in functie de numarul de registru'''
