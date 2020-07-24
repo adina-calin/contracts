@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from .models import *
 from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm
 from .filters import ContractFilter
+from django_xhtml2pdf.utils import pdf_decorator
 
 
 def home(request):
@@ -228,6 +229,7 @@ def sterge_actaditional(request, pk1, pk2):
     return render(request, 'contr_clienti/actaditional_confirm_delete.html', context)
 
 
+# @pdf_decorator
 def rapoarte(request):
     reg = registru()
 
