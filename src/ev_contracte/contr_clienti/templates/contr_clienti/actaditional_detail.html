@@ -26,7 +26,9 @@
 
                         <!--Stergerea documentelor aferente actuluiaditional-->
                         {% csrf_token %}
+                        {% if user.is_authenticated %} 
                         &nbsp;-->&nbsp;<a href="{% url 'documenta-delete' contract.id actaditional.id document.id %}" type="submit" class="btn-outline-info" data-toggle="modal" data-target="#stergeDocument">sterge</a>
+                        {% endif %} 
                         <div class="modal fade" id="stergeDocument" tabindex="-1" role="dialog" aria-labelledby="stergeDocumentLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -57,9 +59,11 @@
                     </small></li>
                 {% endfor %}
                 </ul>
+                {% if user.is_authenticated %} 
                 <small><a href="{% url 'actaditional-upload' contract.id actaditional.id %}" class="btn-outline-info">Incarca documente</a></small>
-            </div> 
-
+                {% endif %} 
+              </div> 
+            {% if user.is_authenticated %} 
             <!--Actualizarea actului aditional-->
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'actaditional-update' contract.id actaditional.id %}">Actualizeaza date Act Aditional</a> 
             
@@ -67,6 +71,7 @@
             <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeActAditional">
                 Sterge Act Aditional
             </button>
+            {% endif %} 
             <div class="modal fade" id="stergeActAditional" tabindex="-1" role="dialog" aria-labelledby="stergeActAditionalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
