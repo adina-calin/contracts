@@ -1,0 +1,9 @@
+{% extends "contr_clienti/base_fara_bara_laterala.html" %}
+{% block content %}
+    <h2>Ai fost deconectat!</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'login' %}">Conecteaza-te din nou!</a>
+        </small>
+    </div>
+{% endblock content %}

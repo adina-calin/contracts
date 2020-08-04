@@ -1,0 +1,22 @@
+  
+{% extends "contr_clienti/base_fara_bara_laterala.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Conecteaza-te!</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Conectare</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Ai nevoie de cont? <a class="ml-2" href="{% url 'register' %}">Creaza un cont acum!</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

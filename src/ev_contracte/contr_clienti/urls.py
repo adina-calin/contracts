@@ -16,4 +16,5 @@ urlpatterns = [
     path('contract/<int:pk1>/<int:pk3>/deleteupload/', views.sterge_documentc, name='documentc-delete'),
     path('contract/<int:pk1>/actaditional/<int:pk2>/<int:pk3>/deleteupload/', views.sterge_documenta, name='documenta-delete'),
     path('rapoarte/', views.rapoarte, name='rapoarte'),
+    path('rapoarte/registruPdf', views.listare_registru, name='registru-pdf')
 ]

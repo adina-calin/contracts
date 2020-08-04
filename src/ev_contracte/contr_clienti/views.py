@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .models import *
+from .models import Contract, ActAditional, ContractScan, registru
 from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm
 from .filters import ContractFilter
-from django_xhtml2pdf.utils import pdf_decorator
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import StringIO, BytesIO
+# from xhtml2pdf.utils import generate_pdf
+
 
 
 def home(request):
@@ -229,7 +233,6 @@ def sterge_actaditional(request, pk1, pk2):
     return render(request, 'contr_clienti/actaditional_confirm_delete.html', context)
 
 
-# @pdf_decorator
 def rapoarte(request):
     reg = registru()
 
@@ -244,3 +247,24 @@ def rapoarte(request):
     return render(request, 'contr_clienti/registru.html', context)
 
 
+# def listare_registru(request):
+#     reg = registru()
+
+#     context = context = {
+#         'reg': reg,
+#     }
+
+#     template=get_template('registru_print.html')
+#     context_p=template.render(context)
+#     response=BytesIO()
+
+#     pdfPage=pisa.pisaDocument(BytesIO(context_p.encode('UTF-8')), response)
+#     if not pdfPage.err:
+#         return HttpResponse(response.getvalue(), content_type='application/pdf')
+#     else:
+#         return HttpResponse('Eroare la generarea pdf-ului.')
+
+def listare_registru(response):
+    resp = HttpResponse(content_type='application/pdf')
+    result = generate_pdf('registru_print.html', file_object=resp)
+    return result    
