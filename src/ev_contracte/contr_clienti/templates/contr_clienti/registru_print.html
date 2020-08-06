@@ -1,0 +1,165 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Registru evidenta Contracte #</title>
+
+    <style>
+    .registru-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+    .registru-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+
+    .registru-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    .registru-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+
+    .registru-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+
+    .registru-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+
+    .registru-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+
+    .registru-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+
+    .registru-box table tr.details td {
+        padding-bottom: 20px;
+    }
+
+    .registru-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+
+    .registru-box table tr.item.last td {
+        border-bottom: none;
+    }
+
+    .registru-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .registru-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .registru-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+
+
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+
+    .rtl table {
+        text-align: right;
+    }
+
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+
+    </style>
+</head>
+
+
+<body>
+    <<table class="c">
+        <thead>
+            <tr>
+                <th>Nr. registru</th>
+                <th>Contract / Actaditional</th>
+                <th>Nr./Data</th>
+                <th>Nr./Data Beneficiar</th>
+                <th>Beneficiar</th>
+                <th>Produse / Servicii / Aplicatii</th>
+                <th>Valoare contract</th>
+                <th>Nr./Data Fisa de Analiza</th>
+                <th>Observatii</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in reg %}
+                <tr>
+                    <td align="center">{{ item.nr_registru }}</td>
+                    <td align="center">
+                        {% if item.nr_contract %}contract
+                        {% else %} act aditional <small> la contractul {{ item.contract.nr_contract }}/{{ item.contract.data_contract|date:'d.m.Y' }}</small>
+                        {% endif %}
+                    </td>
+                    <td align="center">{{ item.nr_contract }}{{ item.nr_actaditional }}/{{ item.data_contract|date:'d.m.Y' }}{{ item.data_actaditional|date:'d.m.Y' }}</td>
+                    <td align="center"><span class="text-muted">-</span></td>
+                    <td>{{ item.beneficiar }}{{ item.contract.beneficiar }}</td>
+                    <td>
+                        <ol><small>
+                            {% for aplicatie in item.aplicatii.all %}
+                                <li><class="article-content"> {{ aplicatie }} </li> 
+                            {% endfor %}  
+                            {% for aplicatie in item.contract.aplicatii.all %}
+                                <li><class="article-content"> {{ aplicatie }} </li> 
+                            {% endfor %}
+                        
+                            {% for serviciu in item.servicii.all %}
+                                <li><class="article-content"> {{ serviciu }} </li>
+                            {% endfor %}
+                            {% for serviciu in item.contract.servicii.all %}
+                            <li><class="article-content"> {{ serviciu }} </li>
+                            {% endfor %}
+                            
+                            {% for produs in item.produse.all %}
+                                <li><class="article-content"> {{ produs }} </li>  
+                            {% endfor %}
+                            {% for produs in item.contract.produse.all %}
+                                <li><class="article-content"> {{ produs }} </li>  
+                            {% endfor %}
+                        </small></ol>
+                    </td>
+                    <td align="center"><span class="text-muted">-</span></td>
+                    <td align="center"><span class="text-muted">-</span></td>
+                    <td><small>{{ item.observatii }}</small></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    
+</body>
+</html>
