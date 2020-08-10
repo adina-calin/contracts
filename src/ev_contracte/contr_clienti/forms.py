@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import ActAditional, Contract, ContractScan, CategorieContract
+from .models import ActAditional, Contract, ContractScan, CategorieContract, Produse
 
 
 class ActAditionalForm(forms.ModelForm):
@@ -59,7 +59,13 @@ class ContractForm(forms.ModelForm):
         model = Contract 
 
         fields = ['nr_registru', 'tip_contract', 'nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse', 'servicii', 'aplicatii', 'observatii']
-   
+
+        choices_p = []
+        produse = Produse.objects.all()
+        for produs in produse:
+            choices_p.append(str(produs))
+
+
         labels = {
             'nr_registru': 'Numar registru',
             'nr_contract': 'număr',
@@ -72,9 +78,9 @@ class ContractForm(forms.ModelForm):
             'data_incepere_contract': '*Format data: aaaa-ll-zz.',
             'data_sfarsit_contract': '*Format data: aaaa-ll-zz.',
             'data_contract': '*Format data: aaaa-ll-zz.',
-            'produse': '*Pentru a selecta mai multe produse apăsați CTRL',
-            'servicii': '*Pentru a selecta mai multe servicii apăsați CTRL',
-            'aplicatii': '*Pentru a selecta mai multe aplicații apăsați CTRL',
+            'produse': '*Selectați produsele aferente contractului',
+            'servicii': '*Selectați produsele aferente contractului',
+            'aplicatii': '*Selectați produsele aferente contractului',
             'observatii': '*Introduceti detalii suplimentare despre contract'
         }
 
@@ -87,8 +93,8 @@ class ContractForm(forms.ModelForm):
             'beneficiar': forms.Select(attrs={'class': 'form-control'}),
             'data_incepere_contract': forms.DateInput(format='d.m.Y'),
             'data_sfarsit_contract': forms.DateInput(format='d.m.Y'),
-            'produse': forms.SelectMultiple(attrs={'class': 'form-control', 'size': 3}),
-            'servicii': forms.SelectMultiple(attrs={'class': 'form-control', 'size': 3}),
-            'aplicatii': forms.SelectMultiple(attrs={'class': 'form-control', 'size': 3}),
+            'produse': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}, choices=choices_p),
+            'servicii': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
+            'aplicatii': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
             'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
         }
