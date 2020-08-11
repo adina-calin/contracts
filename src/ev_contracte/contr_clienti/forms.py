@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from django import forms
+from bootstrap_datepicker_plus import DatePickerInput
 from .models import ActAditional, Contract, ContractScan, CategorieContract, Produse
 
 
@@ -75,9 +76,9 @@ class ContractForm(forms.ModelForm):
         }
 
         help_texts = {
-            'data_incepere_contract': '*Format data: aaaa-ll-zz.',
-            'data_sfarsit_contract': '*Format data: aaaa-ll-zz.',
-            'data_contract': '*Format data: aaaa-ll-zz.',
+            'data_incepere_contract': '*Format data: ll/zz/aaaa.',
+            'data_sfarsit_contract': '*Format data: ll/zz/aaaa.',
+            'data_contract': '*Format data: ll/zz/aaaa.',
             'produse': '*Selectați produsele aferente contractului',
             'servicii': '*Selectați produsele aferente contractului',
             'aplicatii': '*Selectați produsele aferente contractului',
@@ -88,12 +89,12 @@ class ContractForm(forms.ModelForm):
             'nr_registru ': forms.NumberInput(),
             'tip_contract': forms.Select(attrs={'class': 'form-control'}),
             'nr_contract': forms.NumberInput(),
-            'data_contract': forms.DateInput(format='d.m.Y'),
+            'data_contract': DatePickerInput(),
             # 'data_contract': forms.SelectDateWidget(attrs=({'style': 'width: 33%; display: inline-block;'})),
             'beneficiar': forms.Select(attrs={'class': 'form-control'}),
-            'data_incepere_contract': forms.DateInput(format='d.m.Y'),
-            'data_sfarsit_contract': forms.DateInput(format='d.m.Y'),
-            'produse': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}, choices=choices_p),
+            'data_incepere_contract': DatePickerInput(),
+            'data_sfarsit_contract': DatePickerInput(),
+            'produse': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
             'servicii': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
             'aplicatii': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
             'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),

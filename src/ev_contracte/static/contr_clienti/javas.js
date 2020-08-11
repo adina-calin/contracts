@@ -47,7 +47,8 @@ updateTextArea();
 });
 
 
-$('#example1').datepicker({
-  autoclose: true,  
-  format: "dd/mm/yyyy"
-}); 
+$('.datepicker').datepicker({
+  format: 'dd/mm/yyyy'
+});
+
+

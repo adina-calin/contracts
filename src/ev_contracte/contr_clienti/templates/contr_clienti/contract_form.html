@@ -2,9 +2,17 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% load bootstrap4 %} 
+{% bootstrap_css %}   
+{% bootstrap_javascript jquery='full' %} 
+
+
+
+
 {% block content %}
 
 {{ block.super }}
+{{ form.media }}
 
 <h3> Contract nou </h3>
 <form method="post">
@@ -105,6 +113,7 @@
     </div>
 <br>
     <button type="submit" class="btn btn-primary">Salveaza contract</button>
+    <a class="btn btn-outline-secondary" href="{% url 'acasa' %}"">Renunta</a>
 </form>
 <br><br>
 

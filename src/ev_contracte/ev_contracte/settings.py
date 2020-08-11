@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_extensions',
     'django_filters',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
 ]
 
 
@@ -140,6 +142,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
