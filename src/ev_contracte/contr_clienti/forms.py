@@ -1,6 +1,8 @@
 from django.forms import ModelForm
 from django import forms
 from bootstrap_datepicker_plus import DatePickerInput
+from django.core import validators
+from django.core.exceptions import ValidationError
 from .models import ActAditional, Contract, ContractScan, CategorieContract, Produse
 
 
@@ -28,6 +30,7 @@ class ContractUForm(forms.ModelForm):
         model = ContractScan
         fields = ('documente', 'contract')
 
+
 class ContractAAUForm(forms.ModelForm):
     class Meta():
         model = ContractScan
@@ -38,9 +41,9 @@ class ContractForm(forms.ModelForm):
 
     class Meta():
         model = Contract 
-
+        
         fields = ['nr_registru', 'tip_contract', 'nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse', 'servicii', 'aplicatii', 'observatii']
-
+        
         labels = {
             'nr_registru': 'Numar registru',
             'nr_contract': 'număr',
@@ -72,4 +75,13 @@ class ContractForm(forms.ModelForm):
             'aplicatii': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
             'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
         }
+
+    def clean_data_sfarsit_contract(self):
+        data_incepere_contract = self.cleaned_data.get('data_incepere_contract')
+        data_sfarsit_contract = self.cleaned_data.get('data_sfarsit_contract')
+
+        if data_incepere_contract and data_sfarsit_contract:
+            if data_incepere_contract > data_sfarsit_contract:
+                raise forms.ValidationError("Data este anterioara datei de inceput!")
+            return data_sfarsit_contract
 
