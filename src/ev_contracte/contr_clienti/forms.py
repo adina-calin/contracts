@@ -23,26 +23,6 @@ class ActAditionalForm(forms.ModelForm):
         # }
 
 
-# class ContractForm(forms.ModelForm):
-#     class Meta():
-#         model = Contract
-#         fields = ('nr_registru', 'tip_contract', 'nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse', 'servicii', 'aplicatii', 'observatii')
-
-#         widgets = {
-#             'nr_registru': forms.TextInput(attrs={'class': 'form-control'}),
-#             'tip_contract': forms.Select(attrs={'class': 'form-control'}),
-#             'nr_contract': forms.TextInput(attrs={'class': 'form-control'}),
-#             'data_contract': forms.TextInput(attrs={'class': 'form-control'}),
-#             'beneficiar': forms.Select(attrs={'class': 'form-control'}),
-#             'data_incepere_contract': forms.TextInput(attrs={'class': 'form-control'}),
-#             'data_sfarsit_contract': forms.TextInput(attrs={'class': 'form-control'}),
-#             'produse': forms.SelectMultiple(attrs={'class': 'form-control'}),
-#             'servicii': forms.SelectMultiple(attrs={'class': 'form-control'}),
-#             'aplicatii': forms.SelectMultiple(attrs={'class': 'form-control'}),
-#             'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': "3"}),
-#         }
-
-
 class ContractUForm(forms.ModelForm):
     class Meta():
         model = ContractScan
@@ -60,12 +40,6 @@ class ContractForm(forms.ModelForm):
         model = Contract 
 
         fields = ['nr_registru', 'tip_contract', 'nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse', 'servicii', 'aplicatii', 'observatii']
-
-        choices_p = []
-        produse = Produse.objects.all()
-        for produs in produse:
-            choices_p.append(str(produs))
-
 
         labels = {
             'nr_registru': 'Numar registru',
@@ -90,7 +64,6 @@ class ContractForm(forms.ModelForm):
             'tip_contract': forms.Select(attrs={'class': 'form-control'}),
             'nr_contract': forms.NumberInput(),
             'data_contract': DatePickerInput(),
-            # 'data_contract': forms.SelectDateWidget(attrs=({'style': 'width: 33%; display: inline-block;'})),
             'beneficiar': forms.Select(attrs={'class': 'form-control'}),
             'data_incepere_contract': DatePickerInput(),
             'data_sfarsit_contract': DatePickerInput(),
@@ -99,3 +72,4 @@ class ContractForm(forms.ModelForm):
             'aplicatii': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
             'observatii': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
         }
+
