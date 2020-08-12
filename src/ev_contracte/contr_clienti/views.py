@@ -7,6 +7,7 @@ from .filters import ContractFilter
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import StringIO, BytesIO
+from django.contrib import messages
 # from xhtml2pdf.utils import generate_pdf
 
 
@@ -144,6 +145,7 @@ def creeaza_contract(request):
         form = ContractForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Contractul s-a creat cu succes!')
             return redirect('acasa')
 
     context = {'form': form}
