@@ -34,6 +34,20 @@ $(function() {
   updateTextArea3();
 });
 
+
+function updateTextArea4() {         
+  var allVals = [];
+  $('#r_r :checked').each(function() {
+    allVals.push($(this).val());
+  });
+  $('#r').val(allVals);
+}
+$(function() {
+  $('#r_r input').click(updateTextArea4);
+  updateTextArea4();
+});
+
+
 function updateTextArea() {         
   var allVals = [];
   $('#c_b :checked').each(function() {

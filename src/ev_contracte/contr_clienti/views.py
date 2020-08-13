@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .models import Contract, ActAditional, ContractScan, registru
-from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm
+from .models import Contract, ActAditional, ContractScan, registru, Clienti
+from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm, ClientiForm
 from .filters import ContractFilter
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -169,6 +169,20 @@ def creeaza_actaditional(request, pk1):
             return redirect('contract-detail', contract.id)
 
     return render(request, 'contr_clienti/actaditional_form.html', context)
+
+
+def creeaza_client(request):
+    form = ClientiForm
+    if request.method == 'POST':
+        form = ClientiForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Clientul s-a creat cu succes!')
+            return redirect('acasa')
+
+    context = {'form': form}
+
+    return render(request, 'contr_clienti/client_form.html', context)
 
 
 def update_contract(request, pk1):

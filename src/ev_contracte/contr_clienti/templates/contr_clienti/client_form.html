@@ -1,0 +1,110 @@
+{% extends "contr_clienti/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% load bootstrap4 %} 
+{% bootstrap_css %}   
+{% bootstrap_javascript jquery='full' %} 
+
+
+
+
+{% block content %}
+
+{{ block.super }}
+{{ form.media }}
+
+<h3> Adauga client nou </h3>
+<form method="post">
+    {% csrf_token %}
+<br><h4>Date societate</h4>
+    <div class="form-row">
+        <div class="form-group col-md-10 mb-0">
+            {{ form.societate|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-3 mb-0">
+            {{ form.cod_fiscal|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-1 mb-0"></div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.nr_registrul_comertului|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4 mb-0">
+            {{ form.platitor_tva|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-10 mb-0">
+            {{ form.sediul_social|as_crispy_field }}
+        </div>
+    </div>
+
+<br><h4>Reprezentanti</h4>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle col-md-6 mb-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Selecteaza reprezentantii societatii
+        </button>
+        <div class="form-row ">
+            <div class="form-group dropdown-menu col-md-6 mb-0" aria-labelledby="dropdownMenuButton" id="r_r">
+                {{ form.reprezentant|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                <input type="text" readonly class="form-control-plaintext" id="r" />
+            </div>
+        </div>    
+    </div><br>
+
+<br><h4>Date bancare</h4>
+
+    <div class="form-row" type='date'>
+        <div class="form-group col-md-5 mb-0">
+            {{ form.iban|as_crispy_field }}
+            
+        </div>
+        <div class="form-group col-md-1 mb-0"></div>
+        <div class="form-group col-md-4 mb-0">
+            {{ form.banca_cont|as_crispy_field}}
+        </div>    
+    </div>
+
+<br><h4>Puncte de lucru</h4>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.punct_de_lucru|as_crispy_field }}
+        </div>
+    </div>
+
+<br><h4>Persoane de contact</h4>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.persoana_contact|as_crispy_field }}
+        </div>
+    </div>
+
+
+
+
+
+<br>
+    <button type="submit" class="btn btn-primary">Salveaza client</button>
+    <a class="btn btn-outline-secondary" href="{% url 'acasa' %}"">Renunta</a>
+</form>
+<br><br>
+
+{% endblock content %}
+
+{% block js_block %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="{% static 'contr_clienti/javas.js' %}"></script>
+{% endblock %}
+
