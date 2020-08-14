@@ -18,6 +18,7 @@ urlpatterns = [
     path('rapoarte/', views.rapoarte, name='rapoarte'),
     path('rapoarte/registruPdf', views.listare_registru, name='registru-pdf'),
     # path('clienti/', views.rapoarte, name='rapoarte'),
-    path('clienti/new', views.creeaza_client, name='client-nou'),
-    path('clienti/reprezentanti/new', views.creeaza_reprezentant, name='reprezentant-nou'),
+    path('client/<int:pk4>/', views.client_detalii, name='client-detail'),
+    path('client/new', views.creeaza_client, name='client-nou'),
+    path('client/reprezentanti/new', views.creeaza_reprezentant, name='reprezentant-nou'),
 ]

@@ -144,9 +144,11 @@ def creeaza_contract(request):
     if request.method == 'POST':
         form = ContractForm(request.POST)
         if form.is_valid():
-            form.save()
+            # form.save()
+            new_contract = form.save()
+            contract = Contract.objects.get(id=new_contract.id)
             messages.success(request, f'Contractul s-a creat cu succes!')
-            return redirect('acasa')
+            return redirect('contract-detail', contract.id)
 
     context = {'form': form}
 
@@ -171,17 +173,36 @@ def creeaza_actaditional(request, pk1):
     return render(request, 'contr_clienti/actaditional_form.html', context)
 
 
+def client_detalii(request, pk4):
+    client = Clienti.objects.get(id=pk4)
+    # acteaditionale = contract.actaditional_set.all()
+    # aplicatii = contract.aplicatii.all()
+    # produse = contract.produse.all()
+    # servicii = contract.servicii.all()
+    # documente = contract.contractscan_set.all()
+
+    context = {
+        'client': client, 
+        # 'acteaditionale':acteaditionale, 
+        # 'aplicatii':aplicatii, 
+        # 'produse': produse, 
+        # 'servicii':servicii,
+        # 'documente': documente,
+        }
+
+    return render(request, 'contr_clienti/client_detail.html', context)
+
+
 def creeaza_client(request):
-    formr = ReprezentantForm
     form = ClientiForm
     if request.method == 'POST':
         form = ClientiForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, f'Clientul s-a creat cu succes!')
-            return redirect('acasa')
+            new_client = form.save()
+            client = Clienti.objects.get(id=new_client.id)
+            return redirect('client-detail', client.id)
 
-    context = {'form': form, 'formr': formr}
+    context = {'form': form}
 
     return render(request, 'contr_clienti/client_form.html', context)
 

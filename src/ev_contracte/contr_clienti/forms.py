@@ -91,11 +91,12 @@ class ClientiForm(forms.ModelForm):
     class Meta():
         model = Clienti
         
-        fields = ['societate', 'sediul_social', 'punct_de_lucru', 'cod_fiscal', 'platitor_tva', 'nr_registrul_comertului', 'iban', 'banca_cont', 'reprezentant', 'persoana_contact']
-        
+        fields = ['societate', 'cod_fiscal', 'platitor_tva', 'nr_registrul_comertului', 'iban', 'banca_cont']
+        # 'sediul_social', 'punct_de_lucru', , 'reprezentant', 'persoana_contact'
+
         labels = {
             'nr_registrul_comertului': 'Numarul de inreg. la Reg. Comertului',
-            'persoana_contact': 'Persoane de contact',
+            # 'persoana_contact': 'Persoane de contact',
         #     'data_contract': 'data',
         #     'data_incepere_contract': 'Contractul începe în:',
         #     'data_sfarsit_contract': 'și se încheie în:'
@@ -113,15 +114,15 @@ class ClientiForm(forms.ModelForm):
 
         widgets = {
             'societate': forms.TextInput(),
-            'sediul_social': forms.Select(attrs={'class': 'form-control'}),
-            'punct_de_lucru': forms.Select(attrs={'class': 'form-control'}),
+            # 'sediul_social': forms.Select(attrs={'class': 'form-control'}),
+            # 'punct_de_lucru': forms.Select(attrs={'class': 'form-control'}),
             'cod_fiscal': forms.TextInput(),
             'platitor_tva': forms.CheckboxInput(attrs={'class' : 'bootstrap-select'}),
             'nr_registrul_comertului': forms.TextInput(),
             'iban': forms.TextInput(),
             'banca_cont': forms.TextInput(),
-            'reprezentant': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
-            'persoana_contact': forms.Select(attrs={'class': 'form-control'}),
+            # 'reprezentant': forms.CheckboxSelectMultiple(attrs={'class': 'form-control', 'size': 3}),
+            # 'persoana_contact': forms.Select(attrs={'class': 'form-control'}),
         }
 
 

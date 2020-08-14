@@ -1,0 +1,20 @@
+{% extends 'contr_clienti/base.html' %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">    
+            <div class="article-metadata">
+                <a class="btn-outline-info" type="submit" href="#">Client</a><br>
+                <small class="text-muted mr-3"> Nr. reg.: # </small>
+                {% if user.is_authenticated %} 
+                <a class="float-right" href="#">+ Act Aditional</a>
+                {% endif %}
+            </div>
+            <h2 class="article-title">{{ client.societate }}</h2>
+            <small class="text-muted"> Cod de inregistrare fiscala: <b>{{ client.cod_fiscal }} / {{ client.platitor_tva }}</b></small><br>
+            
+            <small class="text-muted"> PNr. Registrul comertului: <b>{{ client.nr_registrul_comertului }}</b></small><br>
+           
+            <small class="text-muted"> Date bancare: <b>{{ client.banca_cont }} - {{ client.iban }}</b></small><br>
+        </div>
+    </article>
+{% endblock content %}
