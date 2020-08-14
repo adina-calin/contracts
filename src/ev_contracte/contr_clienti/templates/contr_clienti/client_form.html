@@ -59,7 +59,46 @@
             <div class="form-group col-md-6 mb-0">
                 <input type="text" readonly class="form-control-plaintext" id="r" />
             </div>
-        </div>    
+        </div> 
+        
+        <!--Adaugare reprezentant (Bootstrap Modal)-->
+        <button type="button" class="btn btn-primary btn-sm mt-1 mb-1" data-toggle="modal" data-target="#adaugaReprezentant">
+            Adauga reprezentant
+        </button>
+        <div class="modal fade" id="adaugaReprezentant" tabindex="-1" role="dialog" aria-labelledby="adaugaReprezentantLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="adaugaReprezentantLabel">ADAUGA Reprezentant</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{% url 'reprezentant-nou' %}" method="POST">
+                <div class="modal-body">
+                    <fieldset class="form-group">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-8 mb-0">
+                                    {{ formr|crispy }}
+                                </div>
+                            </div>
+                        <br>
+                            <button class="btn btn-primary" data-target="#adaugaReprezentant">Salveaza reprezentant</button>
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Renunta</a>
+                        <br>
+                    </fieldset>   
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <i>*Adauga reprezentantii societatii pe care o creezi!</i>
+                    </div>
+                </div>
+                </form>
+              </div>
+            </div>
+
+
     </div><br>
 
 <br><h4>Date bancare</h4>
