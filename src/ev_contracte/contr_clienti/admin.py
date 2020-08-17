@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import CheckboxSelectMultiple
 from dynamic_raw_id.admin import DynamicRawIDMixin
-from .models import Reprezentant, PersoanaContact, Adresa, Clienti, CategorieContract, Produse, AplicatiiInfo98, Contract, ServiciiInformatice, ActAditional, ContractScan
+from .models import Reprezentant, PersoanaContact, AdresaSS, AdresaPL, Clienti, CategorieContract, Produse, AplicatiiInfo98, Contract, ServiciiInformatice, ActAditional, ContractScan
 
 
 @admin.register(Clienti)
@@ -9,17 +9,17 @@ class  ClientiAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ('Date societate', {'fields': ['societate', 'cod_fiscal', 'platitor_tva', 'nr_registrul_comertului', 'sediul_social']}),
-        ('Reprezentanți', {'fields': ['reprezentant']}),
+        # ('Reprezentanți', {'fields': ['reprezentant_set.all']}),
         ('Puncte de lucru', {'fields': ['punct_de_lucru']}),
         ('Date bancare', {'fields': ['iban', 'banca_cont']}),
-        ('Pesoane de contact', {'fields': ['persoana_contact']})
+        # ('Pesoane de contact', {'fields': ['persoana_contact']})
     ]
 
     list_display = ('societate', 'cod_fiscal', 'platitor_tva', 'nr_registrul_comertului', 'sediul_social', 'reprezentant_societate')
     list_filter = ('societate', 'cod_fiscal', 'platitor_tva', 'sediul_social')
 
     def reprezentant_societate(self, object):
-        return ', '.join(str(reprezentant) for reprezentant in object.reprezentant.all())
+        return ', '.join(str(reprezentant) for reprezentant in object.reprezentant_set.all())
 
 
 class ContractScanAdmin(admin.StackedInline):
@@ -97,7 +97,8 @@ class ActAditionalAdmin(DynamicRawIDMixin, admin.ModelAdmin):
 
 admin.site.register(Reprezentant)
 admin.site.register(PersoanaContact)
-admin.site.register(Adresa)
+admin.site.register(AdresaSS)
+admin.site.register(AdresaPL)
 admin.site.register(CategorieContract)
 admin.site.register(Produse)
 admin.site.register(ServiciiInformatice)
