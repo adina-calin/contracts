@@ -144,6 +144,7 @@ class PersoanaContact(AbstractReprezentant):
 
 
 class AdresaPL(models.Model):
+    nume_pl = models.CharField(max_length=255, null=True, blank=True)
     localitate = models.CharField(max_length=255)
     strada = models.CharField(max_length=255)
     numar = models.CharField(max_length=255)
