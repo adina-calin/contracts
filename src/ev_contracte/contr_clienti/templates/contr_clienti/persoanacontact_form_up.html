@@ -14,7 +14,7 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3> Adauga reprezentant</h3>
+<h3> Modifica Persoana de contact</h3>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
@@ -47,8 +47,8 @@
         </div>
     </div>
 <br>
-    <button type="submit" class="btn btn-primary">Salveaza reprezentant</button>
-    <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Renunta</a>
+    <button type="submit" class="btn btn-primary">Salveaza persoana de contact</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunta</a>
 </form>
 <br><br>
 

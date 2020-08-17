@@ -3,7 +3,7 @@ from django import forms
 from bootstrap_datepicker_plus import DatePickerInput
 from django.core import validators
 from django.core.exceptions import ValidationError
-from .models import ActAditional, Contract, Reprezentant, ContractScan, CategorieContract, Produse, Clienti
+from .models import ActAditional, Contract, Reprezentant, ContractScan, CategorieContract, Produse, Clienti, PersoanaContact
 
 
 class ActAditionalForm(forms.ModelForm):
@@ -131,28 +131,12 @@ class ReprezentantForm(forms.ModelForm):
     class Meta():
         model = Reprezentant
         
-        fields = ['nume', 'email', 'telefon', 'functie']
+        fields = ['nume', 'email', 'telefon', 'functie', 'client']
         
-        labels = {
-            'nume': 'Nume, Prenume',
-        #     'data_contract': 'data',
-        #     'data_incepere_contract': 'Contractul începe în:',
-        #     'data_sfarsit_contract': 'și se încheie în:'
-        }
 
-        # help_texts = {
-        #     'data_incepere_contract': '*Format data: ll/zz/aaaa.',
-        #     'data_sfarsit_contract': '*Format data: ll/zz/aaaa.',
-        #     'data_contract': '*Format data: ll/zz/aaaa.',
-        #     'produse': '*Selectați produsele aferente contractului',
-        #     'servicii': '*Selectați produsele aferente contractului',
-        #     'aplicatii': '*Selectați produsele aferente contractului',
-        #     'observatii': '*Introduceti detalii suplimentare despre contract'
-        # }
+class PersoanaContactForm(forms.ModelForm):
 
-        widgets = {
-            'nume': forms.TextInput(),
-            'email': forms.EmailInput(),
-            'telefon': forms.TextInput(),
-            'functie': forms.Select(),
-        }
+    class Meta():
+        model = PersoanaContact
+        
+        fields = ['nume', 'email', 'telefon', 'functie', 'client']

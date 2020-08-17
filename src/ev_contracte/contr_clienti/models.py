@@ -83,12 +83,43 @@ class AplicatiiInfo98(models.Model):
         return self.aplicatie
 
 
+class AdresaSS(models.Model):
+    localitate = models.CharField(max_length=255)
+    strada = models.CharField(max_length=255)
+    numar = models.CharField(max_length=255)
+    judet = models.CharField(max_length=255)
+
+    def __str__(self):
+        return '{}, str. {}, nr. {}, judet {}'.format(self.localitate, self.strada, self.numar, self.judet)
+
+    class Meta:
+        verbose_name_plural = 'Adrese'
+
+
+class Clienti(models.Model):
+    '''Toate datele clientului necesare a fi trecute pe contract'''
+    societate = models.CharField(max_length=255)
+    sediul_social = models.OneToOneField(AdresaSS, on_delete=models.CASCADE, null=True, related_name = 'sediu')
+    cod_fiscal = models.IntegerField()
+    platitor_tva = models.BooleanField(default=None)
+    nr_registrul_comertului = models.CharField(max_length=255, null=True, blank=True)
+    iban = models.CharField(max_length=255)
+    banca_cont = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.societate
+
+    class Meta:
+        verbose_name_plural = 'Clienti'
+
+
 class AbstractReprezentant(models.Model):
     '''Modelul pe care il mosteneste clasa de reprezentanti si clasa de persoane de contact.'''
     nume = models.CharField(max_length=255)
     email = models.EmailField(null=True, blank=True)
     telefon = models.IntegerField(null=True, blank=True)
-    functie = models.IntegerField(choices=functii)
+    functie = models.CharField(max_length=255)
+    client = models.ForeignKey(Clienti, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return '{} - {}'.format(str(self.functie), self.nume)
@@ -107,43 +138,23 @@ class Reprezentant(AbstractReprezentant):
 
 class PersoanaContact(AbstractReprezentant):
     '''Persoanele de contact pentru un anumit contract. Pot fi dintre reprezentantii sociatatii.'''
-    functie = models.CharField(max_length=255)
 
     class Meta:
         verbose_name_plural = 'Persoane de contact'
 
 
-class Adresa(models.Model):
+class AdresaPL(models.Model):
     localitate = models.CharField(max_length=255)
     strada = models.CharField(max_length=255)
     numar = models.CharField(max_length=255)
     judet = models.CharField(max_length=255)
+    client = models.ForeignKey(Clienti, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return '{}, str. {}, nr. {}, judet {}'.format(self.localitate, self.strada, self.numar, self.judet)
 
     class Meta:
         verbose_name_plural = 'Adrese'
-
-
-class Clienti(models.Model):
-    '''Toate datele clientului necesare a fi trecute pe contract'''
-    societate = models.CharField(max_length=255)
-    sediul_social = models.OneToOneField(Adresa, on_delete=models.CASCADE, null=True, related_name = 'sediu')
-    punct_de_lucru = models.ManyToManyField(Adresa, blank=True)
-    cod_fiscal = models.IntegerField()
-    platitor_tva = models.BooleanField(default=None)
-    nr_registrul_comertului = models.CharField(max_length=255, null=True, blank=True)
-    iban = models.CharField(max_length=255)
-    banca_cont = models.CharField(max_length=255)
-    reprezentant = models.ManyToManyField(Reprezentant)
-    persoana_contact = models.ManyToManyField(PersoanaContact)
-
-    def __str__(self):
-        return self.societate
-
-    class Meta:
-        verbose_name_plural = 'Clienti'
 
 
 def increment_nr_reg():

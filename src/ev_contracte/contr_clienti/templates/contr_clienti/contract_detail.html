@@ -81,7 +81,7 @@
                                 <div class="modal-footer">
                                     <div class="form-group">
                                         <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
-                                        <a class="btn btn-outline-secondary" href="{% url 'contract-detail' contract.id %}"">Anuleaza</a>
+                                        <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anuleaza</a>
                                     </div>
                                 </div>
                                 </form>
@@ -113,7 +113,7 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form action="{% url 'contract-delete' contract.id %}" method="POST">
+                    <form action="{% url 'contract-update' contract.id %}" method="POST">
                     <div class="modal-body">
                         <fieldset class="form-group">
                                 {% csrf_token %}

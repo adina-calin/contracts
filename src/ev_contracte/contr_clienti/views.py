@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .models import Contract, ActAditional, ContractScan, registru, Clienti, Reprezentant
-from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm, ClientiForm, ReprezentantForm
+from .models import Contract, ActAditional, ContractScan, registru, Clienti, Reprezentant, PersoanaContact
+from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm
 from .filters import ContractFilter
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -175,17 +175,20 @@ def creeaza_actaditional(request, pk1):
 
 def client_detalii(request, pk4):
     client = Clienti.objects.get(id=pk4)
-    # acteaditionale = contract.actaditional_set.all()
-    # aplicatii = contract.aplicatii.all()
+    reprezentanti = client.reprezentant_set.all()
+    form = ReprezentantForm(initial={'client': client})
+    persoanecontact = client.persoanacontact_set.all()
+    formpc = PersoanaContactForm(initial={'client': client})
     # produse = contract.produse.all()
     # servicii = contract.servicii.all()
     # documente = contract.contractscan_set.all()
 
     context = {
         'client': client, 
-        # 'acteaditionale':acteaditionale, 
-        # 'aplicatii':aplicatii, 
-        # 'produse': produse, 
+        'reprezentanti':reprezentanti, 
+        'form':form, 
+        'persoanecontact': persoanecontact, 
+        'formpc': formpc,
         # 'servicii':servicii,
         # 'documente': documente,
         }
@@ -207,17 +210,80 @@ def creeaza_client(request):
     return render(request, 'contr_clienti/client_form.html', context)
 
 
-def creeaza_reprezentant(request):
-    formr = ReprezentantForm
+def creeaza_reprezentant(request, pk4):
+    client = Clienti.objects.get(id=pk4)
+    form = ReprezentantForm(initial={'client': client})
+
+    context = {
+        'client': client, 
+        'form': form,
+    }
+
     if request.method == 'POST':
-        formr = ReprezentantForm(request.POST)
-        if formr.is_valid():
-            formr.save()
-            return redirect('acasa')
+        form = ReprezentantForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
 
-    context = {'formr': formr}
+    return render(request, 'contr_clienti/reprezentant_form.html', context)
 
-    return render(request, 'contr_clienti/client_form.html', context)
+
+def creeaza_persoanacontact(request, pk4):
+    client = Clienti.objects.get(id=pk4)
+    formpc = PersoanaContactForm(initial={'client': client})
+
+    context = {
+        'client': client, 
+        'form': formpc,
+    }
+
+    if request.method == 'POST':
+        form = PersoanaContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/persoanacontact_form.html', context)
+
+
+def update_reprezentant(request, pk4, pk5):
+    client = Clienti.objects.get(id=pk4)
+    reprezentant = Reprezentant.objects.get(id=pk5)
+    form = ReprezentantForm(instance=reprezentant)
+    
+    context = {
+        'client': client, 
+        'reprezentant': reprezentant,
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = ReprezentantForm(request.POST, instance=reprezentant)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/reprezentant_form_up.html', context)
+
+
+def update_persoanacontact(request, pk4, pk6):
+    client = Clienti.objects.get(id=pk4)
+    persoanacontact = PersoanaContact.objects.get(id=pk6)
+    form = PersoanaContactForm(instance=persoanacontact)
+    
+    context = {
+        'client': client, 
+        'persoanacontact': persoanacontact,
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = PersoanaContactForm(request.POST, instance=persoanacontact)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/persoanacontact_form_up.html', context)
 
 
 def update_contract(request, pk1):
@@ -282,6 +348,36 @@ def sterge_actaditional(request, pk1, pk2):
     }
     
     return render(request, 'contr_clienti/actaditional_confirm_delete.html', context)
+
+
+def sterge_reprezentant(request, pk4, pk5):
+    client = Clienti.objects.get(id=pk4)
+    reprezentant = Reprezentant.objects.get(id=pk5)
+    if request.method == 'POST':
+        reprezentant.delete()
+        return redirect('client-detail', client.id)
+
+    context = context = {
+        'client': client, 
+        'reprezentant': reprezentant,
+    }
+    
+    return render(request, 'contr_clienti/reprezentant_confirm_delete.html', context)
+
+
+def sterge_persoanacontact(request, pk4, pk6):
+    client = Clienti.objects.get(id=pk4)
+    persoanacontact = PersoanaContact.objects.get(id=pk6)
+    if request.method == 'POST':
+        persoanacontact.delete()
+        return redirect('client-detail', client.id)
+
+    context = context = {
+        'client': client, 
+        'persoanacontact': persoanacontact,
+    }
+    
+    return render(request, 'contr_clienti/persoanacontact_confirm_delete.html', context)
 
 
 def rapoarte(request):

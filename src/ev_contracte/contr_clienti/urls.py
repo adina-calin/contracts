@@ -20,5 +20,10 @@ urlpatterns = [
     # path('clienti/', views.rapoarte, name='rapoarte'),
     path('client/<int:pk4>/', views.client_detalii, name='client-detail'),
     path('client/new', views.creeaza_client, name='client-nou'),
-    path('client/reprezentanti/new', views.creeaza_reprezentant, name='reprezentant-nou'),
+    path('client/<int:pk4>/reprezentant/new', views.creeaza_reprezentant, name='reprezentant-nou'),
+    path('client/<int:pk4>/reprezentant/<int:pk5>/update/', views.update_reprezentant, name='reprezentant-update'),
+    path('client/<int:pk4>/reprezentant/<int:pk5>/delete/', views.sterge_reprezentant, name='reprezentant-delete'),
+    path('client/<int:pk4>/persoanacontact/new', views.creeaza_persoanacontact, name='persoanacontact-nou'),
+    path('client/<int:pk4>/persoanacontact/<int:pk6>/update/', views.update_persoanacontact, name='persoanacontact-update'),
+    path('client/<int:pk4>/persoanacontact/<int:pk6>/delete/', views.sterge_persoanacontact, name='persoanacontact-delete'),
 ]

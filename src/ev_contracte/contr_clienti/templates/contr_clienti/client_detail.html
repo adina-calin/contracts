@@ -1,20 +1,138 @@
 {% extends 'contr_clienti/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
     <article class="media content-section">
-        <div class="media-body">    
+        <div class="media-body"> 
+
             <div class="article-metadata">
-                <a class="btn-outline-info" type="submit" href="#">Client</a><br>
-                <small class="text-muted mr-3"> Nr. reg.: # </small>
-                {% if user.is_authenticated %} 
-                <a class="float-right" href="#">+ Act Aditional</a>
+                <h3><a class="btn-outline-info" type="submit" href="#">Client: {{ client.societate }}</a></h3>
+                {% if client.sediul_social %}
+                    <small class="text-muted mr-3"> Sediul social: {{ client.sediul_social }} </small>
+                    <small><a class="float-right" href="#">--> modifica sediu social</a></small>
+                {% else %}
+                    <small class="text-muted mr-3"> Sediul social: - </small>
+                    <a class="float-right" href="#">+ Sediu social</a>
                 {% endif %}
             </div>
-            <h2 class="article-title">{{ client.societate }}</h2>
-            <small class="text-muted"> Cod de inregistrare fiscala: <b>{{ client.cod_fiscal }} / {{ client.platitor_tva }}</b></small><br>
-            
-            <small class="text-muted"> PNr. Registrul comertului: <b>{{ client.nr_registrul_comertului }}</b></small><br>
-           
-            <small class="text-muted"> Date bancare: <b>{{ client.banca_cont }} - {{ client.iban }}</b></small><br>
+
+            <div>
+                <h5 class="article-title">Date client</h5>
+                <small class="text-muted"> Cod unic de înregistrare: <b>{{ client.cod_fiscal }} / Platitor de T.V.A {{ client.platitor_tva }}</b></small><br>
+                <small class="text-muted"> Platitor de T.V.A.: <b>{{ client.platitor_tva }}</b></small><br>
+                <small class="text-muted"> Număr de înmatriculare R.C.: <b>{{ client.nr_registrul_comertului }}</b></small><br>
+                <small class="text-muted"> IBAN: <b>{{ client.iban }},</b> deschis la: <b>{{ client.banca_cont }}</b></small><br>
+            </div>
+
+            <div><br>
+                <h5 class="article-title">Reprezentanti</h5>
+                <a class="float-right" href="{% url 'reprezentant-nou' client.id %}">+ Reprezentant</a>
+                <ul>
+                    {% if client.reprezentant_set.all %}
+                        {% for reprezentant in reprezentanti %}<li> 
+                            <a href="{% url 'reprezentant-update' client.id reprezentant.id %}">{{ reprezentant.nume }} - {{ reprezentant.functie }}</a>
+                            
+                            <!--Stergerea reprezentantilor aferenti clientuli-->
+                            {% csrf_token %}
+                            {% if user.is_authenticated %} 
+                            <small><small>&nbsp; &nbsp;<a href="{% url 'reprezentant-delete' client.id reprezentant.id %}" type="submit" class="btn-outline-info" data-toggle="modal" data-target="#stergeReprezentant"><i>(sterge)</i></a></small></small>
+                            {% endif %} 
+                            <div class="modal fade" id="stergeReprezentant" tabindex="-1" role="dialog" aria-labelledby="stergeReprezentantLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="stergeDocumentLabel">STERGE document</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <form action="{% url 'reprezentant-delete' client.id reprezentant.id %}" method="POST">
+                                    <div class="modal-body">
+                                        <fieldset class="form-group">
+                                                {% csrf_token %}
+                                                    <h4>Esti sigur ca vrei sa stergi reprezentantul: <br> {{ reprezentant }}?</h4>
+                                                    Aceasta operatiune este ireversibila!   
+                                        </fieldset>   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="form-group">
+                                            <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
+                                            <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anuleaza</a>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <br>
+                            <small class="text-muted"> Telefon:<b> {% if reprezentant.telefon %} {{ reprezentant.telefon }} {% else %} -{% endif %} </b></small>
+                            <small class="text-muted"> &nbsp; &nbsp;Email:<b> {% if reprezentant.email %} {{ reprezentant.email }} {% else %} - {% endif %} </b></small><br>
+                    </small></li>      
+                        {% endfor %}
+                    {% else %}
+                        <small class="text-muted mr-3"> - </small>
+                    {% endif %}    
+          
+        
+                </ul>
+            </div>
+
+            <div><br>
+                <h5 class="article-title">Persoane de contact</h5>
+                <a class="float-right" href="{% url 'persoanacontact-nou' client.id %}">+ Persoana de Contact</a>
+                <ul>
+                    {% if client.persoanacontact_set.all %}
+                        {% for pc in persoanecontact %}<li> 
+                            <a href="{% url 'persoanacontact-update' client.id pc.id %}">{{ pc.nume }} - {{ pc.functie }}</a>
+                            
+                            <!--Stergerea persoanelor de contact aferente clientului-->
+                            {% csrf_token %}
+                            {% if user.is_authenticated %} 
+                            <small><small>&nbsp; &nbsp;<a href="{% url 'persoanacontact-delete' client.id pc.id %}" type="submit" class="btn-outline-info" data-toggle="modal" data-target="#stergePersoanaContact"><i>(sterge)</i></a></small></small>
+                            {% endif %} 
+                            <div class="modal fade" id="stergePersoanaContact" tabindex="-1" role="dialog" aria-labelledby="stergePersoanaContactLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="stergePersoanaContact">STERGE persoana de contact</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <form action="{% url 'persoanacontact-delete' client.id pc.id %}" method="POST">
+                                    <div class="modal-body">
+                                        <fieldset class="form-group">
+                                                {% csrf_token %}
+                                                    <h4>Esti sigur ca vrei sa stergi persoana de contact: <br> {{ pc }}?</h4>
+                                                    Aceasta operatiune este ireversibila!   
+                                        </fieldset>   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="form-group">
+                                            <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
+                                            <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anuleaza</a>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <small class="text-muted"> Telefon:<b> {% if pc.telefon %} {{ pc.telefon }} {% else %} -{% endif %} </b></small>
+                            <small class="text-muted"> &nbsp; &nbsp;Email:<b> {% if pc.email %} {{ pc.email }} {% else %} - {% endif %} </b></small><br>
+                            
+                    </small></li>      
+                        {% endfor %}
+                    {% else %}
+                        <small class="text-muted mr-3"> - </small>
+                    {% endif %}    
+          
+        
+                </ul>
+            </div><br>
+
+            <div></div>
         </div>
     </article>
 {% endblock content %}
