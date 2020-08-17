@@ -3,7 +3,7 @@ from django import forms
 from bootstrap_datepicker_plus import DatePickerInput
 from django.core import validators
 from django.core.exceptions import ValidationError
-from .models import ActAditional, Contract, Reprezentant, ContractScan, CategorieContract, Produse, Clienti, PersoanaContact
+from .models import ActAditional, Contract, Reprezentant, ContractScan, CategorieContract, Produse, Clienti, PersoanaContact, AdresaPL, AdresaSS
 
 
 class ActAditionalForm(forms.ModelForm):
@@ -140,3 +140,19 @@ class PersoanaContactForm(forms.ModelForm):
         model = PersoanaContact
         
         fields = ['nume', 'email', 'telefon', 'functie', 'client']
+        
+
+class AdresaPLForm(forms.ModelForm):
+
+    class Meta():
+        model = AdresaPL
+        
+        fields = ['nume_pl', 'localitate', 'strada', 'numar', 'judet', 'client', 'alte_detalii']
+
+
+class AdresaSSForm(forms.ModelForm):
+
+    class Meta():
+        model = AdresaPL
+        
+        fields = ['localitate', 'strada', 'numar', 'judet']

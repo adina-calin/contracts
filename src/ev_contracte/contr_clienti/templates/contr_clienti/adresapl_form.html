@@ -1,0 +1,73 @@
+{% extends "contr_clienti/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% load bootstrap4 %} 
+{% bootstrap_css %}   
+{% bootstrap_javascript jquery='full' %} 
+
+
+
+
+{% block content %}
+
+{{ block.super }}
+{{ form.media }}
+
+<h3> Adauga adresa Punct de Lucru</h3>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.nume_pl|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.localitate|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.strada|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.numar|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.judet|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.alte_detalii|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0" readonly>
+            {{ form.client|as_crispy_field }}
+        </div>
+    </div>
+<br>
+    <button type="submit" class="btn btn-primary">Salveaza Punct de Lucru</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunta</a>
+</form>
+<br><br>
+
+{% endblock content %}
+
+{% block js_block %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="{% static 'contr_clienti/javas.js' %}"></script>
+{% endblock %}
+

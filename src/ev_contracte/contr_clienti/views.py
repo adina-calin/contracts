@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .models import Contract, ActAditional, ContractScan, registru, Clienti, Reprezentant, PersoanaContact
-from .forms import ActAditionalForm, ContractForm, ContractUForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm
+from .models import Contract, ActAditional, ContractScan, AdresaPL, AdresaSS, registru, Clienti, Reprezentant, PersoanaContact
+from .forms import ActAditionalForm, ContractForm, ContractUForm, AdresaPLForm, AdresaSSForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm
 from .filters import ContractFilter
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -179,9 +179,10 @@ def client_detalii(request, pk4):
     form = ReprezentantForm(initial={'client': client})
     persoanecontact = client.persoanacontact_set.all()
     formpc = PersoanaContactForm(initial={'client': client})
-    # produse = contract.produse.all()
-    # servicii = contract.servicii.all()
-    # documente = contract.contractscan_set.all()
+    punctelucru = client.adresapl_set.all()
+    formpl = AdresaPLForm(initial={'client': client})
+    adresass = client.sediul_social
+    formss = AdresaSSForm(initial={'client': client})
 
     context = {
         'client': client, 
@@ -189,8 +190,10 @@ def client_detalii(request, pk4):
         'form':form, 
         'persoanecontact': persoanecontact, 
         'formpc': formpc,
-        # 'servicii':servicii,
-        # 'documente': documente,
+        'punctelucru': punctelucru, 
+        'formpl': formpl,
+        'adresass': adresass, 
+        'formss': formss,
         }
 
     return render(request, 'contr_clienti/client_detail.html', context)
@@ -244,6 +247,42 @@ def creeaza_persoanacontact(request, pk4):
             return redirect('client-detail', client.id)
 
     return render(request, 'contr_clienti/persoanacontact_form.html', context)
+
+
+def creeaza_adresapl(request, pk4):
+    client = Clienti.objects.get(id=pk4)
+    formpl = AdresaPLForm(initial={'client': client})
+
+    context = {
+        'client': client, 
+        'form': formpl,
+    }
+
+    if request.method == 'POST':
+        form = AdresaPLForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/adresapl_form.html', context)
+
+
+def creeaza_adresass(request, pk4):
+    client = Clienti.objects.get(id=pk4)
+    formss = AdresaSSForm(initial={'client': client})
+
+    context = {
+        'client': client, 
+        'form': formss,
+    }
+
+    if request.method == 'POST':
+        form = AdresaSSForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/adresass_form.html', context)
 
 
 def update_reprezentant(request, pk4, pk5):
@@ -324,6 +363,46 @@ def update_actaditional(request, pk1, pk2):
     return render(request, 'contr_clienti/actaditional_form_up.html', context)
 
 
+def update_adresapl(request, pk4, pk7):
+    client = Clienti.objects.get(id=pk4)
+    adresapl = AdresaPL.objects.get(id=pk7)
+    form = AdresaPLForm(instance=adresapl)
+    
+    context = {
+        'client': client, 
+        'adresapl': adresapl,
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = AdresaPLForm(request.POST, instance=adresapl)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/adresapl_form_up.html', context)
+
+
+def update_adresass(request, pk4, pk8):
+    client = Clienti.objects.get(id=pk4)
+    adresass = AdresaSS.objects.get(id=pk8)
+    form = AdresaSSForm(instance=adresass)
+    
+    context = {
+        'client': client, 
+        'adresass': adresass,
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = AdresaSSForm(request.POST, instance=adresass)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail', client.id)
+
+    return render(request, 'contr_clienti/adresass_form_up.html', context)
+
+
 def sterge_contract(request, pk1):
     contract = Contract.objects.get(id=pk1)
     if request.method == 'POST':
@@ -378,6 +457,36 @@ def sterge_persoanacontact(request, pk4, pk6):
     }
     
     return render(request, 'contr_clienti/persoanacontact_confirm_delete.html', context)
+
+
+def sterge_adresapl(request, pk4, pk7):
+    client = Clienti.objects.get(id=pk4)
+    adresapl = AdresaPL.objects.get(id=pk7)
+    if request.method == 'POST':
+        adresapl.delete()
+        return redirect('client-detail', client.id)
+
+    context = context = {
+        'client': client, 
+        'adresapl': adresapl,
+    }
+    
+    return render(request, 'contr_clienti/adresapl_confirm_delete.html', context)
+
+
+def sterge_adresass(request, pk4, pk8):
+    client = Clienti.objects.get(id=pk4)
+    adresass = AdresaSS.objects.get(id=pk8)
+    if request.method == 'POST':
+        adresass.delete()
+        return redirect('client-detail', client.id)
+
+    context = context = {
+        'client': client, 
+        'adresass': adresass,
+    }
+    
+    return render(request, 'contr_clienti/adresassS_confirm_delete.html', context)
 
 
 def rapoarte(request):

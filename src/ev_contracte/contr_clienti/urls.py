@@ -26,4 +26,10 @@ urlpatterns = [
     path('client/<int:pk4>/persoanacontact/new', views.creeaza_persoanacontact, name='persoanacontact-nou'),
     path('client/<int:pk4>/persoanacontact/<int:pk6>/update/', views.update_persoanacontact, name='persoanacontact-update'),
     path('client/<int:pk4>/persoanacontact/<int:pk6>/delete/', views.sterge_persoanacontact, name='persoanacontact-delete'),
+    path('client/<int:pk4>/adresapl/new', views.creeaza_adresapl, name='adresapl-nou'),
+    path('client/<int:pk4>/adresapl/<int:pk7>/update/', views.update_adresapl, name='adresapl-update'),
+    path('client/<int:pk4>/adresapl/<int:pk7>/delete/', views.sterge_adresapl, name='adresapl-delete'),
+    path('client/<int:pk4>/adresass/new', views.creeaza_adresass, name='adresass-nou'),
+    path('client/<int:pk4>/adresass/<int:pk8>/update/', views.update_adresass, name='adresass-update'),
+    path('client/<int:pk4>/adresass/<int:pk8>/delete/', views.sterge_adresass, name='adresass-delete'),
 ]
