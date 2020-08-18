@@ -14,7 +14,7 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3> Modifica Persoana de contact</h3>
+<h3>MODIFICĂ Persoană de Contact</h3><br>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
@@ -47,8 +47,8 @@
         </div>
     </div>
 <br>
-    <button type="submit" class="btn btn-primary">Salveaza persoana de contact</button>
-    <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunta</a>
+    <button type="submit" class="btn btn-outline-primary">Modifică PERSOANĂ DE CONTACT</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail-update' client.id %}">Renunță</a>
 </form>
 <br><br>
 

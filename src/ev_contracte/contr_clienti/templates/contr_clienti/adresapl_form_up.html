@@ -14,7 +14,7 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3> Modifica adresa Punct de Lucru</h3>
+<h3>MODIFICĂ adresă Punct de Lucru</h3><br>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
@@ -59,8 +59,8 @@
         </div>
     </div>
 <br>
-    <button type="submit" class="btn btn-primary">Salveaza Punct de Lucru</button>
-    <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunta</a>
+    <button type="submit" class="btn btn-primary">Modifică PUNCT DE LUCRU</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail-update' client.id %}">Renunță</a>
 </form>
 <br><br>
 

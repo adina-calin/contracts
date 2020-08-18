@@ -14,7 +14,7 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3> Adauga adresa Sediul Social</h3>
+<h3>ADAUGĂ adresă Sediu Social</h3>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
@@ -47,8 +47,8 @@
         </div>
     </div>
 <br>
-    <button type="submit" class="btn btn-primary">Salveaza Sediul Social </button>
-    <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunta</a>
+    <button type="submit" class="btn btn-outline-primary">Salvează SEDIUL SOCIAL</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunță</a>
 </form>
 <br><br>
 

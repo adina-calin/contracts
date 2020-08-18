@@ -6,7 +6,7 @@
 {% block content %}
 
 
-<h3> Modifica reprezentant</h3>
+<h3>MODIFICĂ Reprezentant</h3><br>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
@@ -39,8 +39,8 @@
         </div>
     </div>
 <br>
-    <button type="submit" class="btn btn-primary">Modifica reprezentant</button>
-    <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Renunta</a>
+    <button type="submit" class="btn btn-outline-primary">Modifică REPREZENTANT</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail-update' client.id %}">Renunță</a>
 </form>
 <br><br>
 

@@ -4,12 +4,12 @@
         <form action="{% url 'reprezentant-delete' client.id reprezentant.id %}" method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Sterge reprezentant</legend>
-                <h2>Esti sigur ca vrei sa stergi reprezentantul {{ reprezentant }}</h2>
+                <legend class="border-bottom mb-4">ȘTERGE Reprezentant</legend>
+                <h2>Esti sigur că vrei să ștergi reprezentantul {{ reprezentant }}</h2>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
-                <a class="btn btn-outline-secondary" class="close"  aria-label="Close">Anuleaza</a>
+                <button class="btn btn-outline-danger" type="submit">Da, Șterge</button>
+                <a class="btn btn-outline-secondary" class="close"  aria-label="Close">Anulează</a>
             </div>
         </form>
     </div>

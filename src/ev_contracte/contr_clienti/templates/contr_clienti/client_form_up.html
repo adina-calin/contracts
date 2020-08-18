@@ -14,10 +14,9 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3> Adauga client nou </h3>
+<h3>MODIFICĂ Client</h3><br>
 <form method="post">
     {% csrf_token %}
-<br><h4>Modifica Date Societate</h4>
 <div>
     <div class="form-row">
         <div class="form-group col-md-10 mb-0">
@@ -56,10 +55,9 @@
     </div>
 </div>
 
-
 <br>
-    <button type="submit" class="btn btn-primary">Salveaza client</button>
-    <a class="btn btn-outline-secondary" href="{% url 'acasa' %}"">Renunta</a>
+    <button type="submit" class="btn btn-outline-primary">Modifică CLIENT</button>
+    <a class="btn btn-outline-secondary" href="{% url 'client-detail-update' client.id %}">Renunță</a>
 </form>
 <br><br>
 
