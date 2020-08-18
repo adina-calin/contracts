@@ -40,6 +40,12 @@
             {{ form.judet|as_crispy_field }}
         </div>
     </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6 mb-0">
+            {{ form.client|as_crispy_field }}
+        </div>
+    </div>
 <br>
     <button type="submit" class="btn btn-primary">Salveaza Sediul Social </button>
     <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Renunta</a>

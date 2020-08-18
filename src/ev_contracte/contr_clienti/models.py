@@ -83,23 +83,9 @@ class AplicatiiInfo98(models.Model):
         return self.aplicatie
 
 
-class AdresaSS(models.Model):
-    localitate = models.CharField(max_length=255)
-    strada = models.CharField(max_length=255)
-    numar = models.CharField(max_length=255)
-    judet = models.CharField(max_length=255)
-
-    def __str__(self):
-        return '{}, str. {}, nr. {}, judet {}'.format(self.localitate, self.strada, self.numar, self.judet)
-
-    class Meta:
-        verbose_name_plural = 'Adrese'
-
-
 class Clienti(models.Model):
     '''Toate datele clientului necesare a fi trecute pe contract'''
     societate = models.CharField(max_length=255)
-    sediul_social = models.OneToOneField(AdresaSS, on_delete=models.CASCADE, null=True, related_name = 'sediu')
     cod_fiscal = models.IntegerField()
     platitor_tva = models.BooleanField(default=None)
     nr_registrul_comertului = models.CharField(max_length=255, null=True, blank=True)
@@ -151,6 +137,20 @@ class AdresaPL(models.Model):
     judet = models.CharField(max_length=255)
     client = models.ForeignKey(Clienti, on_delete=models.SET_NULL, null=True, blank=True)
     alte_detalii = models.CharField(max_length=255)
+
+    def __str__(self):
+        return '{}, str. {}, nr. {}, judet {}'.format(self.localitate, self.strada, self.numar, self.judet)
+
+    class Meta:
+        verbose_name_plural = 'Adrese'
+
+
+class AdresaSS(models.Model):
+    localitate = models.CharField(max_length=255)
+    strada = models.CharField(max_length=255)
+    numar = models.CharField(max_length=255)
+    judet = models.CharField(max_length=255)
+    client = models.ForeignKey(Clienti, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return '{}, str. {}, nr. {}, judet {}'.format(self.localitate, self.strada, self.numar, self.judet)

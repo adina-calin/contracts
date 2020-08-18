@@ -155,4 +155,4 @@ class AdresaSSForm(forms.ModelForm):
     class Meta():
         model = AdresaPL
         
-        fields = ['localitate', 'strada', 'numar', 'judet']
+        fields = ['localitate', 'strada', 'numar', 'judet', 'client']

@@ -15,8 +15,8 @@ class  ClientiAdmin(admin.ModelAdmin):
         # ('Pesoane de contact', {'fields': ['persoana_contact']})
     ]
 
-    list_display = ('societate', 'cod_fiscal', 'platitor_tva', 'nr_registrul_comertului', 'sediul_social', 'reprezentant_societate')
-    list_filter = ('societate', 'cod_fiscal', 'platitor_tva', 'sediul_social')
+    list_display = ('societate', 'cod_fiscal', 'platitor_tva', 'nr_registrul_comertului', 'reprezentant_societate')
+    list_filter = ('societate', 'cod_fiscal', 'platitor_tva')
 
     def reprezentant_societate(self, object):
         return ', '.join(str(reprezentant) for reprezentant in object.reprezentant_set.all())

@@ -181,7 +181,7 @@ def client_detalii(request, pk4):
     formpc = PersoanaContactForm(initial={'client': client})
     punctelucru = client.adresapl_set.all()
     formpl = AdresaPLForm(initial={'client': client})
-    adresass = client.sediul_social
+    adresass = client.adresass_set.last()
     formss = AdresaSSForm(initial={'client': client})
 
     context = {
@@ -207,7 +207,7 @@ def update_client_detalii(request, pk4):
     formpc = PersoanaContactForm(initial={'client': client})
     punctelucru = client.adresapl_set.all()
     formpl = AdresaPLForm(initial={'client': client})
-    adresass = client.sediul_social
+    adresass = client.adresass_set.last()
     formss = AdresaSSForm(initial={'client': client})
 
     context = {
@@ -311,6 +311,24 @@ def creeaza_adresass(request, pk4):
     return render(request, 'contr_clienti/adresass_form.html', context)
 
 
+def update_client_date(request, pk4):
+    client = Clienti.objects.get(id=pk4)
+    form = ClientiForm(instance=client)
+    
+    context = {
+        'client': client, 
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = ClientiForm(request.POST, instance=client)
+        if form.is_valid():
+            form.save()
+            return redirect('client-detail-update', client.id)
+
+    return render(request, 'contr_clienti/client_form_up.html', context)
+
+
 def update_reprezentant(request, pk4, pk5):
     client = Clienti.objects.get(id=pk4)
     reprezentant = Reprezentant.objects.get(id=pk5)
@@ -326,7 +344,7 @@ def update_reprezentant(request, pk4, pk5):
         form = ReprezentantForm(request.POST, instance=reprezentant)
         if form.is_valid():
             form.save()
-            return redirect('update_client-detail', client.id)
+            return redirect('client-detail-update', client.id)
 
     return render(request, 'contr_clienti/reprezentant_form_up.html', context)
 
@@ -346,7 +364,7 @@ def update_persoanacontact(request, pk4, pk6):
         form = PersoanaContactForm(request.POST, instance=persoanacontact)
         if form.is_valid():
             form.save()
-            return redirect('update_client-detail', client.id)
+            return redirect('client-detail-update', client.id)
 
     return render(request, 'contr_clienti/persoanacontact_form_up.html', context)
 
@@ -404,7 +422,7 @@ def update_adresapl(request, pk4, pk7):
         form = AdresaPLForm(request.POST, instance=adresapl)
         if form.is_valid():
             form.save()
-            return redirect('update_client-detail', client.id)
+            return redirect('client-detail-update', client.id)
 
     return render(request, 'contr_clienti/adresapl_form_up.html', context)
 
@@ -424,7 +442,7 @@ def update_adresass(request, pk4, pk8):
         form = AdresaSSForm(request.POST, instance=adresass)
         if form.is_valid():
             form.save()
-            return redirect('update_client-detail', client.id)
+            return redirect('client-detail-update', client.id)
 
     return render(request, 'contr_clienti/adresass_form_up.html', context)
 
@@ -460,7 +478,7 @@ def sterge_reprezentant(request, pk4, pk5):
     reprezentant = Reprezentant.objects.get(id=pk5)
     if request.method == 'POST':
         reprezentant.delete()
-        return redirect('update_client-detail', client.id)
+        return redirect('client-detail-update', client.id)
 
     context = context = {
         'client': client, 
@@ -475,7 +493,7 @@ def sterge_persoanacontact(request, pk4, pk6):
     persoanacontact = PersoanaContact.objects.get(id=pk6)
     if request.method == 'POST':
         persoanacontact.delete()
-        return redirect('update_client-detail', client.id)
+        return redirect('client-detail-update', client.id)
 
     context = context = {
         'client': client, 
@@ -490,7 +508,7 @@ def sterge_adresapl(request, pk4, pk7):
     adresapl = AdresaPL.objects.get(id=pk7)
     if request.method == 'POST':
         adresapl.delete()
-        return redirect('update_client-detail', client.id)
+        return redirect('client-detail-update', client.id)
 
     context = context = {
         'client': client, 
@@ -505,7 +523,7 @@ def sterge_adresass(request, pk4, pk8):
     adresass = AdresaSS.objects.get(id=pk8)
     if request.method == 'POST':
         adresass.delete()
-        return redirect('update_client-detail', client.id)
+        return redirect('client-detail-update', client.id)
 
     context = context = {
         'client': client, 
