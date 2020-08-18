@@ -567,4 +567,18 @@ def rapoarte(request):
 def listare_registru(response):
     resp = HttpResponse(content_type='application/pdf')
     result = generate_pdf('registru_print.html', file_object=resp)
-    return result    
+    return result   
+
+
+def lista_clienti(request):
+    clienti = Clienti.objects.all() 
+
+    paginator = Paginator(clienti, 10)
+    page = request.GET.get('page')
+    clienti = paginator.get_page(page)
+
+    context = context = {
+        'clienti': clienti,
+    }
+
+    return render(request, 'contr_clienti/clienti.html', context)

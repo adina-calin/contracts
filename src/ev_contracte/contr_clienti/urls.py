@@ -20,6 +20,7 @@ urlpatterns = [
     # path('clienti/', views.rapoarte, name='rapoarte'),
     path('client/<int:pk4>/', views.client_detalii, name='client-detail'),
     path('client/new', views.creeaza_client, name='client-nou'),
+    path('client/lista', views.lista_clienti, name='clienti-lista'),
     path('client/<int:pk4>/update', views.update_client_detalii, name='client-detail-update'),
     path('client/<int:pk4>/update_dc', views.update_client_date, name='client-date-update'),
     path('client/<int:pk4>/reprezentant/new', views.creeaza_reprezentant, name='reprezentant-nou'),
