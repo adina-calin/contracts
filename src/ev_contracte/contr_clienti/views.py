@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import Contract, ActAditional, ContractScan, AdresaPL, AdresaSS, registru, Clienti, Reprezentant, PersoanaContact
 from .forms import ActAditionalForm, ContractForm, ContractUForm, AdresaPLForm, AdresaSSForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm
-from .filters import ContractFilter
+from .filters import ContractFilter, ClientiFilter
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import StringIO, BytesIO
@@ -571,7 +571,10 @@ def listare_registru(response):
 
 
 def lista_clienti(request):
-    clienti = Clienti.objects.all() 
+    clienti = Clienti.objects.order_by('societate') 
+
+    myFilter = ClientiFilter(request.GET, queryset=clienti)
+    clienti = myFilter.qs
 
     paginator = Paginator(clienti, 10)
     page = request.GET.get('page')
@@ -579,6 +582,7 @@ def lista_clienti(request):
 
     context = context = {
         'clienti': clienti,
+        'myFilter': myFilter,
     }
 
     return render(request, 'contr_clienti/clienti.html', context)

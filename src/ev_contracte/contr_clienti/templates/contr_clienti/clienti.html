@@ -4,10 +4,14 @@
 
 
 <h2>Clienti</h2>
-<p>
-  sa pun o cautare dupa nume societate.....
-</p>
-
+    <h5>Cauta clienti:</h5>
+    <form method="get">
+        <div class="form-row">
+            {{ myFilter.form.societate|as_crispy_field }}
+        </div>
+        <button class="btn-outline-info" type="submit">Search</button>
+    </form> 
+    <br>
 
 <table class="c">
     <thead>

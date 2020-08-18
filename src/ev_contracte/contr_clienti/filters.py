@@ -1,6 +1,6 @@
 import django_filters
-from django_filters import DateFilter
-from .models import Contract
+from django_filters import DateFilter, CharFilter
+from .models import Contract, Clienti
 
 
 class ContractFilter(django_filters.FilterSet):
@@ -10,6 +10,15 @@ class ContractFilter(django_filters.FilterSet):
     class Meta:
         model = Contract
         fields = ['beneficiar']
+
+
+class ClientiFilter(django_filters.FilterSet):
+    societate = CharFilter(lookup_expr='icontains', label='')
+
+    class Meta:
+        model = Clienti
+        fields = ['societate', ]
+
 
 
 
