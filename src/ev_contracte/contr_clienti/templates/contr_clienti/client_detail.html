@@ -5,7 +5,7 @@
         <div class="media-body"> 
 
             <div class="article-metadata">
-                <h3 class="btn-outline-info"><b>Client: {{ client.societate }}</b></h3>
+                <h3 class="btn-outline-info"><b>{{ client.societate }}</b></h3>
                 {% if client.adresass_set.last %}
                     <small class="text-muted mr-3">Sediul social: {{ adresass }}</small>
                 {% else %}
@@ -15,7 +15,7 @@
             </div>
 
             <div>
-                <h5 class="article-title">Date client</h5>
+                <h5 class="article-title">Informații</h5>
                 <small class="text-muted"> Cod unic de înregistrare: <b>{{ client.cod_fiscal }} </b></small><br>
                 <small class="text-muted"> Platitor de T.V.A.: <b>{{ client.platitor_tva }}</b></small><br>
                 <small class="text-muted"> Număr de înmatriculare R.C.: <b>{{ client.nr_registrul_comertului }}</b></small><br>
@@ -24,7 +24,7 @@
 
             <!--Reprezentanti-->
             <div><br>
-                <h5 class="article-title">Reprezentanti</h5>
+                <h5 class="article-title">Reprezentanți</h5>
                 <a class="float-right" href="{% url 'reprezentant-nou' client.id %}">+ Reprezentant</a>
                 <ul>
                     {% if client.reprezentant_set.all %}
@@ -82,20 +82,36 @@
                 </ul>
             </div><br>
 
+            <!--Contracte-->
+            <div>
+                <h5 class="article-title">Contracte</h5>
+                <ul>
+                    {% if client.contract_set.all %}
+                        {% for contr in client.contract_set.all %}
+                        <small><li> 
+                            <a class="text-muted" href="{% url 'contract-detail' contr.id %}">{{ contr.tip_contract }} - {{ contr.nr_contract }}/{{ contr.data_contract|date:'d.m.Y' }}</a><br>
+                        </li></small>    
+                        {% endfor %}
+                    {% else %}
+                        <small class="text-muted mr-3"> - </small>
+                    {% endif %}    
+                </ul>
+            </div><br>
+
             <div></div>
 
             <!--Modifica client-->
-            <a class="btn btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'client-detail-update' client.id %}">Modifica Client</a>
+            <a class="btn btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'client-detail-update' client.id %}">Modifică Client</a>
 
             <!--Stergerea Clientului (Bootstrap Modal)-->
             <button type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeClient">
-                Sterge Client
+                Șterge Client
             </button>
             <div class="modal fade" id="stergeClient" tabindex="-1" role="dialog" aria-labelledby="stergeClientLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="stergeClientLabel">STERGE Client</h5>
+                      <h5 class="modal-title" id="stergeClientLabel">ȘTERGE Client</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -104,14 +120,14 @@
                     <div class="modal-body">
                         <fieldset class="form-group">
                                 {% csrf_token %}
-                                    <h2>Esti sigur ca vrei sa stergi clientul {{ client }}?</h2>
-                                    Aceasta operatiune este ireversibila!   
+                                    <h2>Ești sigur că vrei să ștergi clientul:<br>{{ client }}?</h2>
+                                    Această operațiune este ireversibilă!   
                         </fieldset>   
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
-                            <a class="btn btn-outline-secondary" href="{% url 'client-detail' client.id %}">Anuleaza</a>
+                            <button class="btn btn-outline-danger" type="submit">Da, Șterge</button>
+                            <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anulează</a>
                         </div>
                     </div>
                     </form>

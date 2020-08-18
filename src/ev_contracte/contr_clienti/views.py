@@ -207,7 +207,7 @@ def update_client_detalii(request, pk4):
     formpc = PersoanaContactForm(initial={'client': client})
     punctelucru = client.adresapl_set.all()
     formpl = AdresaPLForm(initial={'client': client})
-    adresass = client.adresass_set.last()
+    adresassoc = client.adresass_set.last()
     formss = AdresaSSForm(initial={'client': client})
 
     context = {
@@ -218,7 +218,7 @@ def update_client_detalii(request, pk4):
         'formpc': formpc,
         'punctelucru': punctelucru, 
         'formpl': formpl,
-        'adresass': adresass, 
+        'adresass': adresassoc, 
         'formss': formss,
         }
 
