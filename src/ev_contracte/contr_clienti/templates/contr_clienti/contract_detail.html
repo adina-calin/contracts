@@ -98,10 +98,11 @@
 
             <!--Actualizarea contractului-->
             {% if user.is_authenticated %} 
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'contract-update' contract.id %}">Actualizeaza date contract</a>
+            <br>
+            <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'contract-update' contract.id %}">Modifică Contract</a>
 
             <!--Stergerea contractului (Bootstrap Modal)-->
-            <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeContract">
+            <button type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeContract">
                 Sterge Contract
             </button>
             <div class="modal fade" id="stergeContract" tabindex="-1" role="dialog" aria-labelledby="stergeContractLabel" aria-hidden="true">
