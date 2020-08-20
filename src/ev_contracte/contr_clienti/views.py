@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 from .models import Contract, ActAditional, ContractScan, AdresaPL, AdresaSS, registru, Clienti, Reprezentant, PersoanaContact
-from .forms import ActAditionalForm, ContractForm, ContractUForm, AdresaPLForm, AdresaSSForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm, ProduseForm
+from .forms import ActAditionalForm, ContractForm, ContractUForm, AplicatiiInfo98Form, ServiciiInformaticeForm, AdresaPLForm, AdresaSSForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm, ProduseForm
 from .filters import ContractFilter, ClientiFilter
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -325,6 +325,38 @@ def creeaza_produs(request):
             return redirect('acasa')
 
     return render(request, 'contr_clienti/produse_form.html', context)
+
+
+def creeaza_aplicatie(request):
+    form = AplicatiiInfo98Form()
+
+    context = {
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = AplicatiiInfo98Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('acasa')
+
+    return render(request, 'contr_clienti/aplicatii_form.html', context)
+
+
+def creeaza_serviciu(request):
+    form = ServiciiInformaticeForm()
+
+    context = {
+        'form': form,
+    }
+
+    if request.method == 'POST':
+        form = ServiciiInformaticeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('acasa')
+
+    return render(request, 'contr_clienti/servicii_form.html', context)
 
 
 def update_client_date(request, pk4):
