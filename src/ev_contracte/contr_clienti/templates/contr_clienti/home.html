@@ -5,10 +5,10 @@
         <article class="media content-section">
             <div class="media-body">    
                 <div class="article-metadata">    
-                    <small><a class="text-muted mr-3" href="{% url 'contract-detail' contract.id %}"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></a></small>
+                    <small><a class="text-muted mr-3" href="{% url 'contract-detail' contract.id %}"> Contract: <b>{{ contract.nr_contract }}/{{ contract.data_contract|date:'d.m.Y' }}</b></a></small>
                     <small class="text-muted mr-3"> Nr. reg.: {{ contract.nr_registru }}</small>  
                     {% for aditional in contract.actaditional_set.all %}
-                    <small class="text-muted mr-3"> Act ad.: {{ aditional }}</small> 
+                    <small class="text-muted mr-3"> Act ad.: {{ aditional.nr_actaditional }}/{{ aditional.data_actaditional|date:'d.m.Y' }}</small> 
                     {% endfor %}
                 </div>    
                 <h5><b><a class="article-title" href="{% url 'contract-detail' contract.id %}">{{ contract.beneficiar }}</a></b></h5>  
@@ -60,7 +60,8 @@
 
 
 {% block 1baralaterala %}
-<h4>Filtreaza contractele in functie de:</h4>
+<h4>Filtrează contractele în funcție de:</h4>
+<div class="list-group-item list-group-item-light">
 <form method="get">
     <div class="form-row">
         <small>{{ myFilter.form.beneficiar|as_crispy_field }}</small>
@@ -71,8 +72,9 @@
     <div class="form-row">
         <small>{{ myFilter.form.data_sfarsit|as_crispy_field }}</small>
     </div>
-    <button class="btn-outline-info" type="submit">Search</button></br></br>
+    <button class="btn btn-outline-info" type="submit">Filtrează</button></br>
 </form>    
+</div>
 {% endblock %} 
 
 

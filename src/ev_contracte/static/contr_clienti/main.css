@@ -72,6 +72,23 @@ body {
   
   }
   
+
+
+  .content-section-fara-bl {
+  
+    background: #ffffff;
+  
+    padding: 15px 30px;
+  
+    border: 1px solid #dddddd;
+  
+    border-radius: 3px;
+  
+    margin-bottom: 10px;
+
+    width: 150%;
+  
+  }
   
   
   .article-title {

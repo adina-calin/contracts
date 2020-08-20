@@ -5,43 +5,51 @@
             <div class="col-md-4">      
                 <div class="content-section">     
                     {% block 1baralaterala %}{% endblock %} 
-                    <h4>Contracte de reinnoit: </h4>
-                    <div class="list-group-item list-group-item-light">
-                        <div class="a">
-                        <h6>Contracte care expira in urmatoarele 30 de zile:</h6>
-                        {% for contract in contracte_ex %}
-                        <ul>
-                        {% if contract.zile_pana_la_expirare is not None %}
-                        <small><li><a href="{% url 'contract-detail' contract.id %}" class='btn-outline-info'> Contractul {{contract}} exipra in <b> {{contract.zile_pana_la_expirare}} zile. </b></a></li></small>
-                        {% endif %}
-                        </ul>
-                        {% endfor %}
-                        <br>
-                        <h6>Contracte care au expirat in ultimele 30 de zile:</h6>
-                        <ul>
-                        {% for contract in contracte_ex %}
-                        {% if contract.zile_de_la_expirare is not None %}
-                        <small><li> <a href="{% url 'contract-detail' contract.id %}" class='btn-outline-info'> Contractul {{contract}} a expirat de <b style='color:red'> {{contract.zile_de_la_expirare}} zile. </b></a></li></small>
-                        {% endif %}
-                        {% endfor %}
-                        </ul>
-                        </div>
-                    </div>                 
-                    <p class='text-muted'><h4>Informatii utile: </h4>
-                        <ul class="list-group">     
-                            <li class="list-group-item list-group-item-light">
-                                Contracte: {{ultimul_contract.nr_contract}}
-                            </li>      
-                            <li class="list-group-item list-group-item-light">
-                                Ultimul contract/act aditional adaugat: 
+                    <p class='text-muted'><h4>Contracte de reînnoit: </h4>
+                        <div class="list-group-item list-group-item-light">
+                            <div class="a">
+                                <div class="article-metadata"><p>
+                                    Contracte care expiră în urmatoarele 30 de zile:
+                                    {% for contract in contracte_ex %}
+                                        <ul>
+                                        {% if contract.zile_pana_la_expirare is not None %}
+                                            <small><li><a href="{% url 'contract-detail' contract.id %}" class='btn-outline-info'> Contractul {{contract}} exipra in <b> {{contract.zile_pana_la_expirare}} zile. </b></a></li></small>
+                                        {% endif %}
+                                        </ul>
+                                    {% endfor %}
+                                </p></div>
+                                <p>Contracte care au expirat în ultimele 30 de zile:
+                                    <ul>
+                                    {% for contract in contracte_ex %}
+                                        {% if contract.zile_de_la_expirare is not None %}
+                                            <small><li><a href="{% url 'contract-detail' contract.id %}" class='btn-outline-info'> Contractul {{contract}} a expirat de <b style='color:red'> {{contract.zile_de_la_expirare}} zile. </b></a></li></small>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>  
+                    </p> 
+
+                    <p class='text-muted'><h4>Informații utile:</h4>
+                        <div class="list-group-item list-group-item-light">
+                            <div class="article-metadata">
+                                <p>Contracte: {{ultimul_contract.nr_contract}}</p>    
+                            </div>     
+                            <div class="article-metadata"><p>
+                                Ultimul contract/act adițional adăugat: 
                                 <ul><small>
                                     <li>Contract: {{ultimul_contract}}</li>
-                                    <li>Act aditional: {{ultimul_actaditional}} la contractul {{ultimul_actaditional.contract}}</li>
-                                </small></ul>
-                            </li>      
-                            <li class="list-group-item list-group-item-light">Calendar</li>      
-                            <li class="list-group-item list-group-item-light">Alte informatii utile</li>      
-                        </ul>      
+                                    <li>Act adițional: {{ultimul_actaditional}} la contractul {{ultimul_actaditional.contract}}</li>
+                                </small></ul>    
+                            </p></div>      
+                            <div class="article-metadata">
+                                <p>Calendar</p> 
+                            </div>     
+                            <div >
+                                <p>Alte informații utile</p>
+                            </div>     
+                        </div> 
                     </p>         
                 </div>      
             </div> 
