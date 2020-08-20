@@ -69,7 +69,6 @@ class ServiciiInformatice(models.Model):
 class AplicatiiInfo98(models.Model):
     '''Aplicatiile dezvoltate de catre INFO98'''
     aplicatie = models.CharField(max_length=255)
-    contravaloare_aplicatie = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     contravaloare_aplicatie_fara_tva = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     moneda_vanzare = models.IntegerField(choices=moneda)
     abonament_aplicatie_fara_tva = models.DecimalField(max_digits=8, decimal_places=2, default=0)
