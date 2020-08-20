@@ -5,36 +5,37 @@
 
 {% block content %}
 
-
-<h3>MODIFICĂ Reprezentant</h3><br>
+<article class="media content-section">
+<h3>MODIFICĂ <br>Reprezentant</h3><br>
+<div class="form-group col-md-1 mb-0"></div>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.nume|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.email|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.telefon|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.functie|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.client|as_crispy_field }}
         </div>
     </div>
@@ -43,6 +44,6 @@
     <a class="btn btn-outline-secondary" href="{% url 'client-detail-update' client.id %}">Renunță</a>
 </form>
 <br><br>
-
+</article>
 {% endblock content %}
 

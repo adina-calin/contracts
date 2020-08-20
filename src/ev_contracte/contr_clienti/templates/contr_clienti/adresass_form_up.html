@@ -14,35 +14,37 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3>MODIFICĂ adresă Sediu Social</h3><br>
+<article class="media content-section">
+<h3>MODIFICĂ adresă <br>Sediu Social</h3><br>
+<div class="form-group col-md-1 mb-0"></div>
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.localitate|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.strada|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.numar|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.judet|as_crispy_field }}
         </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-12 mb-0">
             {{ form.client|as_crispy_field }}
         </div>
     </div>
@@ -51,7 +53,7 @@
     <a class="btn btn-outline-secondary" href="{% url 'client-detail-update' client.id %}">Renunță</a>
 </form>
 <br><br>
-
+</article>
 {% endblock content %}
 
 {% block js_block %}

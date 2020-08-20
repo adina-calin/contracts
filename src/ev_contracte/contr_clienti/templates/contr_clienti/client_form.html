@@ -14,7 +14,9 @@
 {{ block.super }}
 {{ form.media }}
 
-<h3>ADAUGĂ Client </h3><br>
+<article class="media content-section">
+<h3>ADAUGĂ <br>Client </h3>
+<div class="form-group col-md-1 mb-0"></div>
 <form method="post">
     {% csrf_token %}
 <br><h4>Date societate</h4>
@@ -60,8 +62,8 @@
     <button type="submit" class="btn btn-outline-primary">Salvează CLIENT</button>
     <a class="btn btn-outline-secondary" href="{% url 'acasa' %}">Renunță</a>
 </form>
-<br><br>
-
+<br>
+</article>
 {% endblock content %}
 
 {% block js_block %}

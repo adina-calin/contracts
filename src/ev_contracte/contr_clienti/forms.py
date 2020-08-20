@@ -50,7 +50,7 @@ class ActAditionalForm(forms.ModelForm):
             if data_incepere_actaditional > data_sfarsit_actaditional:
                 raise forms.ValidationError("Data este anterioara datei de inceput!")
             return data_sfarsit_actaditional
-            
+
 
 class ContractUForm(forms.ModelForm):
     class Meta():
@@ -122,7 +122,7 @@ class ClientiForm(forms.ModelForm):
         # 'sediul_social', 'punct_de_lucru', , 'reprezentant', 'persoana_contact'
 
         labels = {
-            'nr_registrul_comertului': 'Numarul de inreg. la Reg. Comertului',
+            'nr_registrul_comertului': 'Nr. de înreg. la Reg. Comerțului',
             # 'persoana_contact': 'Persoane de contact',
         #     'data_contract': 'data',
         #     'data_incepere_contract': 'Contractul începe în:',
