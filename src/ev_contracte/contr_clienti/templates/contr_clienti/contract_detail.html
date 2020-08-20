@@ -3,8 +3,8 @@
     <article class="media content-section">
         <div class="media-body">    
             <div class="article-metadata">
-                <a class="btn-outline-info" type="submit" href="#">Contract de {{ contract.tip_contract }}</a><br>
-                <small class="text-muted mr-3"> Nr. reg.: {{ contract.nr_registru }}</small>
+                <a class="btn-outline-info" type="submit" href="#">Contract: {{ contract.tip_contract }}</a><br>
+                <small class="text-muted mr-3"> Nrumăr registru: {{ contract.nr_registru }}</small>
                 {% if user.is_authenticated %} 
                 <a class="float-right" href="{% url 'actaditional-nou' contract.id %}">+ Act Aditional</a>
                 {% endif %}
@@ -12,10 +12,10 @@
             <h2 class="article-title">{{ contract.beneficiar }}</h2>
             <small class="text-muted"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></small><br>
             {% if contract.actaditional_set.all %}
-            <small class="text-muted"> Perioadă contractuală conform contract/act aditional: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_incheiere|date:'d.m.Y' }}</b></small><br>
+            <small class="text-muted"> Perioadă contractuală conform contract/act adițional: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_incheiere|date:'d.m.Y' }}</b></small><br>
             {% endif %}
             <small class="text-muted"> Perioadă contractuală: <b>{{ contract.data_incepere_contract|date:'d.m.Y' }} - {{ contract.data_sfarsit_contract|date:'d.m.Y' }}</b></small><br>
-            <small class="text-muted mr-3" href="#"> Acte aditionale: <br>
+            <small class="text-muted mr-3" href="#"> Acte adiționale: <br>
                 <ul>
                     {% for aditional in acteaditionale %}
                     <li><a class="btn-outline-info" type="submit" href="{% url 'actaditional-detail' contract.id aditional.id %}">{{ aditional }}</a></li>
@@ -46,7 +46,7 @@
                 {% endif %}
             </small>
             <div class="article-metadata">
-                <small class="text-muted mr-3"> Observatii: <i>{{ contract.observatii }}</i></small>
+                <small class="text-muted mr-3"> Observații: <i>{{ contract.observatii }}</i></small>
             </div>
 
             <!--Afisarea documentelor aferente contractului-->
@@ -65,7 +65,7 @@
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="stergeDocumentLabel">STERGE document</h5>
+                                  <h5 class="modal-title" id="stergeDocumentLabel">ȘTERGE document</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -74,14 +74,14 @@
                                 <div class="modal-body">
                                     <fieldset class="form-group">
                                             {% csrf_token %}
-                                                <h4>Esti sigur ca vrei sa stergi documentul: <br> {{ document }}?</h4>
-                                                Aceasta operatiune este ireversibila!   
+                                                <h4>Ești sigur că vrei să ștergi documentul: <br> {{ document }}?</h4>
+                                                Această operațiune este ireversibilă!   
                                     </fieldset>   
                                 </div>
                                 <div class="modal-footer">
                                     <div class="form-group">
-                                        <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
-                                        <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anuleaza</a>
+                                        <button class="btn btn-outline-danger" type="submit">Da, Șterge</button>
+                                        <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anulează</a>
                                     </div>
                                 </div>
                                 </form>
@@ -92,7 +92,7 @@
                 {% endfor %}
                 </ul>
                 {% if user.is_authenticated %} 
-                <small><a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info">Incarca documente</a></small>
+                <small><a href="{% url 'contract-upload' contract.id %}" class="btn-outline-info">Încarcă documente</a></small>
                 {% endif %} 
             </div>
 
@@ -103,13 +103,13 @@
 
             <!--Stergerea contractului (Bootstrap Modal)-->
             <button type="button" class="btn btn-outline-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#stergeContract">
-                Sterge Contract
+                Șterge Contract
             </button>
             <div class="modal fade" id="stergeContract" tabindex="-1" role="dialog" aria-labelledby="stergeContractLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="stergeContractLabel">STERGE Contract</h5>
+                      <h5 class="modal-title" id="stergeContractLabel">ȘTERGE Contract</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -118,14 +118,14 @@
                     <div class="modal-body">
                         <fieldset class="form-group">
                                 {% csrf_token %}
-                                    <h2>Esti sigur ca vrei sa stergi contractul {{ contract }}?</h2>
-                                    Aceasta operatiune este ireversibila!   
+                                    <h2>Ești sigur că vrei să ștergi contractul: <br> {{ contract }}?</h2>
+                                    Această operațiune este ireversibilă!   
                         </fieldset>   
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <button class="btn btn-outline-danger" type="submit">Da, Sterge</button>
-                            <a class="btn btn-outline-secondary" href="{% url 'contract-detail' contract.id %}"">Anuleaza</a>
+                            <button class="btn btn-outline-danger" type="submit">Da, Șterge</button>
+                            <a class="btn btn-outline-secondary" class="close" data-dismiss="modal" aria-label="Close">Anulează</a>
                         </div>
                     </div>
                     </form>
