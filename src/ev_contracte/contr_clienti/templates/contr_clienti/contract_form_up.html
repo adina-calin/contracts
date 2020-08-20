@@ -1,18 +1,129 @@
 {% extends "contr_clienti/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
+
+{% load bootstrap4 %} 
+{% bootstrap_css %}   
+{% bootstrap_javascript jquery='full' %} 
+
 {% block content %}
 
+{{ block.super }}
+{{ form.media }}
 
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Actualizare contract</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Salveaza contract</button>
-            </div>
-        </form>
+<div class="content-section">
+<h3>MODIFICĂ Contract</h3>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-4 mb-0">
+            {{ form.nr_registru|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-1 mb-0"></div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.tip_contract|as_crispy_field }}
+        </div>
     </div>
+
+<br><h4>Numărul și data contractului</h4>
+
+    <div class="form-row">
+        <div class="form-group col-md-4 mb-0">
+            {{ form.nr_contract|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-1 mb-0"></div>
+        <div class="form-group col-md-6 mb-0">
+            {{ form.data_contract|as_crispy_field}}
+        </div>
+    </div>
+
+    <br><h4>Beneficiarul contractului</h4>
+
+    <div class="form-row">
+        <div class="form-group col-md-11 mb-0">
+            {{ form.beneficiar|as_crispy_field }}
+        </div>
+    </div>
+
+<br><h4>Perioada contractuala</h4>
+
+    <div class="form-row" type='date'>
+        <div class="form-group col-md-4 mb-0">
+            {{ form.data_incepere_contract|as_crispy_field }}
+            
+        </div>
+        <div class="form-group col-md-1 mb-0"></div>
+        <div class="form-group col-md-4 mb-0">
+            {{ form.data_sfarsit_contract|as_crispy_field}}
+            {% for error in form.data_sfarsit_contract.errors %}
+                <i><small class='help is-danger' style="color:#FF0000";>{{ error }}</small></i>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+<br><h4>Obiectul contractului</h4>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle col-md-5 mb-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Produse
+            </button>
+            <div class="form-row ">
+                <div class="form-group dropdown-menu col-md-5 mb-0" aria-labelledby="dropdownMenuButton" id="p_p">
+                    &nbsp; &nbsp;{{ form.produse|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-5 mb-0">
+                    <input type="text" readonly class="form-control-plaintext" id="p" />
+                </div>
+            </div>
+        </div><br>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle col-md-5 mb-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Servicii
+            </button>
+            <div class="form-row ">
+                <div class="form-group dropdown-menu col-md-5 mb-0" aria-labelledby="dropdownMenuButton" id="s_s">
+                    &nbsp; &nbsp;{{ form.servicii|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-5 mb-0">
+                    <input type="text" readonly class="form-control-plaintext" id="s" />
+                </div>
+            </div>    
+        </div><br>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle col-md-5 mb-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Aplicații
+            </button>
+            <div class="form-row">
+                <div class="form-group col-md-5 mb-0 dropdown-menu" aria-labelledby="dropdownMenuButton" id="a_a" value='{{ form.aplicatii|as_crispy_field }}'>
+                    &nbsp; &nbsp;{{ form.aplicatii|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-5 mb-0">
+                    <input type="text" readonly class="form-control-plaintext" id="a" />
+                </div>
+            </div>    
+        </div>
+
+<br><h4>Alte detalii</h4>
+
+    <div class="form-row">
+        <div class="form-group col-md-11 mb-0">
+            {{ form.observatii|as_crispy_field }}
+        </div>
+    </div>
+<br>
+    <button type="submit" class="btn btn-outline-primary">Modifică CONTRACT</button>
+    <a class="btn btn-outline-secondary" href="{% url 'contract-detail' contract.id %}">Renunță</a>
+</form>
+<br>
+</div>
+
 {% endblock content %}
+
+{% block js_block %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="{% static 'contr_clienti/javas.js' %}"></script>
+{% endblock %}
+

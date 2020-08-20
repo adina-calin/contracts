@@ -6,14 +6,12 @@
 {% bootstrap_css %}   
 {% bootstrap_javascript jquery='full' %} 
 
-
-
-
 {% block content %}
 
 {{ block.super }}
 {{ form.media }}
 
+<div class="content-section">
 <h3> Contract nou </h3>
 <form method="post">
     {% csrf_token %}
@@ -116,10 +114,12 @@
         </div>
     </div>
 <br>
-    <button type="submit" class="btn btn-primary">Salveaza contract</button>
-    <a class="btn btn-outline-secondary" href="{% url 'acasa' %}"">Renunta</a>
+    <button type="submit" class="btn btn-outline-primary">Salvează contract</button>
+    <a class="btn btn-outline-secondary" href="{% url 'acasa' %}">Renunță</a>
 </form>
-<br><br>
+<br>
+</div>
+
 
 {% endblock content %}
 
