@@ -72,7 +72,7 @@ class ContractForm(forms.ModelForm):
         fields = ['nr_registru', 'tip_contract', 'nr_contract', 'data_contract', 'beneficiar', 'data_incepere_contract', 'data_sfarsit_contract', 'produse', 'servicii', 'aplicatii', 'observatii']
         
         labels = {
-            'nr_registru': 'Numar registru',
+            'nr_registru': 'Număr registru',
             'nr_contract': 'număr',
             'data_contract': 'data',
             'data_incepere_contract': 'Contractul începe în:',
@@ -176,6 +176,10 @@ class AdresaPLForm(forms.ModelForm):
         
         fields = ['nume_pl', 'localitate', 'strada', 'numar', 'judet', 'client', 'alte_detalii']
 
+        labels = {
+            'nume_pl': 'Nume punct de lucru',
+        }
+
 
 class AdresaSSForm(forms.ModelForm):
 
@@ -183,3 +187,11 @@ class AdresaSSForm(forms.ModelForm):
         model = AdresaSS
         
         fields = ['localitate', 'strada', 'numar', 'judet', 'client']
+
+
+class ProduseForm(forms.ModelForm):
+
+    class Meta():
+        model = Produse
+
+        fields = ['produs', 'serial_number', 'furnizor', 'pret_furnizor_fara_tva', 'moneda_furnizor', 'pret_vanzare_fara_tva', 'moneda_vanzare', 'observatii']
