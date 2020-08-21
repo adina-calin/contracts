@@ -1,0 +1,40 @@
+{% extends 'contr_clienti/base_fara_bara_laterala.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h2>CLIENȚI</h2>
+
+
+<table class="c">
+    <thead>
+        <tr>
+            <th>Produse</th>
+            <th>Sericii</th>
+            <th>Aplicații</th>
+        </tr>
+    </thead>
+    <tbody class="text-muted mr-3">   
+            <tr>
+                <td>
+                    {% for produs in produse %}
+                        {{ forloop.counter }}. <a class="text-muted mr-3" href = "{% url 'produs-update' produs.id %}">{{ produs }}</a><br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for serviciu in servicii %}
+                        {{ forloop.counter }}. <a class="text-muted mr-3" href = "{% url 'serviciu-update' serviciu.id %}">{{ serviciu }}</a><br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for aplicatie in aplicatii %}
+                        {{ forloop.counter }}. <a class="text-muted mr-3" href = "{% url 'aplicatie-update' aplicatie.id %}">{{ aplicatie }}</a><br>
+                    {% endfor %}
+                </td>
+            </tr>
+    </tbody>
+</table>
+
+<br>
+
+
+{% endblock content %}

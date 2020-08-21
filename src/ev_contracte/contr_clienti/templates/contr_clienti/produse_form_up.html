@@ -1,0 +1,82 @@
+{% extends "contr_clienti/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% load bootstrap4 %} 
+{% bootstrap_css %}   
+{% bootstrap_javascript jquery='full' %} 
+
+
+
+
+{% block content %}
+
+{{ block.super }}
+{{ form.media }}
+
+<article class="media content-section">
+<h3>MODIFICĂ <br> Produs</h3><br>
+<div class="form-group col-md-1 mb-0"></div>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.produs|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.serial_number|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.furnizor|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.pret_furnizor_fara_tva|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.moneda_furnizor|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.pret_vanzare_fara_tva|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.moneda_vanzare|as_crispy_field }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.observatii|as_crispy_field }}
+        </div>
+    </div>
+<br>
+    <button type="submit" class="btn btn-outline-primary">Modifică PRODUS</button>
+    <a class="btn btn-outline-secondary" href="{% url 'psa-lista' %}">Renunță</a>
+</form>
+<br><br>
+</article>
+
+{% endblock content %}
+
+{% block js_block %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="{% static 'contr_clienti/javas.js' %}"></script>
+{% endblock %}
+

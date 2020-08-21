@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .models import Contract, ActAditional, ContractScan, AdresaPL, AdresaSS, registru, Clienti, Reprezentant, PersoanaContact
+from .models import Contract, ActAditional, AplicatiiInfo98, ServiciiInformatice, Produse, ContractScan, AdresaPL, AdresaSS, registru, Clienti, Reprezentant, PersoanaContact
 from .forms import ActAditionalForm, ContractForm, ContractUForm, AplicatiiInfo98Form, ServiciiInformaticeForm, AdresaPLForm, AdresaSSForm, ContractAAUForm, ClientiForm, ReprezentantForm, PersoanaContactForm, ProduseForm
 from .filters import ContractFilter, ClientiFilter
 from django.template.loader import get_template
@@ -435,6 +435,60 @@ def update_contract(request, pk1):
     return render(request, 'contr_clienti/contract_form_up.html', context)
 
 
+def update_produs(request, pk9):
+    produs = Produse.objects.get(id=pk9)
+    form = ProduseForm(instance=produs)
+
+    context = {
+        'form': form, 
+        'produs': produs,
+    }
+
+    if request.method == 'POST':
+        form = ProduseForm(request.POST, instance=produs)
+        if form.is_valid():
+            form.save()
+            return redirect('psa-lista')
+    
+    return render(request, 'contr_clienti/produse_form_up.html', context)
+
+
+def update_serviciu(request, pk10):
+    serviciu = ServiciiInformatice.objects.get(id=pk10)
+    form = ServiciiInformaticeForm(instance=serviciu)
+
+    context = {
+        'form': form, 
+        'serviciu': serviciu,
+    }
+
+    if request.method == 'POST':
+        form = ServiciiInformaticeForm(request.POST, instance=serviciu)
+        if form.is_valid():
+            form.save()
+            return redirect('psa-lista')
+    
+    return render(request, 'contr_clienti/servicii_form_up.html', context)
+
+
+def update_aplicatie(request, pk11):
+    aplicatie = AplicatiiInfo98.objects.get(id=pk11)
+    form = AplicatiiInfo98Form(instance=aplicatie)
+
+    context = {
+        'form': form, 
+        'aplicatie': aplicatie,
+    }
+
+    if request.method == 'POST':
+        form = AplicatiiInfo98Form(request.POST, instance=aplicatie)
+        if form.is_valid():
+            form.save()
+            return redirect('psa-lista')
+    
+    return render(request, 'contr_clienti/aplicatii_form_up.html', context)
+
+
 def update_actaditional(request, pk1, pk2):
     contract = Contract.objects.get(id=pk1)
     actaditional = ActAditional.objects.get(id=pk2)
@@ -513,7 +567,7 @@ def sterge_actaditional(request, pk1, pk2):
         actaditional.delete()
         return redirect('contract-detail', contract.id)
 
-    context = context = {
+    context = {
         'contract': contract, 
         'actaditional': actaditional,
     }
@@ -528,7 +582,7 @@ def sterge_reprezentant(request, pk4, pk5):
         reprezentant.delete()
         return redirect('client-detail-update', client.id)
 
-    context = context = {
+    context = {
         'client': client, 
         'reprezentant': reprezentant,
     }
@@ -543,7 +597,7 @@ def sterge_persoanacontact(request, pk4, pk6):
         persoanacontact.delete()
         return redirect('client-detail-update', client.id)
 
-    context = context = {
+    context = {
         'client': client, 
         'persoanacontact': persoanacontact,
     }
@@ -558,7 +612,7 @@ def sterge_adresapl(request, pk4, pk7):
         adresapl.delete()
         return redirect('client-detail-update', client.id)
 
-    context = context = {
+    context = {
         'client': client, 
         'adresapl': adresapl,
     }
@@ -573,7 +627,7 @@ def sterge_adresass(request, pk4, pk8):
         adresass.delete()
         return redirect('client-detail-update', client.id)
 
-    context = context = {
+    context = {
         'client': client, 
         'adresass': adresass,
     }
@@ -588,7 +642,7 @@ def rapoarte(request):
     page = request.GET.get('page')
     reg = paginator.get_page(page)
 
-    context = context = {
+    context = {
         'reg': reg,
     }
 
@@ -628,9 +682,23 @@ def lista_clienti(request):
     page = request.GET.get('page')
     clienti = paginator.get_page(page)
 
-    context = context = {
+    context = {
         'clienti': clienti,
         'myFilter': myFilter,
     }
 
     return render(request, 'contr_clienti/clienti.html', context)
+    
+
+def lista_psa(request):
+    produse = Produse.objects.order_by('produs') 
+    servicii = ServiciiInformatice.objects.order_by('serviciu')
+    aplicatii = AplicatiiInfo98.objects.order_by('aplicatie')
+
+    context = {
+        'produse': produse,
+        'servicii': servicii,
+        'aplicatii': aplicatii
+    }
+
+    return render(request, 'contr_clienti/psa.html', context)
