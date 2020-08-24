@@ -5,7 +5,7 @@
 
 <h2>Registru evidenta CONTRACTE</h2>
 <p>
-  sa pun o optiune sa selectez perioada.....
+    <h4>Filtrează contractele în funcție de....</h4>
 </p>
 
 
@@ -32,6 +32,7 @@
                     {% else %} act aditional <small> la contractul {{ item.contract.nr_contract }}/{{ item.contract.data_contract|date:'d.m.Y' }}</small>
                     {% endif %}
                 </td>
+                <!-- <td align="center"><a href='{% url "contract-detail" item.id %}'>{{ item.nr_contract }}{{ item.nr_actaditional }}/{{ item.data_contract|date:'d.m.Y' }}{{ item.data_actaditional|date:'d.m.Y' }}</a></td> -->
                 <td align="center">{{ item.nr_contract }}{{ item.nr_actaditional }}/{{ item.data_contract|date:'d.m.Y' }}{{ item.data_actaditional|date:'d.m.Y' }}</td>
                 <td align="center"><span class="text-muted">-</span></td>
                 <td>{{ item.beneficiar }}{{ item.contract.beneficiar }}</td>
