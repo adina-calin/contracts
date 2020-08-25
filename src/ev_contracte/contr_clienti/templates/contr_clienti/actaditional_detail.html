@@ -7,11 +7,37 @@
                 <small class="text-muted mr-3"> Număr registru: {{ actaditional.nr_registru }}</small>  
             </div>    
             <h2 class="article-title">{{ contract.beneficiar }}</h2> 
-            <small class="text-muted"> Perioada contractuală actului adițional: <b>{{ actaditional.data_incepere_actaditional|date:'d.m.Y' }} - {{ actaditional.data_sfarsit_actaditional|date:'d.m.Y' }}</b></small> <br>
+            <small class="text-muted"> Perioada contractuală a actului adițional: <b>{{ actaditional.data_incepere_actaditional|date:'d.m.Y' }} - {{ actaditional.data_sfarsit_actaditional|date:'d.m.Y' }}</b></small> <br>
             <small><a class="btn-outline-info" type="submit" href="{% url 'contract-detail' contract.id %}"> Contract: <b>{{ contract.nr_contract }} / {{ contract.data_contract|date:'d.m.Y' }}</b></a></small>
-            <small><ol>
-               
-            </ol></small>
+            <br><br>
+            <small class="text-muted mr-3">
+              Aplicatii:
+              <ol>
+              {% for aplicatie in actaditional.aplicatii.all %}
+                  <li><class="article-content"> {{ aplicatie }} - Valoare: {{ aplicatie.abonament_aplicatie_fara_tva }} lei</li>
+              {% empty %}
+                  <i><class="article-content"> Nu sunt aplcații de afișat. </i>
+              {% endfor %}
+              </ol>
+              
+              Servicii:
+              <ol>
+              {% for serviciu in actaditional.servicii.all %}
+                  <li><class="article-content"> {{ serviciu }} - Valoare: {{ serviciu.contravaloare_serviciu_fara_tva }} lei</li>
+              {% empty %}
+                  <i><class="article-content"> Nu sunt servicii de afișat. </i>
+              {% endfor %}
+              </ol>
+              
+              Produse:
+              <ol>
+              {% for produs in actaditional.produse.all %}
+                  <li><class="article-content"> {{ produs }} - Valoare: {{ produs.pret_vanzare_fara_tva }} lei</li>
+              {% empty %}
+                  <i><class="article-content"> Nu sunt produse de afișat. </i>
+              {% endfor %}  
+              </ol>       
+            </small>
             
             <div class="article-metadata">    
                 <small class="text-muted mr-3"> Observații: {{ actaditional.observatii }}</small> 

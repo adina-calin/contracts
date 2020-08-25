@@ -23,27 +23,32 @@
                 </ul>
             </small><br>
             <small class="text-muted mr-3">
-                {% if contract.aplicatii.all %} Aplicatii:
+                Aplicatii:
                 <ol>
-                {% for aplicatie in aplicatii %}
+                {% for aplicatie in contract.aplicatii_contr_aa %}
                     <li><class="article-content"> {{ aplicatie }} - Valoare: {{ aplicatie.abonament_aplicatie_fara_tva }} lei</li>
+                {% empty %}
+                    <i><class="article-content"> Nu sunt aplcații de afișat. </i>
                 {% endfor %}
                 </ol>
-                {% endif %} 
-                {% if contract.servicii.all %} Servicii:
+                
+                Servicii:
                 <ol>
-                {% for serviciu in servicii %}
+                {% for serviciu in contract.servicii_contr_aa %}
                     <li><class="article-content"> {{ serviciu }} - Valoare: {{ serviciu.contravaloare_serviciu_fara_tva }} lei</li>
+                {% empty %}
+                    <i><class="article-content"> Nu sunt servicii de afișat. </i>
                 {% endfor %}
                 </ol>
-                {% endif %} 
-                {% if contract.produse.all %} Produse:
+                
+                Produse:
                 <ol>
-                {% for produs in produse %}
+                {% for produs in contract.produse_contr_aa %}
                     <li><class="article-content"> {{ produs }} - Valoare: {{ produs.pret_vanzare_fara_tva }} lei</li>
+                {% empty %}
+                    <i><class="article-content"> Nu sunt produse de afișat. </i>
                 {% endfor %}  
-                </ol>
-                {% endif %}
+                </ol>       
             </small>
             <div class="article-metadata">
                 <small class="text-muted mr-3"> Observații: <i>{{ contract.observatii }}</i></small>

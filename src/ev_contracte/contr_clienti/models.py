@@ -230,6 +230,39 @@ class Contract(models.Model):
         if nr_zile_expirare > timedelta(days=-30) and nr_zile_expirare < timedelta(days=0):
             return nr_zile_expirare.days
 
+    def produse_contr_aa(self):
+        '''Returneaza produsele contractului + cele ale actului aditional'''
+        lst_prod = []
+        for produs in self.produse.all():
+            lst_prod.append(produs)
+        for actaditional in self.actaditional_set.all():
+            for produs in actaditional.produse.all():
+                lst_prod.append(produs)
+        if len(lst_prod) != 0:
+            return lst_prod
+
+    def servicii_contr_aa(self):
+        '''Returneaza serviciile contractului + cele ale actului aditional'''
+        lst_serv = []
+        for serviciu in self.servicii.all():
+            lst_serv.append(serviciu)
+        for actaditional in self.actaditional_set.all():
+            for serviciu in actaditional.servicii.all():
+                lst_serv.append(serviciu)
+        if len(lst_serv) != 0:
+            return lst_serv
+
+    def aplicatii_contr_aa(self):
+        '''Returneaza serviciile contractului + cele ale actului aditional'''
+        lst_apl = []
+        for aplicatie in self.aplicatii.all():
+            lst_apl.append(aplicatie)
+        for actaditional in self.actaditional_set.all():
+            for aplicatie in actaditional.aplicatii.all():
+                lst_apl.append(aplicatie)
+        if len(lst_apl) != 0:
+            return lst_apl
+
 
 class ActAditional(models.Model):
     '''Datele sumare de pe actul aditional aferent unui conrtact'''
